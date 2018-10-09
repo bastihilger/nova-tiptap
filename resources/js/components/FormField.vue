@@ -158,7 +158,6 @@
                                     <font-awesome-icon :icon="['far', 'unlink']"></font-awesome-icon>
                                 </button>
 
-
                             </span>
                         </div>
                     </div>
@@ -168,6 +167,9 @@
                     class="
                     tiptap-content
                     py-3 h-auto
+                    pr-6
+                    pb-4
+                    pt-4
                     w-full
                     form-control
                     form-input
