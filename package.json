@@ -1,0 +1,32 @@
+{
+    "private": true,
+    "scripts": {
+        "dev": "npm run development",
+        "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "watch": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "watch-poll": "npm run watch -- --watch-poll",
+        "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "prod": "npm run production",
+        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+    },
+    "devDependencies": {
+        "@fortawesome/fontawesome-pro": "^5.4.0",
+        "cross-env": "^5.0.0",
+        "laravel-mix": "^1.0",
+        "laravel-nova": "^1.0"
+    },
+    "dependencies": {
+        "@fortawesome/fontawesome-svg-core": "^1.2.5",
+        "@fortawesome/free-solid-svg-icons": "^5.4.0",
+        "@fortawesome/free-regular-svg-icons": "^5.4.0",
+        "@fortawesome/pro-light-svg-icons": "^5.4.0",
+        "@fortawesome/pro-regular-svg-icons": "^5.4.0",
+        "@fortawesome/pro-solid-svg-icons": "^5.4.0",
+        "@fortawesome/vue-fontawesome": "^0.1.1",
+        "i": "^0.3.6",
+        "npm": "^6.4.1",
+        "tiptap": "^0.16.0",
+        "tiptap-extensions": "^0.18.0",
+        "vue": "^2.5.0"
+    }
+}
