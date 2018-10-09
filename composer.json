@@ -1,9 +1,12 @@
 {
-    "name": "manogi/tiptap",
+    "name": "manogi/nova-tiptap",
     "description": "A Laravel Nova tiptap editor field.",
     "keywords": [
         "laravel",
-        "nova"
+        "nova",
+        "tiptap",
+        "vue",
+        "editor"
     ],
     "license": "MIT",
     "require": {
