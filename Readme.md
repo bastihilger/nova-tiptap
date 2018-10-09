@@ -16,6 +16,8 @@ composer require manogi/nova-tiptap
 Tiptap::make('FieldName')
 ```
 
+This will give you just the bold and italic buttons.
+
 ## Usage with your selection of buttons:
 
 ```

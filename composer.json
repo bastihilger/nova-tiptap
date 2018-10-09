@@ -1,6 +1,6 @@
 {
     "name": "manogi/tiptap",
-    "description": "A Laravel Nova field.",
+    "description": "A Laravel Nova tiptap editor field.",
     "keywords": [
         "laravel",
         "nova"
