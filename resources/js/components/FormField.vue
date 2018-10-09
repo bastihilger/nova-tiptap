@@ -262,6 +262,8 @@ export default {
     computed: {
         extensions() {
             let extensions = [
+                new HistoryExtension(),
+                new PlaceholderExtension(),
                 new HardBreakNode(),
                 new ListItemNode(),
                 new InsMark(),
