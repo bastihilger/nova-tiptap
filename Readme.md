@@ -39,3 +39,13 @@ Tiptap::make('FieldName')
 When just passing the string `'heading'` you will have H1, H2 and H3 to choose from. Otherwise you can set the level of headings by passing something like for example `'heading' => 4` which will give you H1 through H4.
 
 `'code'` is inline code (like `<code></code>`) while `'code_block'` will give you `<pre><code></code></pre>`.
+
+## Screenshots
+
+The tiptap editor with all the buttoms:
+
+![the tiptap editor with all the buttons](readme-images/tiptap-regular.png)
+
+The idea is that the editor can be themed together with the rest of Nova - here it is looking differently just by using the [Laravel Nova Stripe Theme](https://github.com/jameslkingsley/nova-stripe-theme):
+
+![the tiptap editor with all the buttons](readme-images/tiptap-stripe.png)
