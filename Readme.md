@@ -49,3 +49,7 @@ The tiptap editor with all the buttoms:
 The idea is that the editor can be themed together with the rest of Nova - here it is looking differently just by using the [Laravel Nova Stripe Theme](https://github.com/jameslkingsley/nova-stripe-theme):
 
 ![the tiptap editor with all the buttons](readme-images/tiptap-stripe.png)
+
+## Licence
+
+The MIT License (MIT). Please see [License File](LICENCE) for more information.
