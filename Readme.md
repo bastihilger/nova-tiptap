@@ -33,6 +33,7 @@ Tiptap::make('FieldName')
         'bullet_list',
         'ordered_list',
         'code_block',
+        'blockquote',
     ])
 ```
 
@@ -42,13 +43,13 @@ When just passing the string `'heading'` you will have H1, H2 and H3 to choose f
 
 ## Screenshots
 
-The tiptap editor with all the buttoms:
+The tiptap editor with all the buttons:
 
-![the tiptap editor with all the buttons](readme-images/tiptap-regular-closeup.png)
+![the tiptap editor with all the buttons](readme-images/tiptap-regular-02.png)
 
 The idea is that the editor can be themed together with the rest of Nova - here it is looking differently just by using the [Laravel Nova Stripe Theme](https://github.com/jameslkingsley/nova-stripe-theme):
 
-![the tiptap editor with all the buttons](readme-images/tiptap-stripe.png)
+![the tiptap editor with all the buttons](readme-images/tiptap-stripe-02.png)
 
 ## Licence
 
