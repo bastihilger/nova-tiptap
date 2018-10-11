@@ -44,8 +44,12 @@ When just passing the string `'heading'` you will have H1, H2 and H3 to choose f
 
 The tiptap editor with all the buttoms:
 
-![the tiptap editor with all the buttons](readme-images/tiptap-regular.png)
+![the tiptap editor with all the buttons](readme-images/tiptap-regular-closeup.png)
 
 The idea is that the editor can be themed together with the rest of Nova - here it is looking differently just by using the [Laravel Nova Stripe Theme](https://github.com/jameslkingsley/nova-stripe-theme):
 
 ![the tiptap editor with all the buttons](readme-images/tiptap-stripe.png)
+
+## Licence
+
+The MIT License (MIT). Please see [License File](LICENCE) for more information.
