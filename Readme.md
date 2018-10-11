@@ -18,6 +18,13 @@ Tiptap::make('FieldName')
 
 This will give you just the bold and italic buttons.
 
+You will also have to add this `use` statement to the top of the file:
+
+```
+use Manogi\Tiptap\Tiptap;
+```
+
+
 ## Usage with your selection of buttons:
 
 ```
