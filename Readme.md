@@ -58,6 +58,11 @@ The idea is that the editor can be themed together with the rest of Nova - here 
 
 ![the tiptap editor with all the buttons](readme-images/tiptap-stripe-02.png)
 
+## Roadmap
+
+* Add the option to upload or choose images and add them to to the content.
+* Easy option to style the text inside the editor.
+
 ## Licence
 
 The MIT License (MIT). Please see [License File](LICENCE) for more information.
