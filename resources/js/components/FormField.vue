@@ -1,5 +1,5 @@
 <template>
-    <default-field :field="field" :errors="errors" :fullWidthContent="true">
+    <default-field :field="field" :errors="errors" :full-width-content="true">
         <template slot="field">
             <editor :extensions="extensions" @update="editorUpdated" ref="editor">
                 <div slot="menubar" slot-scope="{ nodes, marks }">
@@ -374,8 +374,19 @@ export default {
     background-color: highlight;
 }
 
-.ProseMirror p {
+.ProseMirror p, ul, ol, blockquote, pre {
     margin-bottom: 1em;
+}
+
+.ProseMirror h1, .ProseMirror h2, .ProseMirror h3, .ProseMirror h4, .ProseMirror h5, .ProseMirror h6 {
+    margin-bottom: 0.5em;
+}
+
+.ProseMirror blockquote {
+    border-left: 4px solid var(--60);
+    padding-left: 12px;
+    margin-left: 0;
+    font-style: italic;
 }
 
 .ProseMirror p:last-child {
