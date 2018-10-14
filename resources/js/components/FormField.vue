@@ -5,7 +5,7 @@
                 <div slot="menubar" slot-scope="{ nodes, marks }">
                     <div class="tiptap-menu">
                         <div v-if="nodes || marks">
-                            <template v-if="nodes.heading">
+                            <template v-if="buttonIsRequested('heading')">
                                 <button
                                     v-for="level in headingLevels"
                                     type="button"
@@ -28,7 +28,7 @@
 
                             <template v-for="(nodeButtonExtension, nodeButtonKey) in nodeButtons">
                                 <button
-                                    v-if="nodes[nodeButtonKey]"
+                                    v-if="buttonIsRequested(nodeButtonKey)"
                                     type="button"
                                     class="
                                         btn
@@ -84,7 +84,7 @@
                                 </button>
                             </template>
 
-                            <span class="tiptap-button-container" v-if="marks.link">
+                            <span class="tiptap-button-container" v-if="buttonIsRequested('link')">
                                 <form
                                     class="
                                         tiptap-button-form
@@ -262,30 +262,38 @@ export default {
     },
 
     computed: {
+        buttons() {
+            return this.field.buttons ? this.field.buttons : ['bold', 'italic'];
+        },
+
         extensions() {
             let extensions = [
                 new HistoryExtension(),
                 new PlaceholderExtension(),
                 new HardBreakNode(),
+                new HeadingNode(),
                 new ListItemNode(),
                 new InsMark(),
+                new LinkMark(),
+                new BulletListNode(),
+                new OrderedListNode(),
+                new BlockquoteNode(),
+                new CodeBlockNode(),
             ];
 
-            let buttons = this.field.buttons ? this.field.buttons : ['bold', 'italic'];
-
             _.forEach(this.markButtons, function(extension, name) {
-                if (_.includes(buttons, name)) {
+                if (_.includes(this.buttons, name) && !_.includes(extensions, extension)) {
                     extensions.push(extension);
                 }
             }.bind(this));
 
             _.forEach(this.nodeButtons, function(extension, name) {
-                if (_.includes(buttons, name)) {
+                if (_.includes(this.buttons, name) && !_.includes(extensions, extension)) {
                     extensions.push(extension);
                 }
             }.bind(this));
 
-            _.forEach(buttons, function(params, key) {
+            _.forEach(this.buttons, function(params, key) {
                 if (key == 'heading') {
                     extensions.push(new HeadingNode({ maxLevel: params }));
                     this.headingLevels = params;
@@ -306,16 +314,20 @@ export default {
     },
 
     methods: {
+        buttonIsRequested(key) {
+            return _.includes(this.buttons, key) || _.has(this.buttons, key);
+        },
+
         setInitialValue() {
-            this.value = this.field.value || ''
+            this.value = this.field.value || '';
         },
 
         fill(formData) {
-            formData.append(this.field.attribute, this.value || '')
+            formData.append(this.field.attribute, this.value || '');
         },
 
         handleChange(value) {
-            this.value = value
+            this.value = value;
         },
 
         editorUpdated(state) {
@@ -330,13 +342,13 @@ export default {
             this.linkUrl = type.attrs.href
             this.linkMenuIsActive = true
             this.$nextTick(() => {
-                this.$refs.linkInput.focus()
+                this.$refs.linkInput.focus();
             })
         },
 
         hideLinkMenu() {
-            this.linkUrl = null
-            this.linkMenuIsActive = false
+            this.linkUrl = null;
+            this.linkMenuIsActive = false;
         },
 
         removeFauxHighlights() {
@@ -346,9 +358,9 @@ export default {
         },
 
         setLinkUrl(url, type, focus) {
-            type.command({ href: url })
-            this.hideLinkMenu()
-            this.removeFauxHighlights()
+            type.command({ href: url });
+            this.hideLinkMenu();
+            this.removeFauxHighlights();
         },
 
     },
