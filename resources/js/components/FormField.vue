@@ -1,5 +1,5 @@
 <template>
-    <default-field :field="field" :errors="errors" :full-width-content="true">
+    <default-field :field="field" :errors="errors" :fullWidthContent="true">
         <template slot="field">
             <editor :extensions="extensions" @update="editorUpdated" ref="editor">
                 <div slot="menubar" slot-scope="{ nodes, marks }">
@@ -380,6 +380,10 @@ export default {
 
 .ProseMirror h1, .ProseMirror h2, .ProseMirror h3, .ProseMirror h4, .ProseMirror h5, .ProseMirror h6 {
     margin-bottom: 0.5em;
+}
+
+.ProseMirror pre {
+    white-space: pre-line;
 }
 
 .ProseMirror blockquote {
