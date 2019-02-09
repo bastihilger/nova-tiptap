@@ -28,20 +28,21 @@ use Manogi\Tiptap\Tiptap;
 ## Usage with your selection of buttons:
 
 ```
-Tiptap::make('FieldName')
+Tiptap::make('Cv')
   ->buttons([
-        'bold',
-        'italic',
-        'code',
-        'link',
-        'strike',
-        'underline',
-        'heading' => 6,
-        'bullet_list',
-        'ordered_list',
-        'code_block',
-        'blockquote',
-    ])
+      'heading',
+      'italic',
+      'bold',
+      'code',
+      'link',
+      'strike',
+      'underline',
+      'bullet_list',
+      'ordered_list',
+      'code_block',
+      'blockquote',
+  ])
+  ->headingLevels(6),
 ```
 
 When just passing the string `'heading'` you will have H1, H2 and H3 to choose from. Otherwise you can set the level of headings by passing something like for example `'heading' => 4` which will give you H1 through H4.
