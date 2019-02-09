@@ -17,16 +17,12 @@
     },
     "dependencies": {
         "@fortawesome/fontawesome-svg-core": "^1.2.5",
-        "@fortawesome/free-regular-svg-icons": "^5.4.0",
-        "@fortawesome/free-solid-svg-icons": "^5.4.0",
-        "@fortawesome/pro-light-svg-icons": "^5.4.0",
         "@fortawesome/pro-regular-svg-icons": "^5.4.0",
-        "@fortawesome/pro-solid-svg-icons": "^5.4.0",
         "@fortawesome/vue-fontawesome": "^0.1.1",
         "i": "^0.3.6",
         "npm": "^6.4.1",
-        "tiptap": "^0.17.0",
-        "tiptap-extensions": "^0.19.0",
+        "tiptap": "^1.8.0",
+        "tiptap-extensions": "^1.8.0",
         "vue": "^2.5.0",
         "vue-truncate-collapsed": "^2.1.0"
     }

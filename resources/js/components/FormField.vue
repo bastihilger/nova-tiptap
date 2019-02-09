@@ -1,230 +1,92 @@
 <template>
     <default-field :field="field" :errors="errors" :fullWidthContent="true">
         <template slot="field">
-            <editor :extensions="extensions" @update="editorUpdated" ref="editor">
-                <div slot="menubar" slot-scope="{ nodes, marks }">
-                    <div class="tiptap-menu">
-                        <div v-if="nodes || marks">
-                            <template v-if="buttonIsRequested('heading')">
-                                <button
-                                    v-for="level in headingLevels"
-                                    type="button"
-                                    class="
-                                        btn
-                                        btn-default
-                                        p-2
-                                        leading-none
-                                        text-xs
-                                        min-w-8
-                                        h-8
-                                        tiptap-button
-                                    "
-                                    :class="{ 'btn-primary': nodes.heading.active({ level: level }) }"
-                                    @click="nodes.heading.command({ level: level })"
-                                >
-                                  H{{  level  }}
-                                </button>
-                            </template>
 
-                            <template v-for="(nodeButtonExtension, nodeButtonKey) in nodeButtons">
-                                <button
-                                    v-if="buttonIsRequested(nodeButtonKey)"
-                                    type="button"
-                                    class="
-                                        btn
-                                        btn-default
-                                        p-2
-                                        leading-none
-                                        text-xs
-                                        min-w-8
-                                        h-8
-                                        tiptap-button
-                                    "
-                                    :class="{ 'btn-primary': nodes[nodeButtonKey].active() }"
-                                    @click="nodes[nodeButtonKey].command()">
-                                    <font-awesome-icon v-if="nodeButtonKey == 'bullet_list'" :icon="['far', 'list-ul']">
-                                    </font-awesome-icon>
+            <editor-menu-bar :editor="editor">
+                <div class="menubar" slot-scope="{ commands, isActive, getMarkAttrs }">
+                    <template v-for="(buttonKey, params) in buttons">
+                        <template v-if="buttonKey == 'heading' || params == 'heading'">
+                            <heading-buttons
+                                :headingLevels="headingLevels"
+                                :commands="commands"
+                                :isActive="isActive"
+                            >
+                            </heading-buttons>
+                        </template>
 
-                                    <font-awesome-icon v-if="nodeButtonKey == 'ordered_list'" :icon="['far', 'list-ol']">
-                                    </font-awesome-icon>
+                        <template v-if="buttonKey != 'heading' && buttonKey != 'link' && params != 'heading'">
+                            <normal-button
+                                :buttonKey="buttonKey"
+                                :commands="commands"
+                                :isActive="isActive"
+                            >
+                            </normal-button>
+                        </template>
 
-                                    <font-awesome-icon v-if="nodeButtonKey == 'blockquote'" :icon="['far', 'quote-right']">
-                                    </font-awesome-icon>
+                        <span class="tiptap-button-container" v-if="buttonKey == 'link'">
+                            <link-button
+                                :commands="commands"
+                                :isActive="isActive"
+                                :linkMenuIsActive="linkMenuIsActive"
+                                :linkUrl="linkUrl"
+                                :hideLinkMenu="hideLinkMenu"
+                                :showLinkMenu="showLinkMenu"
+                                :getMarkAttrs="getMarkAttrs"
+                                :setLinkUrl="setLinkUrl"
+                            >
+                            </link-button>
+                        </span>
 
-                                    <template v-if="nodeButtonKey == 'code_block'">
-                                        &lt;/&gt;
-                                    </template>
-                                </button>
-                            </template>
+                    </template>
+                  </div>
+            </editor-menu-bar>
 
-                            <template v-for="(markButtonExtension, markButtonKey) in markButtons">
-                                <button
-                                    v-if="marks[markButtonKey]"
-                                    type="button"
-                                    class="
-                                        btn
-                                        btn-default
-                                        p-2
-                                        leading-none
-                                        text-xs
-                                        min-w-8
-                                        h-8
-                                        tiptap-button
-                                    "
-
-                                    :class="[
-                                        marks[markButtonKey].active() ? 'btn-primary' : '',
-                                        'is-' + markButtonKey
-                                    ]"
-
-                                    @click="marks[markButtonKey].command()">
-
-
-
-                                </button>
-                            </template>
-
-                            <span class="tiptap-button-container" v-if="buttonIsRequested('link')">
-                                <form
-                                    class="
-                                        tiptap-button-form
-                                        btn
-                                        btn-default
-                                        p-2
-                                    "
-                                    v-if="linkMenuIsActive"
-                                    @submit.prevent="setLinkUrl(linkUrl, marks.link)"
-                                >
-                                    <input
-                                        class="
-                                            form-input
-                                            form-input-bordered
-                                            p-1
-                                            text-xs
-                                            leading-none
-                                        "
-                                        placeholder="enter URL"
-                                        type="text"
-                                        v-model="linkUrl"
-                                        ref="linkInput"
-                                        @keydown.esc="hideLinkMenu"
-                                    >
-
-                                    <button
-                                        class="btn is-close"
-                                        @click="setLinkUrl(null, marks.link)"
-                                        type="button"
-                                    >
-                                        <font-awesome-icon :icon="['far', 'times-circle']">
-                                        </font-awesome-icon>
-                                    </button>
-                                </form>
-
-
-                                <button
-                                    class="
-                                    js-keep-selection-button
-                                    btn
-                                    btn-default
-                                    p-2
-                                    leading-none
-                                    text-xs
-                                    min-w-8
-                                    h-8
-                                    tiptap-button
-                                    "
-                                    type="button"
-                                    @click="showLinkMenu(marks.link)"
-                                    :class="{ 'is-active': marks.link.active() }"
-                                >
-                                    <font-awesome-icon :icon="['far', 'link']"></font-awesome-icon>
-                                </button>
-
-                                <button
-                                    class="
-                                    btn
-                                    btn-default
-                                    p-2
-                                    leading-none
-                                    text-xs
-                                    min-w-8
-                                    h-8
-                                    tiptap-button
-                                    "
-                                    type="button"
-                                    @click="setLinkUrl(null, marks.link)"
-                                    :class="{ 'is-active': marks.link.active() }"
-                                >
-                                    <font-awesome-icon :icon="['far', 'unlink']"></font-awesome-icon>
-                                </button>
-
-                            </span>
-                        </div>
-                    </div>
-                </div>
-
-                <div
-                    class="
-                    tiptap-content
-                    py-3 h-auto
-                    pr-6
-                    pb-4
-                    pt-4
-                    w-full
-                    form-control
-                    form-input
-                    form-input-bordered
-                    mt-2
-                    no-focus
-                    "
-                    slot="content"
-                    slot-scope="props"
-                >
-
-                </div>
-            </editor>
+            <editor-content
+                class="
+                tiptap-content
+                py-3 h-auto
+                pr-6
+                pb-4
+                pt-4
+                w-full
+                form-control
+                form-input
+                form-input-bordered
+                mt-2
+                no-focus
+                "
+                :editor="editor"
+            />
         </template>
     </default-field>
 </template>
 
 <script>
 import { FormField, HandlesValidationErrors } from 'laravel-nova'
+import { Editor, EditorContent, EditorMenuBar, EditorMenuBubble } from 'tiptap'
+import HeadingButtons from './buttons/HeadingButtons';
+import NormalButton from './buttons/NormalButton';
+import LinkButton from './buttons/LinkButton';
 
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faLink, faUnlink, faCode, faTimesCircle, faListUl, faListOl, faQuoteRight } from '@fortawesome/pro-regular-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-
-library.add(faLink, faUnlink, faCode, faTimesCircle, faListUl, faListOl, faQuoteRight)
-
-import { Editor } from 'tiptap'
 import {
-  // Nodes
-  BlockquoteNode,
-  BulletListNode,
-  CodeBlockNode,
-  CodeBlockHighlightNode,
-  HardBreakNode,
-  HeadingNode,
-  ImageNode,
-  ListItemNode,
-  OrderedListNode,
-  TodoItemNode,
-  TodoListNode,
-
-  // Marks
-  BoldMark,
-  CodeMark,
-  ItalicMark,
-  LinkMark,
-  StrikeMark,
-  UnderlineMark,
-
-  // General Extensions
-  HistoryExtension,
-  PlaceholderExtension,
+    Blockquote,
+    CodeBlock,
+    HardBreak,
+    Heading,
+    OrderedList,
+    BulletList,
+    HorizontalRule,
+    ListItem,
+    TodoItem,
+    TodoList,
+    Bold,
+    Code,
+    Italic,
+    Link,
+    Strike,
+    Underline,
+    History,
 } from 'tiptap-extensions'
-
-import { default as InsMark } from './marks/InsMark.js'
 
 export default {
     mixins: [FormField, HandlesValidationErrors],
@@ -232,118 +94,80 @@ export default {
     props: ['resourceName', 'resourceId', 'field'],
 
     components: {
-        Editor,
-        FontAwesomeIcon,
+        EditorContent,
+        EditorMenuBar,
+        HeadingButtons,
+        NormalButton,
+        LinkButton,
     },
 
     data: function () {
         return {
             headingLevels: 3,
 
-            markButtons: {
-                'bold': new BoldMark(),
-                'italic': new ItalicMark(),
-                'code': new CodeMark(),
-                'strike': new StrikeMark(),
-                'underline': new UnderlineMark(),
-            },
-
-            nodeButtons: {
-                'code_block': new CodeBlockNode(),
-                'bullet_list': new BulletListNode(),
-                'ordered_list': new OrderedListNode(),
-                'blockquote': new BlockquoteNode(),
-            },
-
             linkUrl: null,
 
             linkMenuIsActive: false,
+
+            editor: new Editor({
+                extensions: [
+                    new Blockquote(),
+                    new BulletList(),
+                    new CodeBlock(),
+                    new HardBreak(),
+                    new Heading({ levels: [1, 2, 3] }),
+                    new HorizontalRule(),
+                    new ListItem(),
+                    new OrderedList(),
+                    new TodoItem(),
+                    new TodoList(),
+                    new Bold(),
+                    new Code(),
+                    new Italic(),
+                    new Link(),
+                    new Strike(),
+                    new Underline(),
+                    new History(),
+                ],
+            }),
         }
     },
 
     computed: {
         buttons() {
             return this.field.buttons ? this.field.buttons : ['bold', 'italic'];
-        },
-
-        extensions() {
-            let extensions = [
-                new HistoryExtension(),
-                new PlaceholderExtension(),
-                new HardBreakNode(),
-                new HeadingNode(),
-                new ListItemNode(),
-                new InsMark(),
-                new LinkMark(),
-                new BulletListNode(),
-                new OrderedListNode(),
-                new BlockquoteNode(),
-                new CodeBlockNode(),
-            ];
-
-            _.forEach(this.markButtons, function(extension, name) {
-                if (_.includes(this.buttons, name) && !_.includes(extensions, extension)) {
-                    extensions.push(extension);
-                }
-            }.bind(this));
-
-            _.forEach(this.nodeButtons, function(extension, name) {
-                if (_.includes(this.buttons, name) && !_.includes(extensions, extension)) {
-                    extensions.push(extension);
-                }
-            }.bind(this));
-
-            _.forEach(this.buttons, function(params, key) {
-                if (key == 'heading') {
-                    extensions.push(new HeadingNode({ maxLevel: params }));
-                    this.headingLevels = params;
-                }
-
-                if (params == 'heading') {
-                    extensions.push(new HeadingNode({ maxLevel: this.headingLevels }));
-                }
-
-                if (params == 'link') {
-                    extensions.push(new LinkMark());
-                }
-
-            }.bind(this));
-
-            return extensions;
         }
     },
 
     methods: {
-        buttonIsRequested(key) {
-            return _.includes(this.buttons, key) || _.has(this.buttons, key);
+        initEditor() {
+            this.editor.setContent(this.value);
+
+            // set the value each time editor is updated
+            let outsideScope = this;
+            this.editor.setOptions({
+                onUpdate: function (state) {
+                    outsideScope.value = state.getHTML();
+                }
+            });
+
+            // set heading levels
+            if (this.field.headingLevels) {
+                this.headingLevels = this.field.headingLevels;
+            } else {
+                // fallback for the old style like this: 'heading' => 4
+                _.forEach(this.buttons, function(params, key) {
+                    if (key == 'heading') {
+                        this.headingLevels = params;
+                    }
+                }.bind(this));
+            }
+
         },
 
-        setInitialValue() {
-            this.value = this.field.value || '';
-        },
-
-        fill(formData) {
-            formData.append(this.field.attribute, this.value || '');
-        },
-
-        handleChange(value) {
-            this.value = value;
-        },
-
-        editorUpdated(state) {
-            this.handleChange(state.getHTML());
-        },
-
-        populateEditor() {
-            this.$refs.editor.setContent(this.value);
-        },
-
-        showLinkMenu(type) {
-            this.linkUrl = type.attrs.href
-            this.linkMenuIsActive = true
-            this.$nextTick(() => {
-                this.$refs.linkInput.focus();
-            })
+        showLinkMenu(attrs) {
+            this.linkUrl = attrs.href;
+            this.linkMenuIsActive = true;
         },
 
         hideLinkMenu() {
@@ -351,22 +175,15 @@ export default {
             this.linkMenuIsActive = false;
         },
 
-        removeFauxHighlights() {
-            var wrap = $('.ProseMirror').find('ins');
-            var text = wrap.html();
-            wrap.replaceWith(text);
-        },
-
-        setLinkUrl(url, type, focus) {
-            type.command({ href: url });
+        setLinkUrl(command, url) {
+            command({ href: url });
             this.hideLinkMenu();
-            this.removeFauxHighlights();
+            this.editor.focus();
         },
-
     },
 
     mounted: function () {
-        this.populateEditor();
+        this.initEditor();
     }
 }
 </script>
@@ -470,6 +287,10 @@ export default {
 
 .tiptap-button.is-code::before {
     content: '<>';
+}
+
+.tiptap-button.is-code_block::before {
+    content: '</>';
 }
 
 

@@ -21,6 +21,21 @@ class Tiptap extends Field
      */
     public function buttons(array $buttons)
     {
-        return $this->withMeta(['buttons' => $buttons]);
+        return $this->withMeta([
+            'buttons' => $buttons
+        ]);
+    }
+
+    /**
+     * Set the heading levels that should be available when using headings
+     *
+     * @param  int  $headingLevels
+     * @return $this
+     */
+    public function headingLevels($headingLevels)
+    {
+        return $this->withMeta([
+            'headingLevels' => $headingLevels
+        ]);
     }
 }

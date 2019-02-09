@@ -1,6 +1,4 @@
 
-require('./helpers/keep-selection.js');
-
 Nova.booting((Vue, router) => {
     Vue.component('index-tiptap', require('./components/IndexField'));
     Vue.component('detail-tiptap', require('./components/DetailField'));
