@@ -47,6 +47,14 @@ Tiptap::make('Cv')
 
 When just passing the string `'heading'` you will have H1, H2 and H3 to choose from. You can set the level of headings by using for example `headingLevels(6)` which will give you H1 through H6.
 
+### Note on the old way of setting heading levels
+
+In older versions you could set the level of headings by using the object style notation like this:
+`'heading' => 6,`
+This is still working, but is deprecated. It will be removed in the next minor version.
+
+### The two different "code" buttons
+
 `'code'` is inline code (like `<code></code>`) while `'code_block'` will give you `<pre><code></code></pre>`.
 
 ## Screenshots
