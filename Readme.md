@@ -1,6 +1,6 @@
 # Laravel Nova Tiptap Editor Field
 
-A Laravel Nova implementation of the [tiptap editor for Vue.js](https://github.com/heyscrumpy/tiptap) by [@heyscrumpy](https://github.com/heyscrumpy).
+A Laravel Nova implementation of the [tiptap editor for Vue.js](https://github.com/scrumpy/tiptap) by [@scrumpy](https://github.com/scrumpy).
 
 ## Installation
 
