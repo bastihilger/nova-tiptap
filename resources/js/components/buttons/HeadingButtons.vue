@@ -24,6 +24,10 @@
 <script>
 export default {
     props: ['headingLevels', 'isActive', 'commands'],
+
+    mounted: function () {
+        console.log(this.isActive.bold());
+    }
 }
 </script>
 

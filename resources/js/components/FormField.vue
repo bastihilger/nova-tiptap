@@ -4,41 +4,56 @@
 
             <editor-menu-bar :editor="editor">
                 <div class="menubar" slot-scope="{ commands, isActive, getMarkAttrs }">
-                    <template v-for="(buttonKey, params) in buttons">
-                        <template v-if="buttonKey == 'heading' || params == 'heading'">
-                            <heading-buttons
-                                :headingLevels="headingLevels"
-                                :commands="commands"
-                                :isActive="isActive"
-                            >
-                            </heading-buttons>
+                    <div class="toolbar">
+                        <template v-for="(buttonKey, params) in buttons">
+                            <template v-if="buttonKey == 'heading' || params == 'heading'">
+                                <heading-buttons
+                                    :headingLevels="headingLevels"
+                                    :commands="commands"
+                                    :isActive="isActive"
+                                >
+                                </heading-buttons>
+                            </template>
+
+                            <template v-if="buttonKey == 'table' || params == 'table'">
+                                <table-buttons
+                                    :commands="commands"
+                                    :isActive="isActive"
+                                >
+                                </table-buttons>
+                            </template>
+
+                            <template v-if="
+                                buttonKey != 'heading'
+                                && buttonKey != 'link'
+                                && params != 'heading'
+                                && buttonKey != 'table'
+                            ">
+                                <normal-button
+                                    :buttonKey="buttonKey"
+                                    :commands="commands"
+                                    :isActive="isActive"
+                                >
+                                </normal-button>
+                            </template>
+
+                            <span class="tiptap-button-container" v-if="buttonKey == 'link'">
+                                <link-button
+                                    :commands="commands"
+                                    :isActive="isActive"
+                                    :linkMenuIsActive="linkMenuIsActive"
+                                    :linkUrl="linkUrl"
+                                    :hideLinkMenu="hideLinkMenu"
+                                    :showLinkMenu="showLinkMenu"
+                                    :getMarkAttrs="getMarkAttrs"
+                                    :setLinkUrl="setLinkUrl"
+                                >
+                                </link-button>
+                            </span>
+
                         </template>
-
-                        <template v-if="buttonKey != 'heading' && buttonKey != 'link' && params != 'heading'">
-                            <normal-button
-                                :buttonKey="buttonKey"
-                                :commands="commands"
-                                :isActive="isActive"
-                            >
-                            </normal-button>
-                        </template>
-
-                        <span class="tiptap-button-container" v-if="buttonKey == 'link'">
-                            <link-button
-                                :commands="commands"
-                                :isActive="isActive"
-                                :linkMenuIsActive="linkMenuIsActive"
-                                :linkUrl="linkUrl"
-                                :hideLinkMenu="hideLinkMenu"
-                                :showLinkMenu="showLinkMenu"
-                                :getMarkAttrs="getMarkAttrs"
-                                :setLinkUrl="setLinkUrl"
-                            >
-                            </link-button>
-                        </span>
-
-                    </template>
-                  </div>
+                    </div>
+                </div>
             </editor-menu-bar>
 
             <editor-content
@@ -65,6 +80,7 @@
 import { FormField, HandlesValidationErrors } from 'laravel-nova'
 import { Editor, EditorContent, EditorMenuBar, EditorMenuBubble } from 'tiptap'
 import HeadingButtons from './buttons/HeadingButtons';
+import TableButtons from './buttons/TableButtons';
 import NormalButton from './buttons/NormalButton';
 import LinkButton from './buttons/LinkButton';
 
@@ -83,6 +99,10 @@ import {
     Code,
     Italic,
     Link,
+    Table,
+    TableHeader,
+    TableCell,
+    TableRow,
     Strike,
     Underline,
     History,
@@ -97,6 +117,7 @@ export default {
         EditorContent,
         EditorMenuBar,
         HeadingButtons,
+        TableButtons,
         NormalButton,
         LinkButton,
     },
@@ -109,7 +130,26 @@ export default {
 
             linkMenuIsActive: false,
 
-            editor: new Editor({
+            editor: null,
+        }
+    },
+
+    computed: {
+        buttons() {
+            return this.field.buttons ? this.field.buttons : ['bold', 'italic'];
+        }
+    },
+
+    methods: {
+        initEditor() {
+            let outsideScope = this;
+
+            this.editor = new Editor({
+                onUpdate(state){
+                    console.log(state.getHTML());
+
+                    outsideScope.value = state.getHTML();
+                },
                 extensions: [
                     new Blockquote(),
                     new BulletList(),
@@ -128,28 +168,16 @@ export default {
                     new Strike(),
                     new Underline(),
                     new History(),
+                    new Table({
+                        resizable: true,
+                    }),
+                    new TableHeader(),
+                    new TableCell(),
+                    new TableRow(),
                 ],
-            }),
-        }
-    },
-
-    computed: {
-        buttons() {
-            return this.field.buttons ? this.field.buttons : ['bold', 'italic'];
-        }
-    },
-
-    methods: {
-        initEditor() {
-            this.editor.setContent(this.value);
-
-            // set the value each time editor is updated
-            let outsideScope = this;
-            this.editor.setOptions({
-                onUpdate: function (state) {
-                    outsideScope.value = state.getHTML();
-                }
             });
+
+            this.editor.setContent(this.value);
 
             // set heading levels
             if (this.field.headingLevels) {
@@ -224,6 +252,15 @@ export default {
 
 .ProseMirror p:last-child {
     margin-bottom: 0;
+}
+
+.ProseMirror table {
+    border: 1px solid var(--60);
+}
+
+.ProseMirror td {
+    border: 1px solid var(--60);
+    padding: 6px;
 }
 
 .tiptap-button {
