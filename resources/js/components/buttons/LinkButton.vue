@@ -30,7 +30,7 @@
                 @click="setLinkUrl(commands.link, null)"
                 type="button"
             >
-                <font-awesome-icon :icon="['far', 'times-circle']">
+                <font-awesome-icon :icon="['fas', 'times-circle']">
                 </font-awesome-icon>
             </button>
         </form>
@@ -52,7 +52,7 @@
             ]"
             @click="showLinkMenu(getMarkAttrs('link'))"
         >
-            <font-awesome-icon :icon="['far', 'link']">
+            <font-awesome-icon :icon="['fas', 'link']">
             </font-awesome-icon>
         </button>
 
@@ -73,7 +73,7 @@
             ]"
             @click="setLinkUrl(commands.link, null)"
         >
-            <font-awesome-icon :icon="['far', 'unlink']">
+            <font-awesome-icon :icon="['fas', 'unlink']">
             </font-awesome-icon>
         </button>
     </span>
@@ -82,7 +82,7 @@
 <script>
 import { library } from '@fortawesome/fontawesome-svg-core'
 
-import { faLink, faUnlink, faTimesCircle } from '@fortawesome/pro-regular-svg-icons'
+import { faLink, faUnlink, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 library.add(faLink, faUnlink, faTimesCircle)

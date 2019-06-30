@@ -230,7 +230,7 @@ export default {
     box-sizing: border-box;
     vertical-align: top;
     margin-right: 8px;
-    font-weight: 400;
+    font-weight: 700;
 }
 
 .tiptap-button-container {

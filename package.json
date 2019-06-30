@@ -10,19 +10,19 @@
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
     "devDependencies": {
-        "@fortawesome/fontawesome-pro": "^5.4.0",
+        "@fortawesome/fontawesome-free": "^5.9.0",
+        "@fortawesome/fontawesome-svg-core": "^1.2.19",
+        "@fortawesome/free-solid-svg-icons": "^5.9.0",
+        "@fortawesome/vue-fontawesome": "^0.1.6",
         "cross-env": "^5.0.0",
         "laravel-mix": "^1.0",
         "laravel-nova": "^1.0"
     },
     "dependencies": {
-        "@fortawesome/fontawesome-svg-core": "^1.2.5",
-        "@fortawesome/pro-regular-svg-icons": "^5.4.0",
-        "@fortawesome/vue-fontawesome": "^0.1.1",
         "i": "^0.3.6",
         "npm": "^6.4.1",
-        "tiptap": "^1.8.0",
-        "tiptap-extensions": "^1.8.0",
+        "tiptap": "^1.19.1",
+        "tiptap-extensions": "^1.19.1",
         "vue": "^2.5.0",
         "vue-truncate-collapsed": "^2.1.0"
     }

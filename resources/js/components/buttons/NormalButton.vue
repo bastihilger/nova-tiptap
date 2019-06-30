@@ -24,13 +24,13 @@
         ]"
         @click="commands[buttonKey]"
     >
-        <font-awesome-icon v-if="buttonKey == 'bullet_list'" :icon="['far', 'list-ul']">
+        <font-awesome-icon v-if="buttonKey == 'bullet_list'" :icon="['fas', 'list-ul']">
         </font-awesome-icon>
 
-        <font-awesome-icon v-if="buttonKey == 'ordered_list'" :icon="['far', 'list-ol']">
+        <font-awesome-icon v-if="buttonKey == 'ordered_list'" :icon="['fas', 'list-ol']">
         </font-awesome-icon>
 
-        <font-awesome-icon v-if="buttonKey == 'blockquote'" :icon="['far', 'quote-right']">
+        <font-awesome-icon v-if="buttonKey == 'blockquote'" :icon="['fas', 'quote-right']">
         </font-awesome-icon>
     </button>
 </template>
@@ -38,7 +38,7 @@
 <script>
 import { library } from '@fortawesome/fontawesome-svg-core'
 
-import { faCode, faListUl, faListOl, faQuoteRight } from '@fortawesome/pro-regular-svg-icons'
+import { faCode, faListUl, faListOl, faQuoteRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 library.add(faCode, faListUl, faListOl, faQuoteRight)
