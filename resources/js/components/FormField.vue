@@ -175,6 +175,12 @@ export default {
                     new TableCell(),
                     new TableRow(),
                 ],
+                editorProps: {
+                    handleKeyDown: (editorView, keyboardEvent) => {
+                        // Prevent ? or / from triggering Nova global search
+                        keyboardEvent.stopPropagation();
+                    }
+                }
             });
 
             this.editor.setContent(this.value);
