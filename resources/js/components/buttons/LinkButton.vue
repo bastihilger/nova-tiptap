@@ -6,6 +6,7 @@
                 btn
                 btn-default
                 p-2
+                z-10
             "
             v-show="linkMenuIsActive"
             @submit.prevent="setLinkUrl(commands.link, linkUrl)"
