@@ -1,14 +1,22 @@
 <template>
-    <div class="tiptap-detail-field py-4">
-        <truncate
-            clamp="Show More"
-            :length="200"
-            less="Show Less"
-            type="html"
-            :text="field.value"
-        >
+    <div class="flex">
+        <div class="w-1/4 py-4">
+            <h4 class="font-normal text-80">
+                {{ label }}
+            </h4>
+        </div>
 
-        </truncate>
+        <div class="tiptap-detail-field w-3/4 py-4">
+            <truncate
+                clamp="Show More"
+                :length="200"
+                less="Show Less"
+                type="html"
+                :text="field.value"
+            >
+
+            </truncate>
+        </div>
     </div>
 </template>
 
@@ -16,10 +24,24 @@
 import truncate from 'vue-truncate-collapsed'
 
 export default {
-    props: ['resource', 'resourceName', 'resourceId', 'field'],
-
     components: {
         truncate,
+    },
+
+    props: {
+        field: {
+            type: Object,
+            required: true,
+        },
+        fieldName: {
+            type: String,
+            default: '',
+        },
+    },
+    computed: {
+        label() {
+            return this.fieldName || this.field.name
+        },
     },
 }
 </script>
