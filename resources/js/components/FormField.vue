@@ -237,7 +237,7 @@ export default {
     background-color: highlight;
 }
 
-.ProseMirror p, ul, ol, blockquote, pre {
+.ProseMirror p, .ProseMirror ul, .ProseMirror ol, .ProseMirror blockquote, .ProseMirror pre {
     margin-bottom: 1em;
 }
 
@@ -335,8 +335,4 @@ export default {
 .tiptap-button.is-code_block::before {
     content: '</>';
 }
-
-
-
-
 </style>
