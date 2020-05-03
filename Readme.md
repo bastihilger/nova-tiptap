@@ -42,16 +42,20 @@ Tiptap::make('FieldName')
       'code_block',
       'blockquote',
   ])
-  ->headingLevels(6),
+  ->headingLevels([2, 3, 4]),
 ```
 
-When just passing the string `'heading'` you will have H1, H2 and H3 to choose from. You can set the level of headings by using for example `headingLevels(6)` which will give you H1 through H6.
+When just passing the string `'heading'` you will have H1, H2 and H3 to choose from. You can set the level of headings by using for example `headingLevels([2, 3, 4])` which will give you H2 through H4.
 
-### Note on the old way of setting heading levels
+### Note on the (now two) old way of setting heading levels
 
-In older versions you could set the level of headings by using the object style notation like this:
+In older versions you set the heading levels by passing the highest number as an integer like this:
+`headingLevels(6)`
+It would give you H1 through H6 This is still working, but is deprecated. It will be removed in the next major version.
+
+In even older versions you could set the level of headings by using the object style notation like this:
 `'heading' => 6,`
-This is still working, but is deprecated. It will be removed in the next minor version.
+This is still working, but is deprecated. It will be removed in the next major version.
 
 ### The two different "code" buttons
 
