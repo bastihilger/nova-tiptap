@@ -8,6 +8,7 @@
                         <template v-for="(buttonKey, params) in buttons">
                             <template v-if="buttonKey == 'heading' || params == 'heading'">
                                 <heading-buttons
+                                    :key="'button-'+buttonKey"
                                     :headingLevels="headingLevels"
                                     :commands="commands"
                                     :isActive="isActive"
@@ -17,6 +18,7 @@
 
                             <template v-if="buttonKey == 'table' || params == 'table'">
                                 <table-buttons
+                                    :key="'button-'+buttonKey"
                                     :commands="commands"
                                     :isActive="isActive"
                                 >
@@ -30,6 +32,7 @@
                                 && buttonKey != 'table'
                             ">
                                 <normal-button
+                                    :key="'button-'+buttonKey"
                                     :buttonKey="buttonKey"
                                     :commands="commands"
                                     :isActive="isActive"
@@ -37,7 +40,11 @@
                                 </normal-button>
                             </template>
 
-                            <span class="tiptap-button-container" v-if="buttonKey == 'link'">
+                            <span 
+                                :key="'button-'+buttonKey"
+                                class="tiptap-button-container" 
+                                v-if="buttonKey == 'link'"
+                            >
                                 <link-button
                                     :commands="commands"
                                     :isActive="isActive"
@@ -146,8 +153,6 @@ export default {
 
             this.editor = new Editor({
                 onUpdate(state){
-                    console.log(state.getHTML());
-
                     outsideScope.value = state.getHTML();
                 },
                 extensions: [

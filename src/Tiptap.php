@@ -29,13 +29,21 @@ class Tiptap extends Field
     /**
      * Set the heading levels that should be available when using headings
      *
-     * @param  int  $headingLevels
+     * @param  mixed  $headingLevels
      * @return $this
      */
     public function headingLevels($headingLevels)
     {
+        $headingLevelsArr = $headingLevels;
+        if (is_int($headingLevels)) {
+            $headingLevelsArr = [];
+            for ($n = 1; $n <= $headingLevels; $n++) {
+                $headingLevelsArr[] = $n;
+            }
+        }
+
         return $this->withMeta([
-            'headingLevels' => $headingLevels
+            'headingLevels' => $headingLevelsArr
         ]);
     }
 }

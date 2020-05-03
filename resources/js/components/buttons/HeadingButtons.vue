@@ -2,6 +2,7 @@
     <span>
         <button
             v-for="level in headingLevels"
+            :key="'heading-button'+level"
             type="button"
             class="
                 btn
@@ -24,10 +25,6 @@
 <script>
 export default {
     props: ['headingLevels', 'isActive', 'commands'],
-
-    mounted: function () {
-        console.log(this.isActive.bold());
-    }
 }
 </script>
 
