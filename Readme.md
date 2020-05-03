@@ -49,7 +49,7 @@ When just passing the string `'heading'` you will have H1, H2 and H3 to choose f
 
 ### Note on the (now two) old way of setting heading levels
 
-In older versions you set the heading levels by passing the highest number as an integer like this:
+In older versions you could set the heading levels by passing the highest number as an integer like this:
 `headingLevels(6)`
 It would give you H1 through H6 This is still working, but is deprecated. It will be removed in the next major version.
 
