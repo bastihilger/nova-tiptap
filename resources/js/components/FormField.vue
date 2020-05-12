@@ -34,15 +34,15 @@
                                 <normal-button
                                     :key="'button-'+buttonKey"
                                     :buttonKey="buttonKey"
-                                    :commands="commands"
+                                    :commands="customCommands(commands)"
                                     :isActive="isActive"
                                 >
                                 </normal-button>
                             </template>
 
-                            <span 
+                            <span
                                 :key="'button-'+buttonKey"
-                                class="tiptap-button-container" 
+                                class="tiptap-button-container"
                                 v-if="buttonKey == 'link'"
                             >
                                 <link-button
@@ -78,7 +78,14 @@
                 no-focus
                 "
                 :editor="editor"
+                v-if="!editHTML"
             />
+            <textarea
+                    v-model="value"
+                    @change="updateEditorValue"
+                    v-if="editHTML"
+                    class="w-full form-control form-input form-input-bordered py-3 h-auto edit-html"
+            ></textarea>
         </template>
     </default-field>
 </template>
@@ -138,6 +145,8 @@ export default {
             linkMenuIsActive: false,
 
             editor: null,
+
+            editHTML: false,
         }
     },
 
@@ -219,6 +228,25 @@ export default {
             this.hideLinkMenu();
             this.editor.focus();
         },
+
+        updateEditorValue() {
+            this.editor.setContent(this.value);
+        },
+
+        toggleEditHTML() {
+            this.editHTML = !this.editHTML;
+        },
+
+        customCommands(commands) {
+
+            let outsideScope = this;
+
+            commands.edit_html = function () {
+                outsideScope.editHTML = !outsideScope.editHTML;
+            }
+
+            return commands;
+        }
     },
 
     mounted: function () {
@@ -339,5 +367,10 @@ export default {
 
 .tiptap-button.is-code_block::before {
     content: '</>';
+}
+
+.edit-html {
+    min-height:400px;
+    margin-top:10px;
 }
 </style>
