@@ -32,16 +32,19 @@
 
         <font-awesome-icon v-if="buttonKey == 'blockquote'" :icon="['fas', 'quote-right']">
         </font-awesome-icon>
+
+        <font-awesome-icon v-if="buttonKey == 'edit_html'" :icon="['fas', 'file-code']">
+        </font-awesome-icon>
     </button>
 </template>
 
 <script>
 import { library } from '@fortawesome/fontawesome-svg-core'
 
-import { faCode, faListUl, faListOl, faQuoteRight } from '@fortawesome/free-solid-svg-icons'
+import {faCode, faListUl, faListOl, faQuoteRight, faFileCode} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-library.add(faCode, faListUl, faListOl, faQuoteRight)
+library.add(faCode, faListUl, faListOl, faQuoteRight, faFileCode)
 
 
 export default {

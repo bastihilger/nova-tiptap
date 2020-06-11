@@ -41,6 +41,7 @@ Tiptap::make('FieldName')
       'ordered_list',
       'code_block',
       'blockquote',
+      'edit_html'
   ])
   ->headingLevels([2, 3, 4]),
 ```
@@ -60,6 +61,10 @@ This is still working, but is deprecated. It will be removed in the next major v
 ### The two different "code" buttons
 
 `'code'` is inline code (like `<code></code>`) while `'code_block'` will give you `<pre><code></code></pre>`.
+
+### Edit HTML
+
+the `'edit_html'` option will enable the ability to toggle to the tiptap editor to a textarea and manually edit the HTML
 
 ## Screenshots
 
