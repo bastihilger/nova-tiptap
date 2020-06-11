@@ -1,3 +1,4 @@
+window.pretty = require('pretty');
 
 Nova.booting((Vue, router) => {
     Vue.component('index-tiptap', require('./components/IndexField'));

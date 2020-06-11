@@ -233,17 +233,14 @@ export default {
             this.editor.setContent(this.value);
         },
 
-        toggleEditHTML() {
-            this.editHTML = !this.editHTML;
-        },
-
         customCommands(commands) {
 
-            let outsideScope = this;
-
             commands.edit_html = function () {
-                outsideScope.editHTML = !outsideScope.editHTML;
-            }
+                this.editHTML = !this.editHTML;
+                if (this.editHTML) {
+                    this.value = pretty(this.value);
+                }
+            }.bind(this);
 
             return commands;
         }
