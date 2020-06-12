@@ -1,4 +1,4 @@
-[![GitHub release](https://img.shields.io/github/release/Naereen/StrapDown.js.svg)](https://github.com/manogi/nova-tiptap/releases/)
+![GitHub](https://img.shields.io/github/license/manogi/nova-tiptap)
 
 # Laravel Nova Tiptap Editor Field
 
