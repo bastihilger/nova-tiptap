@@ -1,4 +1,5 @@
 ![GitHub](https://img.shields.io/github/license/manogi/nova-tiptap)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/manogi/nova-tiptap)
 
 # Laravel Nova Tiptap Editor Field
 
