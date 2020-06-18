@@ -5,7 +5,7 @@
             :length="200"
             less="Show Less"
             type="html"
-            :text="field.value"
+            :text="parsedValue"
         >
 
         </truncate>
@@ -23,6 +23,18 @@ export default {
     components: {
         truncate,
     },
+
+    computed: {
+        parsedValue() {
+            var pattern = /<iframe.*?\/iframe>/gm;
+            var parsedValue = this.field.value.replace(pattern, '<div class="tiptap-index-iframe">iframe</div>');
+
+            pattern = /<script.*?\/script>/gm;
+            parsedValue = parsedValue.replace(pattern, '');
+
+            return parsedValue;
+        }
+    },
 }
 </script>
 
@@ -38,6 +50,18 @@ export default {
 
 .tiptap-index-field p, ul, ol, blockquote, pre {
     margin-bottom: 0.7em;
+}
+
+.tiptap-index-iframe {
+    background-color: #fafafa;
+    border: 1px dotted #ddd;
+    padding: 4px;
+    text-align: center;
+    margin: 5px 0;
+    text-transform: uppercase;
+    font-size: 0.7em;
+    line-height: 1;
+    color: #aaa;
 }
 </style>
 

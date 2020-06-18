@@ -122,7 +122,7 @@ import {
     History,
 } from 'tiptap-extensions'
 
-import Iframe from '../Iframe.js'
+import Iframe from '../extensions/iframe.js'
 
 export default {
     mixins: [FormField, HandlesValidationErrors],
