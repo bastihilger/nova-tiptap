@@ -122,6 +122,8 @@ import {
     History,
 } from 'tiptap-extensions'
 
+import Iframe from '../Iframe.js'
+
 export default {
     mixins: [FormField, HandlesValidationErrors],
 
@@ -188,6 +190,7 @@ export default {
                     new TableHeader(),
                     new TableCell(),
                     new TableRow(),
+                    new Iframe(),
                 ],
                 editorProps: {
                     handleKeyDown: (editorView, keyboardEvent) => {
@@ -369,5 +372,19 @@ export default {
 .edit-html {
     min-height:400px;
     margin-top:10px;
+}
+
+.iframe__embed{
+    border: 0;
+}
+.iframe__input {
+    display: block;
+    width: 100%;
+    font: inherit;
+    border: 0;
+    border-radius: 5px;
+    background-color: rgba(0,0,0, 0.1);
+    padding: 0.3rem 0.5rem;
+    margin-bottom: 0.5rem;
 }
 </style>
