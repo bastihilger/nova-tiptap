@@ -140,7 +140,7 @@ export default {
 
     data: function () {
         return {
-            headingLevels: 3,
+            headingLevels: 6,
 
             linkUrl: null,
 
@@ -276,6 +276,10 @@ export default {
 
 .ProseMirror h1, .ProseMirror h2, .ProseMirror h3, .ProseMirror h4, .ProseMirror h5, .ProseMirror h6 {
     margin-bottom: 0.5em;
+}
+
+.relationship-tabs-panel .ProseMirror h1 {
+    display: block;
 }
 
 .ProseMirror pre {
