@@ -51,16 +51,6 @@ Tiptap::make('FieldName')
 
 When just passing the string `'heading'` you will have H1, H2 and H3 to choose from. You can set the level of headings by using for example `headingLevels([2, 3, 4])` which will give you H2 through H4.
 
-### Note on the (now two) old way of setting heading levels
-
-In older versions you could set the heading levels by passing the highest number as an integer like this:
-`headingLevels(6)`
-It would give you H1 through H6 This is still working, but is deprecated. It will be removed in the next major version.
-
-In even older versions you could set the level of headings by using the object style notation like this:
-`'heading' => 6,`
-This is still working, but is deprecated. It will be removed in the next major version.
-
 ### The two different "code" buttons
 
 `'code'` is inline code (like `<code></code>`) while `'code_block'` will give you `<pre><code></code></pre>`.
@@ -68,6 +58,10 @@ This is still working, but is deprecated. It will be removed in the next major v
 ### Edit HTML
 
 the `'edit_html'` option will enable the ability to toggle to the tiptap editor to a textarea and manually edit the HTML
+
+## Visibility in index view
+
+Like `Textarea` and `Trix` fields this field is hidden from index views. You can make the content visible by using a [computed field](https://nova.laravel.com/docs/3.0/resources/fields.html#computed-fields).
 
 ## Screenshots
 
