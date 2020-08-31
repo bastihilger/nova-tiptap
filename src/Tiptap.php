@@ -3,15 +3,25 @@
 namespace Manogi\Tiptap;
 
 use Laravel\Nova\Fields\Field;
+use Laravel\Nova\Fields\Expandable;
 
 class Tiptap extends Field
 {
+    use Expandable;
+
     /**
      * The field's component.
      *
      * @var string
      */
     public $component = 'tiptap';
+
+    /**
+     * Indicates if the element should be shown on the index view.
+     *
+     * @var bool
+     */
+    public $showOnIndex = false;
 
     /**
      * Set the buttons that should be available in the menu.
@@ -44,6 +54,13 @@ class Tiptap extends Field
 
         return $this->withMeta([
             'headingLevels' => $headingLevelsArr
+        ]);
+    }
+
+    public function jsonSerialize()
+    {
+        return array_merge(parent::jsonSerialize(), [
+            'shouldShow' => $this->shouldBeExpanded(),
         ]);
     }
 }
