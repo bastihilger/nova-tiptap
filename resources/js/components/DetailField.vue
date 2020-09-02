@@ -43,7 +43,7 @@ export default {
     color: var(--primary);
 }
 
-.tiptap-detail-field p, ul, ol, blockquote, pre {
+.tiptap-detail-field p, .tiptap-detail-field ul, .tiptap-detail-field ol, .tiptap-detail-field blockquote, .tiptap-detail-field pre {
     margin-bottom: 0.7em;
 }
 
