@@ -10,7 +10,7 @@
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
     "resolutions": {
-        "prosemirror-model": "1.9.1"
+        "prosemirror-model": "1.11.0"
     },
     "devDependencies": {
         "@fortawesome/fontawesome-free": "^5.9.0",
@@ -18,8 +18,11 @@
         "@fortawesome/free-solid-svg-icons": "^5.9.0",
         "@fortawesome/vue-fontawesome": "^0.1.6",
         "cross-env": "^5.0.0",
-        "laravel-mix": "^1.0",
-        "laravel-nova": "^1.0"
+        "laravel-mix": "^5.0",
+        "laravel-nova": "^1.4.1",
+        "resolve-url-loader": "^3.1.0",
+        "sass": "^1.26.10",
+        "sass-loader": "^8.0.2"
     },
     "dependencies": {
         "i": "^0.3.6",

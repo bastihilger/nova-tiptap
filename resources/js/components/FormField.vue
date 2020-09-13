@@ -1,7 +1,6 @@
 <template>
     <default-field :field="field" :errors="errors" :fullWidthContent="true">
         <template slot="field">
-
             <editor-menu-bar :editor="editor">
                 <div class="menubar" slot-scope="{ commands, isActive, getMarkAttrs }">
                     <div class="toolbar">
@@ -91,6 +90,7 @@
 </template>
 
 <script>
+
 import { FormField, HandlesValidationErrors } from 'laravel-nova'
 import { Editor, EditorContent, EditorMenuBar, EditorMenuBubble } from 'tiptap'
 import HeadingButtons from './buttons/HeadingButtons';
@@ -261,47 +261,62 @@ export default {
     box-shadow: none !important;
 }
 
-.ProseMirror:focus {
+.tiptap-content .ProseMirror:focus {
     outline: none;
 }
 
-.ProseMirror ins {
+.tiptap-content .ProseMirror.resize-cursor {
+    cursor: col-resize;
+}
+
+.tiptap-content .ProseMirror ins {
     text-decoration: none;
     background-color: highlight;
 }
 
-.ProseMirror p, .ProseMirror ul, .ProseMirror ol, .ProseMirror blockquote, .ProseMirror pre {
+.tiptap-content .ProseMirror p, .tiptap-content .ProseMirror ul, .tiptap-content .ProseMirror ol, .tiptap-content .ProseMirror blockquote, .tiptap-content .ProseMirror pre {
     margin-bottom: 1em;
 }
 
-.ProseMirror h1, .ProseMirror h2, .ProseMirror h3, .ProseMirror h4, .ProseMirror h5, .ProseMirror h6 {
+.tiptap-content .ProseMirror h1, .tiptap-content .ProseMirror h2, .tiptap-content .ProseMirror h3, .tiptap-content .ProseMirror h4, .tiptap-content .ProseMirror h5, .tiptap-content .ProseMirror h6 {
     margin-bottom: 0.5em;
 }
 
-.relationship-tabs-panel .ProseMirror h1 {
+.tiptap-content .relationship-tabs-panel .ProseMirror h1 {
     display: block;
 }
 
-.ProseMirror pre {
+.tiptap-content .ProseMirror pre {
     white-space: pre-line;
 }
 
-.ProseMirror blockquote {
+.tiptap-content .ProseMirror blockquote {
     border-left: 4px solid var(--60);
     padding-left: 12px;
     margin-left: 0;
     font-style: italic;
 }
 
-.ProseMirror p:last-child {
+.tiptap-content .ProseMirror p:last-child {
     margin-bottom: 0;
 }
 
-.ProseMirror table {
+.tiptap-content .ProseMirror td p {
+    margin-bottom: 0;
+}
+.tiptap-content .ProseMirror td p:last-child {
+    margin-bottom: 0;
+}
+
+.tiptap-content .ProseMirror table {
     border: 1px solid var(--60);
 }
 
-.ProseMirror td {
+.tiptap-content .ProseMirror td.selectedCell {
+    background-color: blanchedalmond;
+}
+
+.tiptap-content .ProseMirror td {
     border: 1px solid var(--60);
     padding: 6px;
 }
@@ -311,6 +326,10 @@ export default {
     vertical-align: top;
     margin-right: 8px;
     font-weight: 700;
+    margin-bottom: 8px;
+}
+.tiptap-button.is-thin {
+    font-weight: 400;
 }
 
 .tiptap-button-container {
@@ -373,15 +392,15 @@ export default {
     content: '</>';
 }
 
-.edit-html {
+.tiptap-content .edit-html {
     min-height:400px;
     margin-top:10px;
 }
 
-.iframe__embed{
+.tiptap-content .iframe__embed{
     border: 0;
 }
-.iframe__input {
+.tiptap-content .iframe__input {
     display: block;
     width: 100%;
     font: inherit;

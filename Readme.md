@@ -44,6 +44,7 @@ Tiptap::make('FieldName')
       'ordered_list',
       'code_block',
       'blockquote',
+      'table',
       'edit_html'
   ])
   ->headingLevels([2, 3, 4]),
