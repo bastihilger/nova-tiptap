@@ -40,6 +40,8 @@ Tiptap::make('FieldName')
       'link',
       'strike',
       'underline',
+      'superscript',
+      'subscript',
       'bullet_list',
       'ordered_list',
       'code_block',

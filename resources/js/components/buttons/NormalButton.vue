@@ -19,6 +19,8 @@
             (buttonKey == 'ordered_list' && isActive.ordered_list() ? 'btn-primary' : ''),
             (buttonKey == 'code_block' && isActive.code_block() ? 'btn-primary' : ''),
             (buttonKey == 'blockquote' && isActive.blockquote() ? 'btn-primary' : ''),
+            (buttonKey == 'superscript' && isActive.superscript() ? 'btn-primary' : ''),
+            (buttonKey == 'subscript' && isActive.subscript() ? 'btn-primary' : ''),
             'is-' + buttonKey
 
         ]"
@@ -35,6 +37,14 @@
 
         <font-awesome-icon v-if="buttonKey == 'edit_html'" :icon="['fas', 'file-code']">
         </font-awesome-icon>
+
+        <span v-if="buttonKey == 'superscript'">
+            x<small><sup>2</sup></small>
+        </span>
+
+        <span v-if="buttonKey == 'subscript'">
+            x<small><sub>2</sub></small>
+        </span>
     </button>
 </template>
 
@@ -55,6 +65,3 @@ export default {
     },
 }
 </script>
-
-
-

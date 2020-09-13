@@ -13,9 +13,9 @@
         "prosemirror-model": "1.11.0"
     },
     "devDependencies": {
-        "@fortawesome/fontawesome-free": "^5.9.0",
+        "@fortawesome/fontawesome-free": "^5.10.2",
         "@fortawesome/fontawesome-svg-core": "^1.2.19",
-        "@fortawesome/free-solid-svg-icons": "^5.9.0",
+        "@fortawesome/free-solid-svg-icons": "^5.10.2",
         "@fortawesome/vue-fontawesome": "^0.1.6",
         "cross-env": "^5.0.0",
         "laravel-mix": "^5.0",
@@ -29,6 +29,8 @@
         "npm": "^6.4.1",
         "pretty": "^2.0.0",
         "tiptap": "^1.27.1",
+        "tiptap-extension-subscript": "^0.1.0",
+        "tiptap-extension-superscript": "^0.1.0",
         "tiptap-extensions": "^1.29.1",
         "vue": "^2.6.10",
         "vue-template-compiler": "^2.6.10"

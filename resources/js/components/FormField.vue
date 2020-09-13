@@ -91,8 +91,8 @@
 
 <script>
 
-import { FormField, HandlesValidationErrors } from 'laravel-nova'
-import { Editor, EditorContent, EditorMenuBar, EditorMenuBubble } from 'tiptap'
+import { FormField, HandlesValidationErrors } from 'laravel-nova';
+import { Editor, EditorContent, EditorMenuBar, EditorMenuBubble } from 'tiptap';
 import HeadingButtons from './buttons/HeadingButtons';
 import TableButtons from './buttons/TableButtons';
 import NormalButton from './buttons/NormalButton';
@@ -120,9 +120,12 @@ import {
     Strike,
     Underline,
     History,
-} from 'tiptap-extensions'
+} from 'tiptap-extensions';
 
-import Iframe from '../extensions/iframe.js'
+import { Superscript } from 'tiptap-extension-superscript';
+import { Subscript } from 'tiptap-extension-subscript';
+
+import Iframe from '../extensions/iframe.js';
 
 export default {
     mixins: [FormField, HandlesValidationErrors],
@@ -190,6 +193,8 @@ export default {
                     new TableHeader(),
                     new TableCell(),
                     new TableRow(),
+                    new Superscript(),
+                    new Subscript(),
                     new Iframe(),
                 ],
                 editorProps: {
