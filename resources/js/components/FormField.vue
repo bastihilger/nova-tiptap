@@ -1,5 +1,10 @@
 <template>
-    <default-field :field="field" :errors="errors" :fullWidthContent="true">
+    <default-field
+        :field="field"
+        :errors="errors"
+        :full-width-content="true"
+        :show-help-text="showHelpText"
+    >
         <template slot="field">
             <editor-menu-bar :editor="editor">
                 <div class="menubar" slot-scope="{ commands, isActive, getMarkAttrs }">
