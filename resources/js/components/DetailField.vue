@@ -1,11 +1,13 @@
 <template>
     <panel-item :field="field">
         <template slot="value">
-            <excerpt
-                :content="parsedValue"
-                :plain-text="true"
-                :should-show="field.shouldShow"
-            />
+            <div class="tiptap-detail-field">
+                <excerpt
+                    :content="parsedValue"
+                    :plain-text="true"
+                    :should-show="field.shouldShow"
+                />
+            </div>
         </template>
     </panel-item>
 </template>
@@ -45,6 +47,10 @@ export default {
 
 .tiptap-detail-field p, .tiptap-detail-field ul, .tiptap-detail-field ol, .tiptap-detail-field blockquote, .tiptap-detail-field pre {
     margin-bottom: 0.7em;
+}
+
+.tiptap-detail-field li > p {
+    display: inline;
 }
 
 .tiptap-detail-iframe {
