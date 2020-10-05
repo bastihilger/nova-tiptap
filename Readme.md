@@ -9,13 +9,13 @@ A Laravel Nova implementation of the [tiptap editor for Vue.js](https://github.c
 
 Install via composer:
 
-```
+``` php
 composer require manogi/nova-tiptap
 ```
 
 ## Usage with default settings:
 
-```
+``` php
 Tiptap::make('FieldName')
 ```
 
@@ -23,14 +23,14 @@ This will give you just the bold and italic buttons.
 
 You will also have to add this `use` statement to the top of the file:
 
-```
+``` php
 use Manogi\Tiptap\Tiptap;
 ```
 
 
 ## Usage with your selection of buttons:
 
-```
+``` php
 Tiptap::make('FieldName')
   ->buttons([
       'heading',
