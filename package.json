@@ -9,9 +9,6 @@
         "prod": "npm run production",
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
-    "resolutions": {
-        "prosemirror-model": "1.11.0"
-    },
     "devDependencies": {
         "@fortawesome/fontawesome-free": "^5.10.2",
         "@fortawesome/fontawesome-svg-core": "^1.2.19",
@@ -25,13 +22,11 @@
         "sass-loader": "^8.0.2"
     },
     "dependencies": {
+        "@tiptap/core": "^2.0.0-alpha.10",
+        "@tiptap/starter-kit": "^2.0.0-alpha.7",
         "i": "^0.3.6",
         "npm": "^6.4.1",
         "pretty": "^2.0.0",
-        "tiptap": "^1.27.1",
-        "tiptap-extension-subscript": "^0.1.0",
-        "tiptap-extension-superscript": "^0.1.0",
-        "tiptap-extensions": "^1.29.1",
         "vue": "^2.6.10",
         "vue-template-compiler": "^2.6.10"
     }

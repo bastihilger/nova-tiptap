@@ -14,8 +14,8 @@
                 h-8
                 tiptap-button
             "
-            :class="{ 'btn-primary': isActive.heading({ level: level }) }"
-            @click="commands.heading({ level: level })"
+            :class="{ 'btn-primary': editor ? editor.isActive('heading', { level: level }) : false }"
+            @click="editor.chain().focus().toggleHeading({ level: level }).run()"
         >
           H{{  level  }}
         </button>
@@ -24,9 +24,6 @@
 
 <script>
 export default {
-    props: ['headingLevels', 'isActive', 'commands'],
+    props: ['headingLevels', 'isActive', 'editor'],
 }
 </script>
-
-
-

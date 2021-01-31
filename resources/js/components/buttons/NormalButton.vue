@@ -12,56 +12,90 @@
             tiptap-button
         "
         :class="[
-            (buttonKey == 'bold' && isActive.bold() ? 'btn-primary' : ''),
-            (buttonKey == 'italic' && isActive.italic() ? 'btn-primary' : ''),
-            (buttonKey == 'code' && isActive.code() ? 'btn-primary' : ''),
-            (buttonKey == 'bullet_list' && isActive.bullet_list() ? 'btn-primary' : ''),
-            (buttonKey == 'ordered_list' && isActive.ordered_list() ? 'btn-primary' : ''),
-            (buttonKey == 'code_block' && isActive.code_block() ? 'btn-primary' : ''),
-            (buttonKey == 'blockquote' && isActive.blockquote() ? 'btn-primary' : ''),
-            (buttonKey == 'superscript' && isActive.superscript() ? 'btn-primary' : ''),
-            (buttonKey == 'subscript' && isActive.subscript() ? 'btn-primary' : ''),
-            'is-' + buttonKey
-
+            (buttonIsActive() ? 'btn-primary' : ''),
+            'is-' + button
         ]"
-        @click="commands[buttonKey]"
+        @click="toggleButton()"
     >
-        <font-awesome-icon v-if="buttonKey == 'bullet_list'" :icon="['fas', 'list-ul']">
+        <font-awesome-icon v-if="button == 'bold'" :icon="['fas', 'bold']">
         </font-awesome-icon>
 
-        <font-awesome-icon v-if="buttonKey == 'ordered_list'" :icon="['fas', 'list-ol']">
+        <font-awesome-icon v-if="button == 'bullet_list'" :icon="['fas', 'list-ul']">
         </font-awesome-icon>
 
-        <font-awesome-icon v-if="buttonKey == 'blockquote'" :icon="['fas', 'quote-right']">
+        <font-awesome-icon v-if="button == 'ordered_list'" :icon="['fas', 'list-ol']">
         </font-awesome-icon>
 
-        <font-awesome-icon v-if="buttonKey == 'edit_html'" :icon="['fas', 'file-code']">
+        <font-awesome-icon v-if="button == 'blockquote'" :icon="['fas', 'quote-right']">
         </font-awesome-icon>
 
-        <span v-if="buttonKey == 'superscript'">
+        <font-awesome-icon v-if="button == 'edit_html'" :icon="['fas', 'file-code']">
+        </font-awesome-icon>
+
+        <span v-if="button == 'superscript'">
             x<small><sup>2</sup></small>
         </span>
 
-        <span v-if="buttonKey == 'subscript'">
+        <span v-if="button == 'subscript'">
             x<small><sub>2</sub></small>
         </span>
     </button>
 </template>
 
 <script>
-import { library } from '@fortawesome/fontawesome-svg-core'
+import { library } from '@fortawesome/fontawesome-svg-core';
 
-import {faCode, faListUl, faListOl, faQuoteRight, faFileCode} from '@fortawesome/free-solid-svg-icons'
+import {
+    faBold,
+    faCode,
+    faListUl,
+    faListOl,
+    faQuoteRight,
+    faFileCode
+} from '@fortawesome/free-solid-svg-icons';
+
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-library.add(faCode, faListUl, faListOl, faQuoteRight, faFileCode)
+library.add(
+    faBold,
+    faCode,
+    faListUl,
+    faListOl,
+    faQuoteRight,
+    faFileCode
+);
 
 
 export default {
-    props: ['buttonKey', 'isActive', 'commands'],
+    props: ['button', 'editor'],
 
     components: {
         FontAwesomeIcon,
+    },
+
+    computed: {
+        tiptapButtonName() {
+            return this.button;
+        }
+    },
+
+    methods: {
+        buttonIsActive() {
+            if (!this.editor) {
+                return false;
+            }
+            
+            return this.editor.isActive(this.tiptapButtonName);
+        },
+
+        toggleButton() {
+            var command = this.editor.chain().focus();
+            if (this.tiptapButtonName == 'bold') {
+                command.toggleBold();
+            }
+
+            command.run();
+        }
     },
 }
 </script>
