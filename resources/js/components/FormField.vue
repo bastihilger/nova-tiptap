@@ -67,7 +67,8 @@
                 </div>
             </editor-menu-bar>
 
-            <editor-content
+            <editor-content            
+                :id="field.attribute"
                 class="
                 tiptap-content
                 py-3 h-auto
