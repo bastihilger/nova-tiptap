@@ -38,8 +38,8 @@
                 
             </div>
             <div 
-                class="nova-tiptap-editor"
-                :id="'nova-tiptap-editor-'+field.attribute"
+                :class="'nova-tiptap-editor js-nova-tiptap-editor-'+field.attribute"
+                :id="field.attribute"
             ></div>
         </template>
     </default-field>
@@ -87,8 +87,10 @@ export default {
     mounted() {
         console.log(this.headingLevels);
         console.log(this.buttons);
+
+
         this.editor = new Editor({
-            element: document.getElementById('nova-tiptap-editor-'+this.field.attribute),
+            element: document.getElementsByClassName('js-nova-tiptap-editor-'+this.field.attribute)[0],
             extensions: [
                 Document,
                 Paragraph,
