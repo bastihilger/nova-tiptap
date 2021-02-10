@@ -354,13 +354,10 @@ export default {
     position: absolute;
     top: 36px;
     left: -130px;
-    display: flex;
-    background-color: white;
-    align-items: center;
 }
 
 .tiptap-button-form .form-input {
-    width: 180px;
+    width: 300px;
     margin-right: 20px;
     color: black;
 }

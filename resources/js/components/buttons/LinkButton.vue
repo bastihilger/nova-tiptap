@@ -5,35 +5,38 @@
                 tiptap-button-form
                 btn
                 btn-default
+                h-auto bg-white
                 p-2
                 z-10
             "
             v-show="linkMenuIsActive"
             @submit.prevent="setLinkUrl(commands.link, linkUrl)"
         >
-            <input
-                class="
-                    form-input
-                    form-input-bordered
-                    p-1
-                    text-xs
-                    leading-none
-                "
-                type="text"
-                v-model="linkUrl"
-                placeholder="https://"
-                ref="linkInput"
-                @keydown.esc="hideLinkMenu"
-            />
+            <div class="flex justify-between items-center">
+                <input
+                    class="
+                        form-input
+                        form-input-bordered
+                        p-1
+                        text-xs
+                        leading-none
+                    "
+                    type="text"
+                    v-model="linkUrl"
+                    placeholder="start external links with https:// or http://"
+                    ref="linkInput"
+                    @keydown.esc="hideLinkMenu"
+                />
 
-            <button
-                class="btn is-close"
-                @click="setLinkUrl(commands.link, null)"
-                type="button"
-            >
-                <font-awesome-icon :icon="['fas', 'times-circle']">
-                </font-awesome-icon>
-            </button>
+                <button
+                    class="btn is-close"
+                    @click="setLinkUrl(commands.link, null)"
+                    type="button"
+                >
+                    <font-awesome-icon :icon="['fas', 'times-circle']">
+                    </font-awesome-icon>
+                </button>
+            </div>
         </form>
 
         <button
@@ -105,6 +108,3 @@ export default {
     },
 }
 </script>
-
-
-
