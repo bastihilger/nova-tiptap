@@ -189,7 +189,9 @@ export default {
                     new Bold(),
                     new Code(),
                     new Italic(),
-                    new Link(),
+                    new Link({
+                        openOnClick: false,
+                    }),
                     new Strike(),
                     new Underline(),
                     new History(),

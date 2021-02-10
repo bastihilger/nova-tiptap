@@ -1,23 +1,23 @@
 /*!
-    * tiptap v1.31.0
+    * tiptap v1.32.0
     * (c) 2021 überdosis GbR (limited liability)
     * @license MIT
     */
 
 /*!
-    * tiptap-commands v1.16.0
+    * tiptap-commands v1.17.0
     * (c) 2021 überdosis GbR (limited liability)
     * @license MIT
     */
 
 /*!
-    * tiptap-extensions v1.34.0
+    * tiptap-extensions v1.35.0
     * (c) 2021 überdosis GbR (limited liability)
     * @license MIT
     */
 
 /*!
-    * tiptap-utils v1.12.0
+    * tiptap-utils v1.13.0
     * (c) 2021 überdosis GbR (limited liability)
     * @license MIT
     */
@@ -30,7 +30,7 @@
  */
 
 /*!
- * Font Awesome Free 5.15.1 by @fontawesome - https://fontawesome.com
+ * Font Awesome Free 5.15.2 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  */
 
