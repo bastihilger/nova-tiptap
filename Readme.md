@@ -79,7 +79,6 @@ The idea is that the editor can be themed together with the rest of Nova - here 
 ## Roadmap
 
 * Add the option to upload or choose images and add them to to the content.
-* Easy option to style the text inside the editor.
 
 ## Licence
 
