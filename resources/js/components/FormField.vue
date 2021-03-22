@@ -420,4 +420,10 @@ export default {
     padding: 0.3rem 0.5rem;
     margin-bottom: 0.5rem;
 }
+.tiptap-content hr {
+    display: block;
+    border-top: 1px solid var(--70);
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
 </style>

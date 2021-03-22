@@ -45,6 +45,10 @@
         <span v-if="buttonKey == 'subscript'">
             x<small><sub>2</sub></small>
         </span>
+
+        <span v-if="buttonKey == 'horizontal_rule'">
+            —
+        </span>
     </button>
 </template>
 

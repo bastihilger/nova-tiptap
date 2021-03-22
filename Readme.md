@@ -47,6 +47,7 @@ Tiptap::make('FieldName')
       'code_block',
       'blockquote',
       'table',
+      'horizontal_rule',
       'edit_html'
   ])
   ->headingLevels([2, 3, 4]),
