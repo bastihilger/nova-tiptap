@@ -111,7 +111,7 @@ export default {
             ],
             content: this.field.value,
              onUpdate({ editor }) {
-                this.field.value = editor.content;
+                this.value = editor.content;
             }
         });
     },

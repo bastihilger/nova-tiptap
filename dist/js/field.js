@@ -13834,7 +13834,7 @@ __webpack_require__.r(__webpack_exports__);
       content: this.field.value,
       onUpdate: function onUpdate(_ref) {
         var editor = _ref.editor;
-        this.field.value = editor.content;
+        this.value = editor.content;
       }
     });
   },
