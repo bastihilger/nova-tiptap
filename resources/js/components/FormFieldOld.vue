@@ -1,4 +1,5 @@
 <template>
+    
     <default-field 
         :field="field"
         :errors="errors"
@@ -28,7 +29,6 @@
                                 <link-button
                                     :editor="editor"
                                     :button="button"
-                                    :field="field"
                                 >
                                 </link-button>
                             </template>
@@ -54,7 +54,6 @@
                 <div 
                     :class="'js-nova-tiptap-editor-'+field.attribute"
                     :id="field.attribute"
-                    
                 ></div>
             </div>
         </template>
@@ -75,7 +74,6 @@ import Document from '@tiptap/extension-document';
 import Paragraph from '@tiptap/extension-paragraph';
 import HardBreak from '@tiptap/extension-hard-break';
 
-import LinkButton from './buttons/LinkButton';
 import NormalButton from './buttons/NormalButton';
 import HeadingButtons from './buttons/HeadingButtons';
 
@@ -87,7 +85,6 @@ export default {
     props: ['resourceName', 'resourceId', 'field'],
 
     components: {
-        LinkButton,
         NormalButton,
         HeadingButtons,
     },
@@ -178,12 +175,6 @@ export default {
     table:first-child, 
     li:first-child {
         margin-top: 0;
-    }
-
-    .ProseMirror {
-        a {
-            pointer-events: none;
-        }
     }
 }
 </style>

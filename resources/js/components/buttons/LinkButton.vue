@@ -1,40 +1,75 @@
 <template>
-    <span>
-        <form
+    <span class="z-10">
+        <div
             class="
-                tiptap-button-form
-                btn
-                btn-default
-                p-2
-                z-10
+                fixed top-0 left-0
+                w-full h-full
+                z-50 flex items-center justify-center
             "
             v-show="linkMenuIsActive"
-            @submit.prevent="setLinkUrl(commands.link, linkUrl)"
         >
-            <input
-                class="
-                    form-input
-                    form-input-bordered
-                    p-1
-                    text-xs
-                    leading-none
-                "
-                type="text"
-                v-model="linkUrl"
-                placeholder="https://"
-                ref="linkInput"
-                @keydown.esc="hideLinkMenu"
-            />
+            <div class="card z-20 bg-white px-8 py-8 w-full w-action max-w-full">
+                <div class="flex flex-col items-center">
+                    <label class="text-sm">URL</label>
+                    <input
+                        class="
+                            form-input
+                            form-input-bordered
+                            px-2 py-1 w-full
+                            text-sm text-90
+                            leading-none
+                        "
+                        type="text"
+                        v-model="url"
+                        placeholder="https://"
+                    />
+                    <div class="mt-1 text-xs text-80">
+                        External links should start with http:// or https://
+                    </div>
 
-            <button
-                class="btn is-close"
-                @click="setLinkUrl(commands.link, null)"
-                type="button"
+                    <div class="flex items-center mt-4">
+                        <input 
+                            :id="'openInNewWindow_'+field.attribute"
+                            type="checkbox"
+                            v-model="openInNewWindow"
+                        />
+                        <label
+                            class="text-sm ml-2"
+                            :for="'openInNewWindow_'+field.attribute"
+                        >
+                            Open in new window
+                        </label>
+                    </div>
+                    
+                    <div class="flex items-center mt-6">
+                        <button
+                            type="button"
+                            class="mx-1 btn btn-default h-8 text-sm px-3 leading-none"
+                            @click="hideLinkMenu"
+                        >
+                            Cancel
+                        </button>
+
+                        <button
+                            type="button"
+                            class="mx-1 btn btn-default btn-primary h-8 text-sm px-3 leading-none"
+                            @click="setLink($event)"
+                        >
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div 
+                class="
+                    z-10 absolute top-0 left-0 w-full h-full
+                    bg-info-dark opacity-75
+                "
+                @click="hideLinkMenu"
             >
-                <font-awesome-icon :icon="['fas', 'times-circle']">
-                </font-awesome-icon>
-            </button>
-        </form>
+            </div>
+        </div>
 
         <button
             type="button"
@@ -48,10 +83,8 @@
                 h-8
                 tiptap-button
             "
-            :class="[
-                (isActive.link() ? 'btn-primary' : '')
-            ]"
-            @click="showLinkMenu(getMarkAttrs('link'))"
+            
+            @click="showLinkMenu"
         >
             <font-awesome-icon :icon="['fas', 'link']">
             </font-awesome-icon>
@@ -69,10 +102,8 @@
                 h-8
                 tiptap-button
             "
-            :class="[
-                (isActive.link() ? 'btn-primary' : '')
-            ]"
-            @click="setLinkUrl(commands.link, null)"
+            :class="{}"
+            @click="unsetLink()"
         >
             <font-awesome-icon :icon="['fas', 'unlink']">
             </font-awesome-icon>
@@ -90,21 +121,50 @@ library.add(faLink, faUnlink, faTimesCircle)
 
 export default {
     props: [
-        'getMarkAttrs',
-        'linkMenuIsActive',
-        'isActive',
-        'commands',
-        'linkUrl',
-        'hideLinkMenu',
-        'showLinkMenu',
-        'setLinkUrl',
+        'button', 
+        'editor',
+        'field',
     ],
+
+    data: function () {
+        return {
+            linkMenuIsActive: false,
+            url: '',
+            openInNewWindow: false,
+        }
+    },
 
     components: {
         FontAwesomeIcon,
     },
+
+    methods: {
+        showLinkMenu() {
+            console.log(this.editor);
+           // this.linkMenuIsActive = true;
+        },
+
+        hideLinkMenu() {
+            this.linkMenuIsActive = false;
+        },
+
+        setLink(e) {
+            e.preventDefault();
+            let attributes = {
+                href: this.url
+            };
+
+            if (this.openInNewWindow) {
+                attributes.target = '_blank';
+            }
+
+            this.editor.chain().focus().setLink(attributes).run();
+            this.hideLinkMenu();
+        },
+
+        unsetLink() {
+            this.editor.chain().focus().unsetLink().run();
+        }
+    }
 }
 </script>
-
-
-

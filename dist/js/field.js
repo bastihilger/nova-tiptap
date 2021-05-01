@@ -13991,10 +13991,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _tiptap_extension_document__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @tiptap/extension-document */ "./node_modules/@tiptap/extension-document/dist/tiptap-extension-document.esm.js");
 /* harmony import */ var _tiptap_extension_paragraph__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @tiptap/extension-paragraph */ "./node_modules/@tiptap/extension-paragraph/dist/tiptap-extension-paragraph.esm.js");
 /* harmony import */ var _tiptap_extension_hard_break__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @tiptap/extension-hard-break */ "./node_modules/@tiptap/extension-hard-break/dist/tiptap-extension-hard-break.esm.js");
-/* harmony import */ var _buttons_NormalButton__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./buttons/NormalButton */ "./resources/js/components/buttons/NormalButton.vue");
-/* harmony import */ var _buttons_HeadingButtons__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./buttons/HeadingButtons */ "./resources/js/components/buttons/HeadingButtons.vue");
-/* harmony import */ var laravel_nova__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! laravel-nova */ "./node_modules/laravel-nova/dist/index.js");
-/* harmony import */ var laravel_nova__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(laravel_nova__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var _buttons_LinkButton__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./buttons/LinkButton */ "./resources/js/components/buttons/LinkButton.vue");
+/* harmony import */ var _buttons_NormalButton__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./buttons/NormalButton */ "./resources/js/components/buttons/NormalButton.vue");
+/* harmony import */ var _buttons_HeadingButtons__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./buttons/HeadingButtons */ "./resources/js/components/buttons/HeadingButtons.vue");
+/* harmony import */ var laravel_nova__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! laravel-nova */ "./node_modules/laravel-nova/dist/index.js");
+/* harmony import */ var laravel_nova__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(laravel_nova__WEBPACK_IMPORTED_MODULE_13__);
 //
 //
 //
@@ -14058,6 +14059,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+
 
 
 
@@ -14072,11 +14075,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  mixins: [laravel_nova__WEBPACK_IMPORTED_MODULE_12__.FormField, laravel_nova__WEBPACK_IMPORTED_MODULE_12__.HandlesValidationErrors],
+  mixins: [laravel_nova__WEBPACK_IMPORTED_MODULE_13__.FormField, laravel_nova__WEBPACK_IMPORTED_MODULE_13__.HandlesValidationErrors],
   props: ['resourceName', 'resourceId', 'field'],
   components: {
-    NormalButton: _buttons_NormalButton__WEBPACK_IMPORTED_MODULE_10__.default,
-    HeadingButtons: _buttons_HeadingButtons__WEBPACK_IMPORTED_MODULE_11__.default
+    LinkButton: _buttons_LinkButton__WEBPACK_IMPORTED_MODULE_10__.default,
+    NormalButton: _buttons_NormalButton__WEBPACK_IMPORTED_MODULE_11__.default,
+    HeadingButtons: _buttons_HeadingButtons__WEBPACK_IMPORTED_MODULE_12__.default
   },
   data: function data() {
     return {
@@ -14161,6 +14165,177 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['headingLevels', 'isActive', 'editor']
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/buttons/LinkButton.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/buttons/LinkButton.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @fortawesome/fontawesome-svg-core */ "./node_modules/@fortawesome/fontawesome-svg-core/index.es.js");
+/* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons */ "./node_modules/@fortawesome/free-solid-svg-icons/index.es.js");
+/* harmony import */ var _fortawesome_vue_fontawesome__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @fortawesome/vue-fontawesome */ "./node_modules/@fortawesome/vue-fontawesome/index.es.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+_fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_0__.library.add(_fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__.faLink, _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__.faUnlink, _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__.faTimesCircle);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ['button', 'editor', 'field'],
+  data: function data() {
+    return {
+      linkMenuIsActive: false,
+      url: '',
+      openInNewWindow: false
+    };
+  },
+  components: {
+    FontAwesomeIcon: _fortawesome_vue_fontawesome__WEBPACK_IMPORTED_MODULE_1__.FontAwesomeIcon
+  },
+  methods: {
+    showLinkMenu: function showLinkMenu() {
+      console.log(this.editor); // this.linkMenuIsActive = true;
+    },
+    hideLinkMenu: function hideLinkMenu() {
+      this.linkMenuIsActive = false;
+    },
+    setLink: function setLink(e) {
+      e.preventDefault();
+      var attributes = {
+        href: this.url
+      };
+
+      if (this.openInNewWindow) {
+        attributes.target = '_blank';
+      }
+
+      this.editor.chain().focus().setLink(attributes).run();
+      this.hideLinkMenu();
+    },
+    unsetLink: function unsetLink() {
+      this.editor.chain().focus().unsetLink().run();
+    }
+  }
 });
 
 /***/ }),
@@ -14377,7 +14552,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".nova-tiptap-editor {\n  padding-bottom: 20px;\n  padding-top: 20px;\n}\n.nova-tiptap-editor .ProseMirror-focused {\n  outline: none;\n}\n.nova-tiptap-editor p, .nova-tiptap-editor h1, .nova-tiptap-editor h2, .nova-tiptap-editor h3, .nova-tiptap-editor h4, .nova-tiptap-editor h5, .nova-tiptap-editor h6, .nova-tiptap-editor blockquote, .nova-tiptap-editor ul, .nova-tiptap-editor ol, .nova-tiptap-editor table, .nova-tiptap-editor li {\n  margin-top: 1em;\n}\n.nova-tiptap-editor p:first-child,\n.nova-tiptap-editor h1:first-child,\n.nova-tiptap-editor h2:first-child,\n.nova-tiptap-editor h3:first-child,\n.nova-tiptap-editor h4:first-child,\n.nova-tiptap-editor h5:first-child,\n.nova-tiptap-editor h6:first-child,\n.nova-tiptap-editor blockquote:first-child,\n.nova-tiptap-editor ul:first-child,\n.nova-tiptap-editor ol:first-child,\n.nova-tiptap-editor table:first-child,\n.nova-tiptap-editor li:first-child {\n  margin-top: 0;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".nova-tiptap-editor {\n  padding-bottom: 20px;\n  padding-top: 20px;\n}\n.nova-tiptap-editor .ProseMirror-focused {\n  outline: none;\n}\n.nova-tiptap-editor p, .nova-tiptap-editor h1, .nova-tiptap-editor h2, .nova-tiptap-editor h3, .nova-tiptap-editor h4, .nova-tiptap-editor h5, .nova-tiptap-editor h6, .nova-tiptap-editor blockquote, .nova-tiptap-editor ul, .nova-tiptap-editor ol, .nova-tiptap-editor table, .nova-tiptap-editor li {\n  margin-top: 1em;\n}\n.nova-tiptap-editor p:first-child,\n.nova-tiptap-editor h1:first-child,\n.nova-tiptap-editor h2:first-child,\n.nova-tiptap-editor h3:first-child,\n.nova-tiptap-editor h4:first-child,\n.nova-tiptap-editor h5:first-child,\n.nova-tiptap-editor h6:first-child,\n.nova-tiptap-editor blockquote:first-child,\n.nova-tiptap-editor ul:first-child,\n.nova-tiptap-editor ol:first-child,\n.nova-tiptap-editor table:first-child,\n.nova-tiptap-editor li:first-child {\n  margin-top: 0;\n}\n.nova-tiptap-editor .ProseMirror a {\n  pointer-events: none;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -63283,6 +63458,45 @@ component.options.__file = "resources/js/components/buttons/HeadingButtons.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/buttons/LinkButton.vue":
+/*!********************************************************!*\
+  !*** ./resources/js/components/buttons/LinkButton.vue ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _LinkButton_vue_vue_type_template_id_773653c5___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./LinkButton.vue?vue&type=template&id=773653c5& */ "./resources/js/components/buttons/LinkButton.vue?vue&type=template&id=773653c5&");
+/* harmony import */ var _LinkButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./LinkButton.vue?vue&type=script&lang=js& */ "./resources/js/components/buttons/LinkButton.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _LinkButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _LinkButton_vue_vue_type_template_id_773653c5___WEBPACK_IMPORTED_MODULE_0__.render,
+  _LinkButton_vue_vue_type_template_id_773653c5___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/buttons/LinkButton.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/buttons/NormalButton.vue":
 /*!**********************************************************!*\
   !*** ./resources/js/components/buttons/NormalButton.vue ***!
@@ -63370,6 +63584,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/buttons/LinkButton.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/buttons/LinkButton.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_LinkButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./LinkButton.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/buttons/LinkButton.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_LinkButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./resources/js/components/buttons/NormalButton.vue?vue&type=script&lang=js&":
 /*!***********************************************************************************!*\
   !*** ./resources/js/components/buttons/NormalButton.vue?vue&type=script&lang=js& ***!
@@ -63433,6 +63663,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_HeadingButtons_vue_vue_type_template_id_5b4425d0___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_HeadingButtons_vue_vue_type_template_id_5b4425d0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./HeadingButtons.vue?vue&type=template&id=5b4425d0& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/buttons/HeadingButtons.vue?vue&type=template&id=5b4425d0&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/buttons/LinkButton.vue?vue&type=template&id=773653c5&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/components/buttons/LinkButton.vue?vue&type=template&id=773653c5& ***!
+  \***************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LinkButton_vue_vue_type_template_id_773653c5___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LinkButton_vue_vue_type_template_id_773653c5___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LinkButton_vue_vue_type_template_id_773653c5___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./LinkButton.vue?vue&type=template&id=773653c5& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/buttons/LinkButton.vue?vue&type=template&id=773653c5&");
 
 
 /***/ }),
@@ -63549,7 +63796,11 @@ var render = function() {
                         : button == "link"
                         ? [
                             _c("link-button", {
-                              attrs: { editor: _vm.editor, button: button }
+                              attrs: {
+                                editor: _vm.editor,
+                                button: button,
+                                field: _vm.field
+                              }
                             })
                           ]
                         : [
@@ -63639,6 +63890,217 @@ var render = function() {
     }),
     0
   )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/buttons/LinkButton.vue?vue&type=template&id=773653c5&":
+/*!******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/buttons/LinkButton.vue?vue&type=template&id=773653c5& ***!
+  \******************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("span", { staticClass: "z-10" }, [
+    _c(
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.linkMenuIsActive,
+            expression: "linkMenuIsActive"
+          }
+        ],
+        staticClass:
+          "\n            fixed top-0 left-0\n            w-full h-full\n            z-50 flex items-center justify-center\n        "
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass:
+              "card z-20 bg-white px-8 py-8 w-full w-action max-w-full"
+          },
+          [
+            _c("div", { staticClass: "flex flex-col items-center" }, [
+              _c("label", { staticClass: "text-sm" }, [_vm._v("URL")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.url,
+                    expression: "url"
+                  }
+                ],
+                staticClass:
+                  "\n                        form-input\n                        form-input-bordered\n                        px-2 py-1 w-full\n                        text-sm text-90\n                        leading-none\n                    ",
+                attrs: { type: "text", placeholder: "https://" },
+                domProps: { value: _vm.url },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.url = $event.target.value
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "mt-1 text-xs text-80" }, [
+                _vm._v(
+                  "\n                    External links should start with http:// or https://\n                "
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "flex items-center mt-4" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.openInNewWindow,
+                      expression: "openInNewWindow"
+                    }
+                  ],
+                  attrs: {
+                    id: "openInNewWindow_" + _vm.field.attribute,
+                    type: "checkbox"
+                  },
+                  domProps: {
+                    checked: Array.isArray(_vm.openInNewWindow)
+                      ? _vm._i(_vm.openInNewWindow, null) > -1
+                      : _vm.openInNewWindow
+                  },
+                  on: {
+                    change: function($event) {
+                      var $$a = _vm.openInNewWindow,
+                        $$el = $event.target,
+                        $$c = $$el.checked ? true : false
+                      if (Array.isArray($$a)) {
+                        var $$v = null,
+                          $$i = _vm._i($$a, $$v)
+                        if ($$el.checked) {
+                          $$i < 0 && (_vm.openInNewWindow = $$a.concat([$$v]))
+                        } else {
+                          $$i > -1 &&
+                            (_vm.openInNewWindow = $$a
+                              .slice(0, $$i)
+                              .concat($$a.slice($$i + 1)))
+                        }
+                      } else {
+                        _vm.openInNewWindow = $$c
+                      }
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  {
+                    staticClass: "text-sm ml-2",
+                    attrs: { for: "openInNewWindow_" + _vm.field.attribute }
+                  },
+                  [
+                    _vm._v(
+                      "\n                        Open in new window\n                    "
+                    )
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "flex items-center mt-6" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass:
+                      "mx-1 btn btn-default h-8 text-sm px-3 leading-none",
+                    attrs: { type: "button" },
+                    on: { click: _vm.hideLinkMenu }
+                  },
+                  [
+                    _vm._v(
+                      "\n                        Cancel\n                    "
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass:
+                      "mx-1 btn btn-default btn-primary h-8 text-sm px-3 leading-none",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        return _vm.setLink($event)
+                      }
+                    }
+                  },
+                  [
+                    _vm._v(
+                      "\n                        Save\n                    "
+                    )
+                  ]
+                )
+              ])
+            ])
+          ]
+        ),
+        _vm._v(" "),
+        _c("div", {
+          staticClass:
+            "\n                z-10 absolute top-0 left-0 w-full h-full\n                bg-info-dark opacity-75\n            ",
+          on: { click: _vm.hideLinkMenu }
+        })
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
+        staticClass:
+          "\n            btn\n            btn-default\n            p-2\n            leading-none\n            text-xs\n            min-w-8\n            h-8\n            tiptap-button\n        ",
+        attrs: { type: "button" },
+        on: { click: _vm.showLinkMenu }
+      },
+      [_c("font-awesome-icon", { attrs: { icon: ["fas", "link"] } })],
+      1
+    ),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
+        staticClass:
+          "\n            btn\n            btn-default\n            p-2\n            leading-none\n            text-xs\n            min-w-8\n            h-8\n            tiptap-button\n        ",
+        class: {},
+        attrs: { type: "button" },
+        on: {
+          click: function($event) {
+            return _vm.unsetLink()
+          }
+        }
+      },
+      [_c("font-awesome-icon", { attrs: { icon: ["fas", "unlink"] } })],
+      1
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
