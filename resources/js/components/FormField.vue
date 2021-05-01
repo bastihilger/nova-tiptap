@@ -37,10 +37,17 @@
                 </template>
                 
             </div>
-            <div 
-                :class="'nova-tiptap-editor js-nova-tiptap-editor-'+field.attribute"
-                :id="field.attribute"
-            ></div>
+            <div class="
+                nova-tiptap-editor
+                mt-4
+                form-input-bordered w-full
+                pt-2 pb-2
+            ">
+                <div 
+                    :class="'js-nova-tiptap-editor-'+field.attribute"
+                    :id="field.attribute"
+                ></div>
+            </div>
         </template>
     </default-field>
     
@@ -49,6 +56,7 @@
 <script>
 
 import { Editor } from '@tiptap/core';
+import HardBreak from '@tiptap/extension-hard-break';
 import Text from '@tiptap/extension-text';
 import Bold from '@tiptap/extension-bold';
 import Heading from '@tiptap/extension-heading';
@@ -92,6 +100,7 @@ export default {
         this.editor = new Editor({
             element: document.getElementsByClassName('js-nova-tiptap-editor-'+this.field.attribute)[0],
             extensions: [
+                HardBreak,
                 Document,
                 Paragraph,
                 Text,
@@ -100,7 +109,10 @@ export default {
                     levels: this.headingLevels,
                 }),
             ],
-            content: '<p>Your content.</p>',
+            content: this.field.value,
+             onUpdate({ editor }) {
+                this.field.value = editor.content;
+            }
         });
     },
 
@@ -111,6 +123,32 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+.nova-tiptap-editor {
+    padding-bottom: 20px;
+    padding-top: 20px;
 
+    .ProseMirror-focused {
+        outline: none;
+    }
+
+    p, h1, h2, h3, h4, h5, h6, blockquote, ul, ol, table, li {
+        margin-top: 1em;
+    }
+
+    p:first-child, 
+    h1:first-child, 
+    h2:first-child, 
+    h3:first-child, 
+    h4:first-child, 
+    h5:first-child, 
+    h6:first-child, 
+    blockquote:first-child, 
+    ul:first-child, 
+    ol:first-child, 
+    table:first-child, 
+    li:first-child {
+        margin-top: 0;
+    }
+}
 </style>
