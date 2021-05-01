@@ -25,6 +25,14 @@
                                 </heading-buttons>
                             </template>
 
+                            <template v-else-if="button == 'link'">
+                                <link-button
+                                    :editor="editor"
+                                    :button="button"
+                                >
+                                </link-button>
+                            </template>
+
                             <template v-else>
                                 <normal-button
                                     :editor="editor"
@@ -56,14 +64,19 @@
 <script>
 
 import { Editor } from '@tiptap/core';
-import HardBreak from '@tiptap/extension-hard-break';
 import Text from '@tiptap/extension-text';
+import Code from '@tiptap/extension-code';
 import Bold from '@tiptap/extension-bold';
+import Link from '@tiptap/extension-link';
+import Italic from '@tiptap/extension-italic';
 import Heading from '@tiptap/extension-heading';
 import Document from '@tiptap/extension-document';
 import Paragraph from '@tiptap/extension-paragraph';
+import HardBreak from '@tiptap/extension-hard-break';
+
 import NormalButton from './buttons/NormalButton';
 import HeadingButtons from './buttons/HeadingButtons';
+
 import { FormField, HandlesValidationErrors } from 'laravel-nova';
 
 export default {
@@ -96,26 +109,39 @@ export default {
         console.log(this.headingLevels);
         console.log(this.buttons);
 
-
-        this.editor = new Editor({
-            element: document.getElementsByClassName('js-nova-tiptap-editor-'+this.field.attribute)[0],
-            extensions: [
-                HardBreak,
-                Document,
-                Paragraph,
-                Text,
-                Bold,
-                Heading.configure({
-                    levels: this.headingLevels,
-                }),
-            ],
-            content: this.field.value,
-             onUpdate({ editor }) {
-                this.value = editor.content;
-            }
-        });
+        this.initEditor();
     },
 
+    methods: {
+        initEditor() {
+            const context = this;
+            this.editor = new Editor({
+                element: document.getElementsByClassName('js-nova-tiptap-editor-'+this.field.attribute)[0],
+                extensions: [
+                    HardBreak,
+                    Document,
+                    Paragraph,
+                    Text,
+                    Italic,
+                    Bold,
+                    Code,
+                    Link,
+                    Heading.configure({
+                        levels: this.headingLevels,
+                    }),
+                ],
+                content: this.field.value,
+                onUpdate({ editor }) {
+                    context.updateValue(pretty(this.getHTML()));
+                }
+            });
+        },
+
+        updateValue(value) {
+            this.value = value;
+            console.log(value);
+        }
+    },
 
     beforeDestroy() {
         this.editor.destroy()

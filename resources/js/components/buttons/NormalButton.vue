@@ -1,5 +1,6 @@
 <template>
     <button
+        :title="button"
         type="button"
         class="
             btn
@@ -8,7 +9,7 @@
             leading-none
             text-xs
             min-w-8
-            h-8
+            h-8 mr-2
             tiptap-button
         "
         :class="[
@@ -18,6 +19,9 @@
         @click="toggleButton()"
     >
         <font-awesome-icon v-if="button == 'bold'" :icon="['fas', 'bold']">
+        </font-awesome-icon>
+
+        <font-awesome-icon v-if="button == 'italic'" :icon="['fas', 'italic']">
         </font-awesome-icon>
 
         <font-awesome-icon v-if="button == 'bullet_list'" :icon="['fas', 'list-ul']">
@@ -31,6 +35,10 @@
 
         <font-awesome-icon v-if="button == 'edit_html'" :icon="['fas', 'file-code']">
         </font-awesome-icon>
+
+        <span v-if="button == 'code'">
+            &lt;&gt;
+        </span>
 
         <span v-if="button == 'superscript'">
             x<small><sup>2</sup></small>
@@ -46,6 +54,7 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
 
 import {
+    faItalic,
     faBold,
     faCode,
     faListUl,
@@ -58,6 +67,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 library.add(
     faBold,
+    faItalic,
     faCode,
     faListUl,
     faListOl,
@@ -92,6 +102,12 @@ export default {
             var command = this.editor.chain().focus();
             if (this.tiptapButtonName == 'bold') {
                 command.toggleBold();
+            }
+            if (this.tiptapButtonName == 'italic') {
+                command.toggleItalic();
+            }
+            if (this.tiptapButtonName == 'code') {
+                command.toggleCode();
             }
 
             command.run();

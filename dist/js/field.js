@@ -13433,6 +13433,76 @@ const Bold = _tiptap_core__WEBPACK_IMPORTED_MODULE_0__.Mark.create({
 
 /***/ }),
 
+/***/ "./node_modules/@tiptap/extension-code/dist/tiptap-extension-code.esm.js":
+/*!*******************************************************************************!*\
+  !*** ./node_modules/@tiptap/extension-code/dist/tiptap-extension-code.esm.js ***!
+  \*******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "Code": () => (/* binding */ Code),
+/* harmony export */   "inputRegex": () => (/* binding */ inputRegex),
+/* harmony export */   "pasteRegex": () => (/* binding */ pasteRegex)
+/* harmony export */ });
+/* harmony import */ var _tiptap_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @tiptap/core */ "./node_modules/@tiptap/core/dist/tiptap-core.esm.js");
+
+
+const inputRegex = /(?:^|\s)((?:`)((?:[^`]+))(?:`))$/gm;
+const pasteRegex = /(?:^|\s)((?:`)((?:[^`]+))(?:`))/gm;
+const Code = _tiptap_core__WEBPACK_IMPORTED_MODULE_0__.Mark.create({
+    name: 'code',
+    defaultOptions: {
+        HTMLAttributes: {},
+    },
+    excludes: '_',
+    parseHTML() {
+        return [
+            { tag: 'code' },
+        ];
+    },
+    renderHTML({ HTMLAttributes }) {
+        return ['code', (0,_tiptap_core__WEBPACK_IMPORTED_MODULE_0__.mergeAttributes)(this.options.HTMLAttributes, HTMLAttributes), 0];
+    },
+    addCommands() {
+        return {
+            setCode: () => ({ commands }) => {
+                return commands.setMark('code');
+            },
+            toggleCode: () => ({ commands }) => {
+                return commands.toggleMark('code');
+            },
+            unsetCode: () => ({ commands }) => {
+                return commands.unsetMark('code');
+            },
+        };
+    },
+    addKeyboardShortcuts() {
+        return {
+            'Mod-e': () => this.editor.commands.toggleCode(),
+        };
+    },
+    addInputRules() {
+        return [
+            (0,_tiptap_core__WEBPACK_IMPORTED_MODULE_0__.markInputRule)(inputRegex, this.type),
+        ];
+    },
+    addPasteRules() {
+        return [
+            (0,_tiptap_core__WEBPACK_IMPORTED_MODULE_0__.markPasteRule)(inputRegex, this.type),
+        ];
+    },
+});
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Code);
+
+//# sourceMappingURL=tiptap-extension-code.esm.js.map
+
+
+/***/ }),
+
 /***/ "./node_modules/@tiptap/extension-document/dist/tiptap-extension-document.esm.js":
 /*!***************************************************************************************!*\
   !*** ./node_modules/@tiptap/extension-document/dist/tiptap-extension-document.esm.js ***!
@@ -13610,6 +13680,190 @@ const Heading = _tiptap_core__WEBPACK_IMPORTED_MODULE_0__.Node.create({
 
 /***/ }),
 
+/***/ "./node_modules/@tiptap/extension-italic/dist/tiptap-extension-italic.esm.js":
+/*!***********************************************************************************!*\
+  !*** ./node_modules/@tiptap/extension-italic/dist/tiptap-extension-italic.esm.js ***!
+  \***********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "Italic": () => (/* binding */ Italic),
+/* harmony export */   "starInputRegex": () => (/* binding */ starInputRegex),
+/* harmony export */   "starPasteRegex": () => (/* binding */ starPasteRegex),
+/* harmony export */   "underscoreInputRegex": () => (/* binding */ underscoreInputRegex),
+/* harmony export */   "underscorePasteRegex": () => (/* binding */ underscorePasteRegex)
+/* harmony export */ });
+/* harmony import */ var _tiptap_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @tiptap/core */ "./node_modules/@tiptap/core/dist/tiptap-core.esm.js");
+
+
+const starInputRegex = /(?:^|\s)((?:\*)((?:[^*]+))(?:\*))$/gm;
+const starPasteRegex = /(?:^|\s)((?:\*)((?:[^*]+))(?:\*))/gm;
+const underscoreInputRegex = /(?:^|\s)((?:_)((?:[^_]+))(?:_))$/gm;
+const underscorePasteRegex = /(?:^|\s)((?:_)((?:[^_]+))(?:_))/gm;
+const Italic = _tiptap_core__WEBPACK_IMPORTED_MODULE_0__.Mark.create({
+    name: 'italic',
+    defaultOptions: {
+        HTMLAttributes: {},
+    },
+    parseHTML() {
+        return [
+            {
+                tag: 'em',
+            },
+            {
+                tag: 'i',
+                getAttrs: node => node.style.fontStyle !== 'normal' && null,
+            },
+            {
+                style: 'font-style=italic',
+            },
+        ];
+    },
+    renderHTML({ HTMLAttributes }) {
+        return ['em', (0,_tiptap_core__WEBPACK_IMPORTED_MODULE_0__.mergeAttributes)(this.options.HTMLAttributes, HTMLAttributes), 0];
+    },
+    addCommands() {
+        return {
+            setItalic: () => ({ commands }) => {
+                return commands.setMark('italic');
+            },
+            toggleItalic: () => ({ commands }) => {
+                return commands.toggleMark('italic');
+            },
+            unsetItalic: () => ({ commands }) => {
+                return commands.unsetMark('italic');
+            },
+        };
+    },
+    addKeyboardShortcuts() {
+        return {
+            'Mod-i': () => this.editor.commands.toggleItalic(),
+        };
+    },
+    addInputRules() {
+        return [
+            (0,_tiptap_core__WEBPACK_IMPORTED_MODULE_0__.markInputRule)(starInputRegex, this.type),
+            (0,_tiptap_core__WEBPACK_IMPORTED_MODULE_0__.markInputRule)(underscoreInputRegex, this.type),
+        ];
+    },
+    addPasteRules() {
+        return [
+            (0,_tiptap_core__WEBPACK_IMPORTED_MODULE_0__.markPasteRule)(starPasteRegex, this.type),
+            (0,_tiptap_core__WEBPACK_IMPORTED_MODULE_0__.markPasteRule)(underscorePasteRegex, this.type),
+        ];
+    },
+});
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Italic);
+
+//# sourceMappingURL=tiptap-extension-italic.esm.js.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@tiptap/extension-link/dist/tiptap-extension-link.esm.js":
+/*!*******************************************************************************!*\
+  !*** ./node_modules/@tiptap/extension-link/dist/tiptap-extension-link.esm.js ***!
+  \*******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "Link": () => (/* binding */ Link),
+/* harmony export */   "pasteRegex": () => (/* binding */ pasteRegex),
+/* harmony export */   "pasteRegexWithBrackets": () => (/* binding */ pasteRegexWithBrackets)
+/* harmony export */ });
+/* harmony import */ var _tiptap_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @tiptap/core */ "./node_modules/@tiptap/core/dist/tiptap-core.esm.js");
+/* harmony import */ var prosemirror_state__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prosemirror-state */ "./node_modules/prosemirror-state/dist/index.es.js");
+
+
+
+const pasteRegex = /https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z]{2,}\b(?:[-a-zA-Z0-9@:%._+~#=?!&/]*)(?:[-a-zA-Z0-9@:%._+~#=?!&/]*)/gi;
+const pasteRegexWithBrackets = /(?:\()https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z]{2,}\b(?:[-a-zA-Z0-9@:%._+~#=?!&/()]*)(?:\))/gi;
+const Link = _tiptap_core__WEBPACK_IMPORTED_MODULE_0__.Mark.create({
+    name: 'link',
+    priority: 1000,
+    inclusive: false,
+    defaultOptions: {
+        openOnClick: true,
+        HTMLAttributes: {
+            target: '_blank',
+            rel: 'noopener noreferrer nofollow',
+        },
+    },
+    addAttributes() {
+        return {
+            href: {
+                default: null,
+            },
+            target: {
+                default: this.options.HTMLAttributes.target,
+            },
+        };
+    },
+    parseHTML() {
+        return [
+            { tag: 'a[href]' },
+        ];
+    },
+    renderHTML({ HTMLAttributes }) {
+        return ['a', (0,_tiptap_core__WEBPACK_IMPORTED_MODULE_0__.mergeAttributes)(this.options.HTMLAttributes, HTMLAttributes), 0];
+    },
+    addCommands() {
+        return {
+            setLink: attributes => ({ commands }) => {
+                return commands.setMark('link', attributes);
+            },
+            toggleLink: attributes => ({ commands }) => {
+                return commands.toggleMark('link', attributes);
+            },
+            unsetLink: () => ({ commands }) => {
+                return commands.unsetMark('link');
+            },
+        };
+    },
+    addPasteRules() {
+        return [
+            (0,_tiptap_core__WEBPACK_IMPORTED_MODULE_0__.markPasteRule)(pasteRegex, this.type, (url) => ({ href: url })),
+            (0,_tiptap_core__WEBPACK_IMPORTED_MODULE_0__.markPasteRule)(pasteRegexWithBrackets, this.type, (url) => ({ href: url })),
+        ];
+    },
+    addProseMirrorPlugins() {
+        if (!this.options.openOnClick) {
+            return [];
+        }
+        return [
+            new prosemirror_state__WEBPACK_IMPORTED_MODULE_1__.Plugin({
+                key: new prosemirror_state__WEBPACK_IMPORTED_MODULE_1__.PluginKey('handleClick'),
+                props: {
+                    handleClick: (view, pos, event) => {
+                        var _a;
+                        const attrs = this.editor.getMarkAttributes('link');
+                        const link = (_a = event.target) === null || _a === void 0 ? void 0 : _a.closest('a');
+                        if (link && attrs.href) {
+                            window.open(attrs.href, attrs.target);
+                            return true;
+                        }
+                        return false;
+                    },
+                },
+            }),
+        ];
+    },
+});
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Link);
+
+//# sourceMappingURL=tiptap-extension-link.esm.js.map
+
+
+/***/ }),
+
 /***/ "./node_modules/@tiptap/extension-paragraph/dist/tiptap-extension-paragraph.esm.js":
 /*!*****************************************************************************************!*\
   !*** ./node_modules/@tiptap/extension-paragraph/dist/tiptap-extension-paragraph.esm.js ***!
@@ -13728,16 +13982,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _tiptap_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @tiptap/core */ "./node_modules/@tiptap/core/dist/tiptap-core.esm.js");
-/* harmony import */ var _tiptap_extension_hard_break__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @tiptap/extension-hard-break */ "./node_modules/@tiptap/extension-hard-break/dist/tiptap-extension-hard-break.esm.js");
-/* harmony import */ var _tiptap_extension_text__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @tiptap/extension-text */ "./node_modules/@tiptap/extension-text/dist/tiptap-extension-text.esm.js");
+/* harmony import */ var _tiptap_extension_text__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @tiptap/extension-text */ "./node_modules/@tiptap/extension-text/dist/tiptap-extension-text.esm.js");
+/* harmony import */ var _tiptap_extension_code__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @tiptap/extension-code */ "./node_modules/@tiptap/extension-code/dist/tiptap-extension-code.esm.js");
 /* harmony import */ var _tiptap_extension_bold__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @tiptap/extension-bold */ "./node_modules/@tiptap/extension-bold/dist/tiptap-extension-bold.esm.js");
-/* harmony import */ var _tiptap_extension_heading__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @tiptap/extension-heading */ "./node_modules/@tiptap/extension-heading/dist/tiptap-extension-heading.esm.js");
-/* harmony import */ var _tiptap_extension_document__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @tiptap/extension-document */ "./node_modules/@tiptap/extension-document/dist/tiptap-extension-document.esm.js");
-/* harmony import */ var _tiptap_extension_paragraph__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @tiptap/extension-paragraph */ "./node_modules/@tiptap/extension-paragraph/dist/tiptap-extension-paragraph.esm.js");
-/* harmony import */ var _buttons_NormalButton__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./buttons/NormalButton */ "./resources/js/components/buttons/NormalButton.vue");
-/* harmony import */ var _buttons_HeadingButtons__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./buttons/HeadingButtons */ "./resources/js/components/buttons/HeadingButtons.vue");
-/* harmony import */ var laravel_nova__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! laravel-nova */ "./node_modules/laravel-nova/dist/index.js");
-/* harmony import */ var laravel_nova__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(laravel_nova__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var _tiptap_extension_link__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @tiptap/extension-link */ "./node_modules/@tiptap/extension-link/dist/tiptap-extension-link.esm.js");
+/* harmony import */ var _tiptap_extension_italic__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @tiptap/extension-italic */ "./node_modules/@tiptap/extension-italic/dist/tiptap-extension-italic.esm.js");
+/* harmony import */ var _tiptap_extension_heading__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @tiptap/extension-heading */ "./node_modules/@tiptap/extension-heading/dist/tiptap-extension-heading.esm.js");
+/* harmony import */ var _tiptap_extension_document__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @tiptap/extension-document */ "./node_modules/@tiptap/extension-document/dist/tiptap-extension-document.esm.js");
+/* harmony import */ var _tiptap_extension_paragraph__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @tiptap/extension-paragraph */ "./node_modules/@tiptap/extension-paragraph/dist/tiptap-extension-paragraph.esm.js");
+/* harmony import */ var _tiptap_extension_hard_break__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @tiptap/extension-hard-break */ "./node_modules/@tiptap/extension-hard-break/dist/tiptap-extension-hard-break.esm.js");
+/* harmony import */ var _buttons_NormalButton__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./buttons/NormalButton */ "./resources/js/components/buttons/NormalButton.vue");
+/* harmony import */ var _buttons_HeadingButtons__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./buttons/HeadingButtons */ "./resources/js/components/buttons/HeadingButtons.vue");
+/* harmony import */ var laravel_nova__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! laravel-nova */ "./node_modules/laravel-nova/dist/index.js");
+/* harmony import */ var laravel_nova__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(laravel_nova__WEBPACK_IMPORTED_MODULE_12__);
 //
 //
 //
@@ -13793,6 +14050,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
 
 
 
@@ -13804,11 +14072,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  mixins: [laravel_nova__WEBPACK_IMPORTED_MODULE_9__.FormField, laravel_nova__WEBPACK_IMPORTED_MODULE_9__.HandlesValidationErrors],
+  mixins: [laravel_nova__WEBPACK_IMPORTED_MODULE_12__.FormField, laravel_nova__WEBPACK_IMPORTED_MODULE_12__.HandlesValidationErrors],
   props: ['resourceName', 'resourceId', 'field'],
   components: {
-    NormalButton: _buttons_NormalButton__WEBPACK_IMPORTED_MODULE_7__.default,
-    HeadingButtons: _buttons_HeadingButtons__WEBPACK_IMPORTED_MODULE_8__.default
+    NormalButton: _buttons_NormalButton__WEBPACK_IMPORTED_MODULE_10__.default,
+    HeadingButtons: _buttons_HeadingButtons__WEBPACK_IMPORTED_MODULE_11__.default
   },
   data: function data() {
     return {
@@ -13826,17 +14094,27 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     console.log(this.headingLevels);
     console.log(this.buttons);
-    this.editor = new _tiptap_core__WEBPACK_IMPORTED_MODULE_0__.Editor({
-      element: document.getElementsByClassName('js-nova-tiptap-editor-' + this.field.attribute)[0],
-      extensions: [_tiptap_extension_hard_break__WEBPACK_IMPORTED_MODULE_1__.default, _tiptap_extension_document__WEBPACK_IMPORTED_MODULE_5__.default, _tiptap_extension_paragraph__WEBPACK_IMPORTED_MODULE_6__.default, _tiptap_extension_text__WEBPACK_IMPORTED_MODULE_2__.default, _tiptap_extension_bold__WEBPACK_IMPORTED_MODULE_3__.default, _tiptap_extension_heading__WEBPACK_IMPORTED_MODULE_4__.default.configure({
-        levels: this.headingLevels
-      })],
-      content: this.field.value,
-      onUpdate: function onUpdate(_ref) {
-        var editor = _ref.editor;
-        this.value = editor.content;
-      }
-    });
+    this.initEditor();
+  },
+  methods: {
+    initEditor: function initEditor() {
+      var context = this;
+      this.editor = new _tiptap_core__WEBPACK_IMPORTED_MODULE_0__.Editor({
+        element: document.getElementsByClassName('js-nova-tiptap-editor-' + this.field.attribute)[0],
+        extensions: [_tiptap_extension_hard_break__WEBPACK_IMPORTED_MODULE_9__.default, _tiptap_extension_document__WEBPACK_IMPORTED_MODULE_7__.default, _tiptap_extension_paragraph__WEBPACK_IMPORTED_MODULE_8__.default, _tiptap_extension_text__WEBPACK_IMPORTED_MODULE_1__.default, _tiptap_extension_italic__WEBPACK_IMPORTED_MODULE_5__.default, _tiptap_extension_bold__WEBPACK_IMPORTED_MODULE_3__.default, _tiptap_extension_code__WEBPACK_IMPORTED_MODULE_2__.default, _tiptap_extension_link__WEBPACK_IMPORTED_MODULE_4__.default, _tiptap_extension_heading__WEBPACK_IMPORTED_MODULE_6__.default.configure({
+          levels: this.headingLevels
+        })],
+        content: this.field.value,
+        onUpdate: function onUpdate(_ref) {
+          var editor = _ref.editor;
+          context.updateValue(pretty(this.getHTML()));
+        }
+      });
+    },
+    updateValue: function updateValue(value) {
+      this.value = value;
+      console.log(value);
+    }
   },
   beforeDestroy: function beforeDestroy() {
     this.editor.destroy();
@@ -13856,6 +14134,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
 //
 //
 //
@@ -13944,10 +14223,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
-_fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_0__.library.add(_fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__.faBold, _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__.faCode, _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__.faListUl, _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__.faListOl, _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__.faQuoteRight, _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__.faFileCode);
+_fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_0__.library.add(_fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__.faBold, _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__.faItalic, _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__.faCode, _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__.faListUl, _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__.faListOl, _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__.faQuoteRight, _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__.faFileCode);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['button', 'editor'],
   components: {
@@ -13971,6 +14258,14 @@ _fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_0__.library.add(_fort
 
       if (this.tiptapButtonName == 'bold') {
         command.toggleBold();
+      }
+
+      if (this.tiptapButtonName == 'italic') {
+        command.toggleItalic();
+      }
+
+      if (this.tiptapButtonName == 'code') {
+        command.toggleCode();
       }
 
       command.run();
@@ -63251,6 +63546,12 @@ var render = function() {
                               }
                             })
                           ]
+                        : button == "link"
+                        ? [
+                            _c("link-button", {
+                              attrs: { editor: _vm.editor, button: button }
+                            })
+                          ]
                         : [
                             _c("normal-button", {
                               attrs: { editor: _vm.editor, button: button }
@@ -63316,7 +63617,7 @@ var render = function() {
         {
           key: "heading-button" + level,
           staticClass:
-            "\n            btn\n            btn-default\n            p-2\n            leading-none\n            text-xs\n            min-w-8\n            h-8\n            tiptap-button\n        ",
+            "\n            btn\n            btn-default\n            p-2\n            leading-none\n            text-xs\n            min-w-8\n            mr-2\n            h-8\n            tiptap-button\n        ",
           class: {
             "btn-primary": _vm.editor
               ? _vm.editor.isActive("heading", { level: level })
@@ -63366,9 +63667,9 @@ var render = function() {
     "button",
     {
       staticClass:
-        "\n        btn\n        btn-default\n        p-2\n        leading-none\n        text-xs\n        min-w-8\n        h-8\n        tiptap-button\n    ",
+        "\n        btn\n        btn-default\n        p-2\n        leading-none\n        text-xs\n        min-w-8\n        h-8 mr-2\n        tiptap-button\n    ",
       class: [_vm.buttonIsActive() ? "btn-primary" : "", "is-" + _vm.button],
-      attrs: { type: "button" },
+      attrs: { title: _vm.button, type: "button" },
       on: {
         click: function($event) {
           return _vm.toggleButton()
@@ -63378,6 +63679,10 @@ var render = function() {
     [
       _vm.button == "bold"
         ? _c("font-awesome-icon", { attrs: { icon: ["fas", "bold"] } })
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.button == "italic"
+        ? _c("font-awesome-icon", { attrs: { icon: ["fas", "italic"] } })
         : _vm._e(),
       _vm._v(" "),
       _vm.button == "bullet_list"
@@ -63394,6 +63699,10 @@ var render = function() {
       _vm._v(" "),
       _vm.button == "edit_html"
         ? _c("font-awesome-icon", { attrs: { icon: ["fas", "file-code"] } })
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.button == "code"
+        ? _c("span", [_vm._v("\n        <>\n    ")])
         : _vm._e(),
       _vm._v(" "),
       _vm.button == "superscript"

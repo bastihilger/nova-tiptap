@@ -11,6 +11,7 @@
                 leading-none
                 text-xs
                 min-w-8
+                mr-2
                 h-8
                 tiptap-button
             "
