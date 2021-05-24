@@ -1,32 +1,13 @@
 /*!
-    * tiptap v1.29.5
-    * (c) 2020 überdosis GbR (limited liability)
-    * @license MIT
-    */
-
-/*!
-    * tiptap-commands v1.14.5
-    * (c) 2020 überdosis GbR (limited liability)
-    * @license MIT
-    */
-
-/*!
-    * tiptap-extensions v1.32.6
-    * (c) 2020 überdosis GbR (limited liability)
-    * @license MIT
-    */
-
-/*!
-    * tiptap-utils v1.10.0
-    * (c) 2020 Scrumpy UG (limited liability)
-    * @license MIT
-    */
-
-/*!
  * Determine if an object is a Buffer
  *
  * @author   Feross Aboukhadijeh <https://feross.org>
  * @license  MIT
+ */
+
+/*!
+ * Font Awesome Free 5.15.2 by @fontawesome - https://fontawesome.com
+ * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  */
 
 /*!

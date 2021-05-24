@@ -40,6 +40,7 @@ Tiptap::make('FieldName')
       'link',
       'strike',
       'underline',
+      'highlight',
       'superscript',
       'subscript',
       'bullet_list',
@@ -57,6 +58,21 @@ When just passing the string `'heading'` you will have H1, H2 and H3 to choose f
 ### The two different "code" buttons
 
 `'code'` is inline code (like `<code></code>`) while `'code_block'` will give you `<pre><code></code></pre>`.
+
+## Syntax Highlighting when using `code_block`
+
+``` php
+Tiptap::make('FieldName')
+  ->buttons([
+      'italic',
+      'bold',
+      'code',
+      'code_block'
+  ])
+  ->syntaxHighlighting(),
+```
+
+When using `'code_block'` you can turn on syntax highlighting by using `syntaxHighlighting()`.
 
 ### Edit HTML
 

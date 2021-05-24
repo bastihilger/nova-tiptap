@@ -57,6 +57,84 @@ class Tiptap extends Field
         ]);
     }
 
+    /**
+     * Turn on syntax highlighting when using code_block
+     *
+     * @param  mixed  $syntaxHighlighting
+     * @return $this
+     */
+    public function syntaxHighlighting()
+    {
+        return $this->withMeta([
+            'syntaxHighlighting' => true
+        ]);
+    }
+
+    /**
+     * Set the heading levels that should be available when using headings
+     *
+     * @param  mixed  $htmlTheme
+     * @return $this
+     */
+    public function htmlTheme($htmlTheme)
+    {
+        return $this->withMeta([
+            'htmlTheme' => $htmlTheme
+        ]);
+    }
+
+    /**
+     * Set the alignments that should be available when using textAlign
+     *
+     * @param  mixed  $alignments
+     * @return $this
+     */
+    public function alignments($alignments)
+    {
+        return $this->withMeta([
+            'alignments' => $alignments
+        ]);
+    }
+
+    /**
+     * Set the DOM elements that can be aligned when using textAlign
+     *
+     * @param  mixed  $alignElements
+     * @return $this
+     */
+    public function alignElements($alignElements)
+    {
+        return $this->withMeta([
+            'alignElements' => $alignElements
+        ]);
+    }
+
+    /**
+     * Set the default alignment when using textAlign
+     *
+     * @param  mixed  $defaultAlignment
+     * @return $this
+     */
+    public function defaultAlignment($defaultAlignment)
+    {
+        return $this->withMeta([
+            'defaultAlignment' => $defaultAlignment
+        ]);
+    }
+
+    /**
+     * Set the placeholder
+     *
+     * @param  mixed  $placeholder
+     * @return $this
+     */
+    public function placeholder($placeholder)
+    {
+        return $this->withMeta([
+            'placeholder' => $placeholder
+        ]);
+    }
+
     public function jsonSerialize()
     {
         return array_merge(parent::jsonSerialize(), [
