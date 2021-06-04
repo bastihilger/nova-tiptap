@@ -52,6 +52,18 @@
                                 </link-button>
                             </template>
 
+                            <template v-else-if="button == 'image'">
+                                <image-button
+                                    :editor="editor"
+                                    :button="button"
+                                    :field="field"
+                                    :mode="mode"
+                                    :imageDisk="imageDisk"
+                                    :imagePath="imagePath"
+                                >
+                                </image-button>
+                            </template>
+
                             <template v-else-if="button == 'textAlign'">
                                 <text-align-buttons
                                     :editor="editor"
@@ -175,12 +187,16 @@ import Paragraph from '@tiptap/extension-paragraph';
 import HardBreak from '@tiptap/extension-hard-break';
 import Placeholder from '@tiptap/extension-placeholder';
 
+import Image from '@tiptap/extension-image';
+import Dropcursor from '@tiptap/extension-dropcursor';
+
 import LinkButton from './buttons/LinkButton';
 import NormalButton from './buttons/NormalButton';
 import HeadingButtons from './buttons/HeadingButtons';
 import TableButtons from './buttons/TableButtons';
 import TextAlignButtons from './buttons/TextAlignButtons';
 import HistoryButtons from './buttons/HistoryButtons';
+import ImageButton from './buttons/ImageButton';
 
 import CodeBlockComponent from './CodeBlockComponent';
 import EditHtml from './EditHtml';
@@ -214,7 +230,9 @@ export default {
         TableButtons,
         TextAlignButtons,
         HistoryButtons,
+        ImageButton,
         EditHtml,
+        
     },
 
     data() {
@@ -223,6 +241,8 @@ export default {
             mode: 'editor',
             htmlModeValue: '',
             placeholder: '',
+            imageDisk: '',
+            imagePath: '',
         }
     },
 
@@ -291,6 +311,15 @@ export default {
         this.placeholder = this.field.placeholder ? this.field.placeholder 
                             : (this.field.extraAttributes ? this.field.extraAttributes.placeholder : '');
 
+        if (this.field.imageSettings && this.field.imageSettings.path) {
+            this.imagePath = this.field.imageSettings.path;
+        }
+        if (this.field.imageSettings && this.field.imageSettings.disk) {
+            this.imageDisk = this.field.imageSettings.disk;
+        }
+
+
+
         let extensions = [
             Document,
             Bold,
@@ -329,6 +358,26 @@ export default {
             Placeholder.configure({
                 placeholder: this.placeholder,
             }),
+            Image.extend({
+                addAttributes() {
+                    return {
+                        ...this.parent?.(),
+                        'tt-mode': {
+                            default: 'file',
+                        },
+                        class: {
+                            default: '',
+                        },
+                        title: {
+                            default: '',
+                        },
+                        alt: {
+                            default: '',
+                        },
+                    }
+                }
+            }),
+            Dropcursor,
         ];
 
         if (this.buttons.includes('codeBlock') && this.field.syntaxHighlighting) {
@@ -371,6 +420,10 @@ export default {
 
     .ProseMirror-focused {
         outline: none;
+    }
+
+    img.ProseMirror-selectednode {
+        outline: 3px solid var(--primary-30);
     }
 
     .ProseMirror {

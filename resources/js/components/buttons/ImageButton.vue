@@ -1,0 +1,395 @@
+<template>
+    <span class="z-10">
+        <div
+            class="
+                fixed top-0 left-0
+                w-full h-full
+                z-50 flex items-center justify-center
+            "
+            v-show="imageMenuIsActive"
+        >
+            <div class="rounded-lg shadow-lg overflow-hidden z-20 w-action-fields max-w-full">
+                <div class="px-8 py-8 bg-white">
+
+                
+                    <div 
+                        v-if="!imageIsActive"
+                    >
+                        <span 
+                            class="cursor-pointer font-bold text-sm border-b-2 "
+                            :class="{
+                                'text-primary border-primary': imageMode == 'file',
+                                'text-80 border-transparent': imageMode != 'file'
+                            }"
+                            @click="imageMode = 'file'"
+                        >
+                            File Upload
+                        </span>
+
+                        <span 
+                            class="ml-2 cursor-pointer font-bold text-sm border-b-2 "
+                            :class="{
+                                'text-primary border-primary': imageMode == 'url',
+                                'text-80 border-transparent': imageMode != 'url'
+                            }"
+                            @click="imageMode = 'url'"
+                        >
+                            External URL
+                        </span>
+                    </div>
+
+                    <div 
+                        v-if="!imageIsActive"
+                        class="pt-8"
+                    >
+                        <div v-show="imageMode == 'file'">
+                            <div 
+                                class="flex items-center transition-opacity duration-150"
+                                :class="{
+                                    'pointer-events-none opacity-50': uploading
+                                }" 
+                            >   
+                                <label class="relative btn btn-default btn-primary">
+                                    <input 
+                                        ref="fileInput"
+                                        type="file" 
+                                        :name="uploadFieldName" 
+                                        :disabled="fileDisabled" 
+                                        @change="changeFile($event.target.files)"
+                                        accept="image/*" 
+                                        class="opacity-0 w-full h-full absolute top-0 left-0"
+                                    />
+                                    <span>Select File</span>
+                                </label>
+
+                                <div class="ml-8 h-16 flex items-center">
+                                    <span 
+                                        v-if="!preview"
+                                    >
+                                        No file selected
+                                    </span>
+                                    <img v-if="preview" :src="preview" class="h-16 w-auto" />
+                                </div>
+
+                                <div 
+                                    v-if="file"
+                                    @click="removeFile()"
+                                    class="
+                                        cursor-pointer ml-8 text-xl text-primary
+                                    "
+                                >
+                                    <font-awesome-icon :icon="['fas', 'trash-alt']">
+                                    </font-awesome-icon>
+                                </div>
+                            </div>
+
+                            <div 
+                                class="w-full h-2 mt-4"
+                                :class="{
+                                    'bg-20': uploading
+                                }"
+                            >
+                                <div 
+                                    class="
+                                        bg-primary h-full
+                                    "
+                                    :style="{
+                                        'width': uploadProgress+'%'
+                                    }"
+                                >
+
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div 
+                            class=""
+                            v-show="imageMode == 'url'"
+                        >
+                            <div class="flex flex-col">
+                                <label class="text-sm mb-1 ml-1">URL</label>
+                                <input
+                                    class="
+                                        form-input
+                                        form-input-bordered
+                                        px-2 py-1 w-full
+                                        text-sm text-90
+                                        leading-none
+                                    "
+                                    type="text"
+                                    v-model="url"
+                                    placeholder="https://"
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-8">
+                        <div class="flex flex-col">
+                            <label class="text-sm mb-1 ml-1">Extra CSS classes</label>
+                            <input
+                                class="
+                                    form-input
+                                    form-input-bordered
+                                    px-2 py-1 w-full
+                                    text-sm text-90
+                                    leading-none
+                                "
+                                type="text"
+                                v-model="extraClasses"
+                            />
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-3 mt-4">
+                            <div class="flex flex-col">
+                                <label class="text-sm mb-1 ml-1">Title</label>
+                                <input
+                                    class="
+                                        form-input
+                                        form-input-bordered
+                                        px-2 py-1 w-full
+                                        text-sm text-90
+                                        leading-none
+                                    "
+                                    type="text"
+                                    v-model="title"
+                                />
+                            </div>
+
+                            <div class="flex flex-col">
+                                <label class="text-sm mb-1 ml-1">Alt Text</label>
+                                <input
+                                    class="
+                                        form-input
+                                        form-input-bordered
+                                        px-2 py-1 w-full
+                                        text-sm text-90
+                                        leading-none
+                                    "
+                                    type="text"
+                                    v-model="alt"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-30 px-6 py-3 ">   
+                    <div class="flex items-center justify-end">
+                        <button
+                            type="button"
+                            class="btn h-9 px-3 font-normal text-80"
+                            @click="hideImageMenu"
+                        >
+                            Cancel
+                        </button>
+
+                        <button
+                            type="button"
+                            class="ml-3 btn btn-default btn-primary"
+                            :disabled="!imageIsActive && ((imageMode == 'url' && !url) || (imageMode == 'file' && !file))"
+                            @click="imageIsActive ? updateImage($event) : (imageMode == 'url' ? addImageFromUrl($event) : uploadAndAddImage($event))"
+                            v-text="imageIsActive ? 'Update Image' : (imageMode == 'url' ? 'Add Image' : 'Upload and Add Image')"
+                        >
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div 
+                class="
+                    z-10 absolute top-0 left-0 w-full h-full
+                    bg-80 opacity-75
+                "
+                @click="hideImageMenu"
+            >
+            </div>
+        </div>
+
+        <span class="whitespace-nowrap">
+            <button
+                type="button"
+                class="
+                    btn btn-default
+                    p-2 ml-1 my-1 mr-0
+                    leading-none text-xs
+                    min-w-8 h-8 
+                    tiptap-button
+                "
+                :class="{ 
+                    'btn-primary': imageIsActive,
+                    'bg-white hover:bg-20': !imageIsActive,
+                    'opacity-50 pointer-events-none': mode != 'editor',
+                }"
+                
+                @click="showImageMenu"
+            >
+                <font-awesome-icon :icon="['fas', 'image']">
+                </font-awesome-icon>
+            </button>
+            
+        </span>
+    </span>
+</template>
+
+<script>
+import { library } from '@fortawesome/fontawesome-svg-core'
+
+import { faImage, faTimesCircle, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+library.add(faImage, faTimesCircle, faTrashAlt)
+
+export default {
+    props: [
+        'button', 
+        'editor',
+        'field',
+        'mode',
+        'imageDisk',
+        'imagePath',
+    ],
+
+    data: function () {
+        return {
+            imageMenuIsActive: false,
+            file: null,
+            preview: null,
+            fileDisabled: false,
+            url: '',
+            uploadProgress: 0,
+            uploading: false,
+            extraClasses: '',
+            imageMode: 'file',
+            title: '',
+            alt: '',
+        }
+    },
+
+    components: {
+        FontAwesomeIcon,
+    },
+
+    computed: {
+        imageIsActive() {
+           return this.editor ? this.editor.isActive('image') : false;
+        }
+    },
+
+    methods: {
+        showImageMenu() {
+            if (this.imageIsActive) {
+                let attributes = this.editor.getNodeAttributes('image');
+                this.url = attributes.src;
+                this.imageMode = attributes['tt-mode'] ? attributes['tt-mode'] : 'file';
+                this.extraClasses = attributes.class ? attributes.class : '';
+                this.title = attributes.title ? attributes.title : '';
+                this.alt = attributes.alt ? attributes.alt : '';
+            } else {
+                this.url = '';
+                this.imageMode = 'file';
+                this.extraClasses = '';
+                this.title = '';
+                this.alt = '';
+            }
+            
+            this.imageMenuIsActive = true;
+        },
+
+        hideImageMenu() {
+            this.imageMenuIsActive = false;
+        },
+
+        removeFile() {
+            this.file = null;
+            this.preview = null;
+            this.$refs.fileInput.value=null;
+         },
+
+         resetUploading() {
+            this.uploading = false;
+            this.uploadProgress = 0;
+         },
+
+         changeFile(files) {
+            if (files.length) {
+                this.file = files[0];
+                this.preview = URL.createObjectURL(this.file);
+            }
+         },
+
+        addImageFromUrl(e) {
+            e.preventDefault();
+
+            let attributes = {
+                src: this.url,
+                'tt-mode': 'url',
+                class: this.extraClasses,
+                title: this.title,
+                alt: this.alt,
+            };
+
+            this.editor.chain().focus().setImage(attributes).run();
+            
+            this.hideImageMenu();
+        },
+
+        uploadAndAddImage(e) {
+            e.preventDefault();
+
+            this.uploading = true;
+            
+            let data = new FormData();
+            data.append('file', this.file);   
+            data.append('disk', this.imageDisk);   
+            data.append('path', this.imagePath);   
+
+            const config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                },
+                onUploadProgress: progressEvent => this.uploadProgress = (progressEvent.loaded / progressEvent.total) * 100
+            };
+
+            axios.post('/nova-tiptap/api/image', data, config)
+                .then(function (response) {
+                    this.resetUploading();
+                    this.removeFile();
+                    
+                    let attributes = {
+                        src: response.data.url,
+                        'tt-mode': 'file',
+                        class: this.extraClasses,
+                        title: this.title,
+                        alt: this.alt,
+                    };
+
+                    this.editor.chain().focus().setImage(attributes).run();
+                    
+                    this.hideImageMenu();
+                }.bind(this))
+                .catch(function (error) {
+                    this.resetUploading();
+                    this.removeFile();
+                    console.log(error);
+                }.bind(this));
+
+            
+        },
+
+        updateImage(e) {
+            e.preventDefault();
+
+            let attributes = {
+                class: this.extraClasses,
+                title: this.title,
+                alt: this.alt,
+            };
+
+            this.editor.chain().focus().updateAttributes('image', attributes).run();
+            
+            this.hideImageMenu();
+        }
+    }
+}
+</script>

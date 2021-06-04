@@ -135,6 +135,19 @@ class Tiptap extends Field
         ]);
     }
 
+    /**
+     * Set the disk and the path for images
+     *
+     * @param  mixed  $imageSettings
+     * @return $this
+     */
+    public function imageSettings($imageSettings)
+    {
+        return $this->withMeta([
+            'imageSettings' => $imageSettings
+        ]);
+    }
+
     public function jsonSerialize()
     {
         return array_merge(parent::jsonSerialize(), [

@@ -15,6 +15,8 @@ class FieldServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
+        
         Nova::serving(function (ServingNova $event) {
             Nova::script('tiptap', __DIR__.'/../dist/js/field.js');
             Nova::style('tiptap', __DIR__.'/../dist/css/field.css');
