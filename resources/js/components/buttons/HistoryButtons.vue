@@ -1,52 +1,36 @@
 <template>
     <span class="whitespace-nowrap">
-        <button
+        <base-button
             v-for="direction in ['undo', 'redo']"
             :key="'history-button'+direction"
-            type="button"
-            class="
-                btn btn-default p-1 m-1
-                leading-none text-xs
-                min-w-8 mr-1 h-8
-                tiptap-button
-                bg-white hover:bg-20
-            "
-            :class="{ 
-                'opacity-50 pointer-events-none': mode != 'editor',
-            }"
-            @click="
-                direction == 'undo' 
-                ? editor.chain().focus().undo().run() 
-                : editor.chain().focus().redo().run()
-            "
+            :isDisabled="mode != 'editor'"
+            :clickMethod="changeHistory"
+            :clickMethodParameters="direction"
+            :title="__(direction)"
+            :icon="['fas', direction+'-alt']"
         >
-          <font-awesome-icon :icon="['fas', direction+'-alt']">
-            </font-awesome-icon>
-        </button>
+        </base-button>
     </span>
 </template>
 
 <script>
-import { library } from '@fortawesome/fontawesome-svg-core';
 
-import {
-    faUndoAlt,
-    faRedoAlt
-} from '@fortawesome/free-solid-svg-icons';
-
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-
-library.add(
-    faUndoAlt,
-    faRedoAlt
-);
+import BaseButton from './BaseButton.vue';
 
 export default {
     props: ['editor', 'mode'],
 
     components: {
-        FontAwesomeIcon,
+        BaseButton,
     },
+
+    methods: {
+        changeHistory(direction) {
+            direction == 'undo' 
+                ? this.editor.chain().focus().undo().run() 
+                : this.editor.chain().focus().redo().run();
+        }
+    }
 }
 
 </script>

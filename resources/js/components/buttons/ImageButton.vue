@@ -10,8 +10,6 @@
         >
             <div class="rounded-lg shadow-lg overflow-hidden z-20 w-action-fields max-w-full">
                 <div class="px-8 py-8 bg-white">
-
-                
                     <div 
                         v-if="!imageIsActive"
                     >
@@ -22,8 +20,8 @@
                                 'text-80 border-transparent': imageMode != 'file'
                             }"
                             @click="imageMode = 'file'"
+                            v-text="__('file upload')"
                         >
-                            File Upload
                         </span>
 
                         <span 
@@ -33,8 +31,8 @@
                                 'text-80 border-transparent': imageMode != 'url'
                             }"
                             @click="imageMode = 'url'"
+                            v-text="__('external url')"
                         >
-                            External URL
                         </span>
                     </div>
 
@@ -53,20 +51,18 @@
                                     <input 
                                         ref="fileInput"
                                         type="file" 
-                                        :name="uploadFieldName" 
-                                        :disabled="fileDisabled" 
                                         @change="changeFile($event.target.files)"
                                         accept="image/*" 
                                         class="opacity-0 w-full h-full absolute top-0 left-0"
                                     />
-                                    <span>Select File</span>
+                                    <span v-text="__('select file')"></span>
                                 </label>
 
                                 <div class="ml-8 h-16 flex items-center">
                                     <span 
                                         v-if="!preview"
-                                    >
-                                        No file selected
+                                        v-text="__('no file selected')"
+                                    > 
                                     </span>
                                     <img v-if="preview" :src="preview" class="h-16 w-auto" />
                                 </div>
@@ -107,7 +103,7 @@
                             v-show="imageMode == 'url'"
                         >
                             <div class="flex flex-col">
-                                <label class="text-sm mb-1 ml-1">URL</label>
+                                <label class="text-sm mb-1 ml-1" v-text="__('url')"></label>
                                 <input
                                     class="
                                         form-input
@@ -126,7 +122,7 @@
 
                     <div class="pt-8">
                         <div class="flex flex-col">
-                            <label class="text-sm mb-1 ml-1">Extra CSS classes</label>
+                            <label class="text-sm mb-1 ml-1" v-text="__('custom css classes')"></label>
                             <input
                                 class="
                                     form-input
@@ -142,7 +138,7 @@
 
                         <div class="grid grid-cols-2 gap-3 mt-4">
                             <div class="flex flex-col">
-                                <label class="text-sm mb-1 ml-1">Title</label>
+                                <label class="text-sm mb-1 ml-1" v-text="__('title')"></label>
                                 <input
                                     class="
                                         form-input
@@ -157,7 +153,7 @@
                             </div>
 
                             <div class="flex flex-col">
-                                <label class="text-sm mb-1 ml-1">Alt Text</label>
+                                <label class="text-sm mb-1 ml-1" v-text="__('alt text')"></label>
                                 <input
                                     class="
                                         form-input
@@ -174,14 +170,14 @@
                     </div>
                 </div>
 
-                <div class="bg-30 px-6 py-3 ">   
+                <div class="bg-30 px-6 py-3">   
                     <div class="flex items-center justify-end">
                         <button
                             type="button"
                             class="btn h-9 px-3 font-normal text-80"
                             @click="hideImageMenu"
+                            v-text="__('cancel')"
                         >
-                            Cancel
                         </button>
 
                         <button
@@ -189,7 +185,7 @@
                             class="ml-3 btn btn-default btn-primary"
                             :disabled="!imageIsActive && ((imageMode == 'url' && !url) || (imageMode == 'file' && !file))"
                             @click="imageIsActive ? updateImage($event) : (imageMode == 'url' ? addImageFromUrl($event) : uploadAndAddImage($event))"
-                            v-text="imageIsActive ? 'Update Image' : (imageMode == 'url' ? 'Add Image' : 'Upload and Add Image')"
+                            v-text="imageIsActive ? __('update image') : (imageMode == 'url' ? __('add image') : __('upload and add image'))"
                         >
                         </button>
                     </div>
@@ -207,38 +203,29 @@
         </div>
 
         <span class="whitespace-nowrap">
-            <button
-                type="button"
-                class="
-                    btn btn-default
-                    p-2 ml-1 my-1 mr-0
-                    leading-none text-xs
-                    min-w-8 h-8 
-                    tiptap-button
-                "
-                :class="{ 
-                    'btn-primary': imageIsActive,
-                    'bg-white hover:bg-20': !imageIsActive,
-                    'opacity-50 pointer-events-none': mode != 'editor',
-                }"
-                
-                @click="showImageMenu"
+            <base-button
+                :isActive="imageIsActive"
+                :isDisabled="mode != 'editor'"
+                :clickMethod="showImageMenu"
+                :icon="['fas', 'image']"
+                :title="__('add image')"
             >
-                <font-awesome-icon :icon="['fas', 'image']">
-                </font-awesome-icon>
-            </button>
+                
+            </base-button>
+            
             
         </span>
     </span>
 </template>
 
 <script>
-import { library } from '@fortawesome/fontawesome-svg-core'
+import { library } from '@fortawesome/fontawesome-svg-core';
 
-import { faImage, faTimesCircle, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { faTimesCircle, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import BaseButton from './BaseButton.vue';
 
-library.add(faImage, faTimesCircle, faTrashAlt)
+library.add(faTimesCircle, faTrashAlt);
 
 export default {
     props: [
@@ -255,7 +242,6 @@ export default {
             imageMenuIsActive: false,
             file: null,
             preview: null,
-            fileDisabled: false,
             url: '',
             uploadProgress: 0,
             uploading: false,
@@ -268,6 +254,7 @@ export default {
 
     components: {
         FontAwesomeIcon,
+        BaseButton,
     },
 
     computed: {

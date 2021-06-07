@@ -1,0 +1,33 @@
+{
+    "compilerOptions": {
+      "target": "es2019",
+      "module": "esnext",
+      "strict": true,
+      "jsx": "react",
+      "importHelpers": true,
+      "moduleResolution": "node",
+      "esModuleInterop": true,
+      "allowSyntheticDefaultImports": true,
+      "experimentalDecorators": true,
+      "sourceMap": true,
+      "baseUrl": ".",
+      "rootDir": ".",
+      "allowJs": false,
+      "checkJs": false,
+      "lib": [
+        "esnext",
+        "dom",
+        "dom.iterable",
+        "scripthost"
+      ]
+    },
+    "include": [
+      "**/*.ts",
+      "**/*.tsx"
+    ],
+    "exclude": [
+      "**/node_modules",
+      "**/dist",
+      "**/vue-3"
+    ]
+  }

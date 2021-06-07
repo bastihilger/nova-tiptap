@@ -48,6 +48,8 @@
                                     :button="button"
                                     :field="field"
                                     :mode="mode"
+                                    :fileDisk="fileDisk"
+                                    :filePath="filePath"
                                 >
                                 </link-button>
                             </template>
@@ -84,22 +86,15 @@
                             </template>
 
                             <template v-else-if="button == 'editHtml'">
-                                <button
-                                    :title="button"
-                                    type="button"
-                                    class="
-                                        btn btn-default p-1 leading-none
-                                        text-xs min-w-8 h-8 m-1 tiptap-button
-                                    "
-                                    :class="[
-                                        (mode == 'html' ? 'btn-primary' : 'bg-white hover:bg-20'),
-                                        'is-' + button
-                                    ]"
-                                    @click="switchMode()"
+                                <base-button
+                                    :isActive="mode == 'html'"
+                                    :clickMethod="switchMode"
+                                    :icon="['fas', 'file-code']"
+                                    :title="__('edit html')"
                                 >
-                                    <font-awesome-icon v-if="button == 'editHtml'" :icon="['fas', 'file-code']">
-                                    </font-awesome-icon>
-                                </button>
+                                    
+                                </base-button>
+                                
                             </template>
 
                             <template v-else>
@@ -198,6 +193,8 @@ import TextAlignButtons from './buttons/TextAlignButtons';
 import HistoryButtons from './buttons/HistoryButtons';
 import ImageButton from './buttons/ImageButton';
 
+import BaseButton from './buttons/BaseButton.vue';
+
 import CodeBlockComponent from './CodeBlockComponent';
 import EditHtml from './EditHtml';
 
@@ -206,23 +203,16 @@ import Gapcursor from '@tiptap/extension-gapcursor';
 import lowlight from 'lowlight';
 import pretty from 'pretty';
 
+import buttonHovers from '../mixins/buttonHovers';
+
 import { FormField, HandlesValidationErrors } from 'laravel-nova';
 
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-
-import { library } from '@fortawesome/fontawesome-svg-core';
-
-import { faFileCode } from '@fortawesome/free-solid-svg-icons';
-
-library.add(faFileCode);
-
 export default {
-    mixins: [FormField, HandlesValidationErrors],
+    mixins: [FormField, HandlesValidationErrors, buttonHovers],
 
     props: ['resourceName', 'resourceId', 'field'],
 
     components: {
-        FontAwesomeIcon,
         EditorContent,
         LinkButton,
         NormalButton,
@@ -232,7 +222,7 @@ export default {
         HistoryButtons,
         ImageButton,
         EditHtml,
-        
+        BaseButton,
     },
 
     data() {
@@ -243,6 +233,8 @@ export default {
             placeholder: '',
             imageDisk: '',
             imagePath: '',
+            fileDisk: '',
+            filePath: '',
         }
     },
 
@@ -317,6 +309,12 @@ export default {
         if (this.field.imageSettings && this.field.imageSettings.disk) {
             this.imageDisk = this.field.imageSettings.disk;
         }
+        if (this.field.fileSettings && this.field.fileSettings.path) {
+            this.filePath = this.field.fileSettings.path;
+        }
+        if (this.field.fileSettings && this.field.fileSettings.disk) {
+            this.fileDisk = this.field.fileSettings.disk;
+        }
 
 
 
@@ -326,7 +324,22 @@ export default {
             Code,
             Italic,
             Highlight,
-            Link,
+            Link.extend({
+                addAttributes() {
+                    return {
+                        ...this.parent?.(),
+                        'tt-mode': {
+                            default: 'url',
+                        },
+                        class: {
+                            default: '',
+                        },
+                        title: {
+                            default: '',
+                        },
+                    }
+                }
+            }),
             Strike,
             TextStyle,
             Underline,

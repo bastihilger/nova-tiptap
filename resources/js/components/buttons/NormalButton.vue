@@ -1,146 +1,102 @@
 <template>
-    <button
-        :title="button"
-        type="button"
-        class="
-            btn btn-default p-1 leading-none
-            text-xs min-w-8 h-8 m-1 tiptap-button
-        "
-        :class="[
-            (mode != 'editor' ? 'opacity-50 pointer-events-none' : ''),
-            (buttonIsActive() ? 'btn-primary' : 'bg-white hover:bg-20'),
-            'is-' + button
-        ]"
-        @click="toggleButton()"
+    <base-button
+        :isActive="buttonIsActive"
+        :isDisabled="mode != 'editor'"
+        :clickMethod="toggleButton"
+        :title="__(button)"
+        :icon="icon"
+        :innerHtml="innerHtml"
     >
-        <font-awesome-icon v-if="button == 'bold'" :icon="['fas', 'bold']">
-        </font-awesome-icon>
-
-        <span v-if="button == 'code'"> &lt;&gt; </span>
-
-        <font-awesome-icon v-if="button == 'italic'" :icon="['fas', 'italic']">
-        </font-awesome-icon>
-
-        <font-awesome-icon v-if="button == 'highlight'" :icon="['fas', 'highlighter']">
-        </font-awesome-icon>
-
-        <font-awesome-icon v-if="button == 'strike'" :icon="['fas', 'strikethrough']">
-        </font-awesome-icon>
-
-        <font-awesome-icon v-if="button == 'underline'" :icon="['fas', 'underline']">
-        </font-awesome-icon>
-
-        <font-awesome-icon v-if="button == 'bulletList'" :icon="['fas', 'list-ul']">
-        </font-awesome-icon>
-
-        <font-awesome-icon v-if="button == 'orderedList'" :icon="['fas', 'list-ol']">
-        </font-awesome-icon>
-
-        <font-awesome-icon v-if="button == 'blockquote'" :icon="['fas', 'quote-right']">
-        </font-awesome-icon>
-
-        <font-awesome-icon v-if="button == 'horizontalRule'" :icon="['fas', 'horizontal-rule']">
-        </font-awesome-icon>
-
-        <font-awesome-icon v-if="button == 'table'" :icon="['fas', 'table']">
-        </font-awesome-icon>
-
-        <span v-if="button == 'codeBlock'"> &lt;/&gt; </span>
-
-        <span v-if="button == 'superscript'">
-            x<small><sup>2</sup></small>
-        </span>
-
-        <span v-if="button == 'subscript'">
-            x<small><sub>2</sub></small>
-        </span>
-    </button>
+    </base-button>
 </template>
 
 <script>
-import { library } from '@fortawesome/fontawesome-svg-core';
 
-import {
-    faHorizontalRule
-} from '@fortawesome/pro-solid-svg-icons';
-
-import {
-    faBold,
-    faCode,
-    faHighlighter,
-    faItalic,
-    faStrikethrough,
-    faListUl,
-    faListOl,
-    faQuoteRight,
-    faUnderline,
-    faTable
-} from '@fortawesome/free-solid-svg-icons';
-
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-
-library.add(
-    faBold,
-    faCode,
-    faItalic,
-    faHighlighter,
-    faStrikethrough,
-    faUnderline,
-    faListUl,
-    faListOl,
-    faQuoteRight,
-    faHorizontalRule,
-    faTable
-);
-
+import BaseButton from './BaseButton.vue';
 
 export default {
     props: ['button', 'editor', 'mode'],
 
     components: {
-        FontAwesomeIcon,
+        BaseButton,
     },
 
     computed: {
-        tiptapButtonName() {
-            return this.button;
-        }
-    },
-
-    methods: {
-        buttonIsActive() {
+         buttonIsActive() {
             if (!this.editor) {
                 return false;
             }
             
-            return this.editor.isActive(this.tiptapButtonName);
+            return this.editor.isActive(this.button);
+        },
+        
+        icon() {
+            if (this.button == 'bold') {
+                return ['fas', 'bold'];
+            } else if (this.button == 'italic') {
+                return ['fas', 'italic'];
+            } else if (this.button == 'highlight') {
+                return ['fas', 'highlighter'];
+            } else if (this.button == 'strike') {
+                return ['fas', 'strikethrough'];
+            } else if (this.button == 'underline') {
+                return ['fas', 'underline'];
+            } else if (this.button == 'blockquote') {
+                return ['fas', 'quote-right'];
+            } else if (this.button == 'bulletList') {
+                return ['fas', 'list-ul'];
+            } else if (this.button == 'orderedList') {
+                return ['fas', 'list-ol'];
+            } else if (this.button == 'horizontalRule') {
+                return ['fas', 'horizontal-rule'];
+            } else if (this.button == 'table') {
+                return ['fas', 'table'];
+            }
+
+            return null;
         },
 
+        innerHtml() {
+            if (this.button == 'code') {
+                return '<span> &lt;&gt; </span>';
+            } else if (this.button == 'codeBlock') {
+                return '<span> &lt;/&gt; </span>';
+            } else if (this.button == 'superscript') {
+                return '<span>x<small><sup>2</sup></small></span>';
+            } else if (this.button == 'subscript') {
+                return '<span>x<small><sub>2</sub></small></span>';
+            }
+
+            return null;
+        }
+    },
+
+    methods: {
         toggleButton() {
             var command = this.editor.chain().focus();
-            if (this.tiptapButtonName == 'bold') {
+            if (this.button == 'bold') {
                 command.toggleBold();
-            } else if (this.tiptapButtonName == 'code') {
+            } else if (this.button == 'code') {
                 command.toggleCode();
-            } else if (this.tiptapButtonName == 'italic') {
+            } else if (this.button == 'italic') {
                 command.toggleItalic();
-            } else if (this.tiptapButtonName == 'highlight') {
+            } else if (this.button == 'highlight') {
                 command.toggleHighlight();
-            } else if (this.tiptapButtonName == 'strike') {
+            } else if (this.button == 'strike') {
                 command.toggleStrike();
-            } else if (this.tiptapButtonName == 'underline') {
+            } else if (this.button == 'underline') {
                 command.toggleUnderline();
-            } else if (this.tiptapButtonName == 'blockquote') {
+            } else if (this.button == 'blockquote') {
                 command.toggleBlockquote();
-            } else if (this.tiptapButtonName == 'bulletList') {
+            } else if (this.button == 'bulletList') {
                 command.toggleBulletList();
-            } else if (this.tiptapButtonName == 'orderedList') {
+            } else if (this.button == 'orderedList') {
                 command.toggleOrderedList();
-            } else if (this.tiptapButtonName == 'codeBlock') {
+            } else if (this.button == 'codeBlock') {
                 command.toggleCodeBlock();
-            } else if (this.tiptapButtonName == 'horizontalRule') {
+            } else if (this.button == 'horizontalRule') {
                 command.setHorizontalRule();
-            } else if (this.tiptapButtonName == 'table') {
+            } else if (this.button == 'table') {
                 command.insertTable({ rows: 3, cols: 3, withHeaderRow: true });
             }
 

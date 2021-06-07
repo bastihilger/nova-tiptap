@@ -5,7 +5,7 @@ namespace Manogi\Tiptap\Controllers;
 use Facades\Manogi\Tiptap\FileService;
 use Illuminate\Support\Facades\Storage;
 
-class ImagesController
+class FilesController
 {
     public function store()
     {
