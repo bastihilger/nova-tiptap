@@ -208,7 +208,7 @@
                 :isDisabled="mode != 'editor'"
                 :clickMethod="showImageMenu"
                 :icon="['fas', 'image']"
-                :title="__('add image')"
+                :title="!imageIsActive ? __('add image') : __('edit image')"
             >
                 
             </base-button>

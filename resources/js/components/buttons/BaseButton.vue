@@ -19,7 +19,7 @@
         <div 
             class="
                 transition-opacity opacity-0 group-hover:opacity-100 pointer-events-none
-                absolute left-0 bottom-9 w-full flex justify-center
+                absolute left-0 bottom-9 w-full flex justify-center z-100
             "
         >
             <div 

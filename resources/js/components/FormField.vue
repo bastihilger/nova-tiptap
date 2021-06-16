@@ -8,8 +8,8 @@
         <template slot="field">
             <div
                 class="
-                    w-full sticky overflow-break top-0 z-10
-                    bg-40
+                    w-full sticky overflow-break top-3 z-10
+                    bg-40 mt-8 rounded-lg
                 "
             >
                 <template>

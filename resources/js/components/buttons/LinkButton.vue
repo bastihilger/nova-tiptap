@@ -175,16 +175,16 @@
         <span class="whitespace-nowrap">
             <base-button
                 :isActive="linkIsActive"
-                :isDisabled="mode != 'editor'"
+                :isDisabled="!linkCanBeUsed"
                 :clickMethod="showLinkMenu"
-                :title="__('set link')"
+                :title="!linkIsActive ? __('set link') : __('edit link')"
                 :icon="['fas', 'link']"
             >
             </base-button>
 
             <base-button
                 :isActive="linkIsActive"
-                :isDisabled="mode != 'editor'"
+                :isDisabled="!linkCanBeUsed"
                 :clickMethod="unsetLink"
                 :title="__('unset link')"
                 :icon="['fas', 'unlink']"
@@ -240,7 +240,11 @@ export default {
     computed: {
         linkIsActive() {
            return this.editor ? this.editor.isActive('link') : false;
-        }
+        },
+
+        linkCanBeUsed() {
+           return this.editor ? (this.mode == 'editor' && !this.editor.isActive('image')) : true;
+        },
     },
 
     methods: {
@@ -349,7 +353,7 @@ export default {
         setLink(attributes) {
             if (this.editor.isActive('image')) {
                 console.log('wrapped');
-                //this.editor.chain().focus().wrapIn('link').run();
+                this.editor.chain().focus().wrapIn('link').run();
             } else {
                 this.editor.chain().focus().setLink(attributes).run();
             }
