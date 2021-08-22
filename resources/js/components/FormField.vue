@@ -378,6 +378,15 @@ export default {
                         'tt-mode': {
                             default: 'file',
                         },
+                        'tt-link-url': {
+                            default: '',
+                        },
+                        'tt-link-target': {
+                            default: '',
+                        },
+                        'tt-link-mode': {
+                            default: 'url',
+                        },
                         class: {
                             default: '',
                         },

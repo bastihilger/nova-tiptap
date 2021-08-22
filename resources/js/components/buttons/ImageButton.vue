@@ -266,7 +266,7 @@ export default {
     methods: {
         showImageMenu() {
             if (this.imageIsActive) {
-                let attributes = this.editor.getNodeAttributes('image');
+                let attributes = this.editor.getAttributes('image');
                 this.url = attributes.src;
                 this.imageMode = attributes['tt-mode'] ? attributes['tt-mode'] : 'file';
                 this.extraClasses = attributes.class ? attributes.class : '';

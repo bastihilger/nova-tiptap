@@ -352,8 +352,8 @@ export default {
 
         setLink(attributes) {
             if (this.editor.isActive('image')) {
-                console.log('wrapped');
-                this.editor.chain().focus().wrapIn('link').run();
+                let attributes = this.editor.getAttributes('image');
+                
             } else {
                 this.editor.chain().focus().setLink(attributes).run();
             }
