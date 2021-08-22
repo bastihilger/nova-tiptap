@@ -1,109 +1,98 @@
 <template>
-    <span>
+    <div class="
+        bg-primary
+        p-1 leading-none text-xs"
+    >
         <button
+            v-for="button in buttons"
+            :key="button.title"
             type="button"
-            class="
-                btn
-                btn-default
-                p-2
-                leading-none
-                text-xs
-                min-w-8
-                h-8
-                tiptap-button is-thin
-            "
-            :class="[
-                (isActive.table() ? 'btn-primary' : '')
-            ]"
-            @click="commands.createTable({rowsCount: 2, colsCount: 2, withHeaderRow: false })"
+            @click="button.command()"
+            :disabled="button.disabledIf()"
+            v-html="button.title"
+            class="px-2 rounded-full py-px mx-1 my-1 text-black text-xs bg-white hover:bg-20"
+            :class="{
+                'cursor-not-allowed': button.disabledIf(),
+                'opacity-50': button.disabledIf(),
+            }"
+
         >
-            <font-awesome-icon :icon="['fas', 'table']">
-            </font-awesome-icon>
         </button>
-
-        <span
-            v-if="isActive.table()"
-            class="
-                btn
-                btn-default btn-primary
-                block
-                p-2
-                leading-none
-                text-xs
-                min-w-8
-                min-h-8 h-auto
-                tiptap-button is-thin
-            "
-        >
-            <button
-                type="button"
-                v-for="tableButton in tableButtons"
-                :key="tableButton.title"
-                class="
-                    px-2 py-1 text-white hover:underline
-                "
-                @click="tableButton.method"
-                :title="tableButton.title"
-                v-text="tableButton.title"
-            >
-
-            </button>
-        </span>
-    </span>
+    </div>
 </template>
 
 <script>
-import { library } from '@fortawesome/fontawesome-svg-core'
 
-import { faTable } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-
-library.add(faTable)
 
 export default {
-    props: ['isActive', 'commands'],
-
-    data: function () {
+    data: function (){
         return {
-            tableButtons: [
+            buttons: [
                 {
-                    method: () => { this.commands.deleteTable() },
-                    title: 'delete table',
+                    command: () => this.editor.chain().focus().addRowBefore().run(),
+                    disabledIf: () => !this.editor.can().addRowBefore(),
+                    title: 'add row before',
                 },
                 {
-                    method: () => { this.commands.addColumnBefore() },
-                    title: '+ column before',
+                    command: () => this.editor.chain().focus().addRowAfter().run(),
+                    disabledIf: () => !this.editor.can().addRowAfter(),
+                    title: 'add row after',
                 },
                 {
-                    method: () => { this.commands.addColumnAfter() },
-                    title: '+ column after',
-                },
-                {
-                    method: () => { this.commands.deleteColumn() },
-                    title: 'delete column',
-                },
-                {
-                    method: () => { this.commands.addRowBefore() },
-                    title: '+ row before',
-                },
-                {
-                    method: () => { this.commands.addRowAfter() },
-                    title: '+ row after',
-                },
-                {
-                    method: () => { this.commands.deleteRow() },
+                    command: () => this.editor.chain().focus().deleteRow().run(),
+                    disabledIf: () => !this.editor.can().deleteRow(),
                     title: 'delete row',
                 },
                 {
-                    method: () => { this.commands.toggleCellMerge() },
-                    title: 'merge/split',
+                    command: () => this.editor.chain().focus().addColumnBefore().run(),
+                    disabledIf: () => !this.editor.can().addColumnBefore(),
+                    title: 'add col before',
                 },
-            ],
+                {
+                    command: () => this.editor.chain().focus().addColumnAfter().run(),
+                    disabledIf: () => !this.editor.can().addColumnAfter(),
+                    title: 'add col after',
+                },
+                {
+                    command: () => this.editor.chain().focus().deleteColumn().run(),
+                    disabledIf: () => !this.editor.can().deleteColumn(),
+                    title: 'delete col',
+                },
+                {
+                    command: () => this.editor.chain().focus().mergeCells().run(),
+                    disabledIf: () => !this.editor.can().mergeCells(),
+                    title: 'merge cells',
+                },
+                {
+                    command: () => this.editor.chain().focus().splitCell().run(),
+                    disabledIf: () => !this.editor.can().splitCell(),
+                    title: 'split cell',
+                },
+                {
+                    command: () => this.editor.chain().focus().toggleHeaderColumn().run(),
+                    disabledIf: () => !this.editor.can().toggleHeaderColumn(),
+                    title: 'header col',
+                },
+                {
+                    command: () => this.editor.chain().focus().toggleHeaderRow().run(),
+                    disabledIf: () => !this.editor.can().toggleHeaderRow(),
+                    title: 'header row',
+                },
+                {
+                    command: () => this.editor.chain().focus().toggleHeaderCell().run(),
+                    disabledIf: () => !this.editor.can().toggleHeaderCell(),
+                    title: 'header cell',
+                },
+                {
+                    command: () => this.editor.chain().focus().deleteTable().run(),
+                    disabledIf: () => !this.editor.can().deleteTable(),
+                    title: 'delete table',
+                },
+                
+                
+            ]
         }
     },
-
-    components: {
-        FontAwesomeIcon,
-    },
+    props: ['editor'],
 }
 </script>

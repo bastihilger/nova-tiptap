@@ -1,429 +1,565 @@
 <template>
-    <default-field
+    <default-field 
         :field="field"
         :errors="errors"
         :full-width-content="true"
         :show-help-text="showHelpText"
     >
         <template slot="field">
-            <editor-menu-bar :editor="editor">
-                <div class="menubar" slot-scope="{ commands, isActive, getMarkAttrs }">
-                    <div class="toolbar">
-                        <template v-for="(buttonKey, params) in buttons">
-                            <template v-if="buttonKey == 'heading' || params == 'heading'">
+            <div
+                class="
+                    w-full sticky overflow-break top-3 z-10
+                    bg-40 mt-8 rounded-lg
+                "
+            >
+                <template>
+                    <div class="p-1">
+                        <div 
+                            v-for="button in buttons" 
+                            :key="'button-'+button"
+                            :class="{
+                                'inline-block': button != 'br'
+                            }"
+                        >
+                            <template v-if="button == '|'">
+                                <button class="
+                                    w-px h-6 relative top-2 mx-1
+                                    bg-60
+                                ">
+                                     
+                                </button>
+                            </template>
+
+                            <template v-else-if="button == 'br'">
+                            </template>
+
+                            <template v-else-if="button == 'heading'">
                                 <heading-buttons
-                                    :key="'button-'+buttonKey"
                                     :headingLevels="headingLevels"
-                                    :commands="commands"
-                                    :isActive="isActive"
+                                    :mode="mode"
+                                    :editor="editor"
                                 >
                                 </heading-buttons>
                             </template>
 
-                            <template v-if="buttonKey == 'table' || params == 'table'">
-                                <table-buttons
-                                    :key="'button-'+buttonKey"
-                                    :commands="commands"
-                                    :isActive="isActive"
+                            <template v-else-if="button == 'link'">
+                                <link-button
+                                    :editor="editor"
+                                    :button="button"
+                                    :field="field"
+                                    :mode="mode"
+                                    :fileDisk="fileDisk"
+                                    :filePath="filePath"
                                 >
-                                </table-buttons>
+                                </link-button>
                             </template>
 
-                            <template v-if="
-                                buttonKey != 'heading'
-                                && buttonKey != 'link'
-                                && params != 'heading'
-                                && buttonKey != 'table'
-                            ">
+                            <template v-else-if="button == 'image'">
+                                <image-button
+                                    :editor="editor"
+                                    :button="button"
+                                    :field="field"
+                                    :mode="mode"
+                                    :imageDisk="imageDisk"
+                                    :imagePath="imagePath"
+                                >
+                                </image-button>
+                            </template>
+
+                            <template v-else-if="button == 'textAlign'">
+                                <text-align-buttons
+                                    :editor="editor"
+                                    :mode="mode"
+                                    :alignments="alignments"
+                                    :alignElements="alignElements"
+                                    :defaultAlignment="defaultAlignment"
+                                >
+                                </text-align-buttons>
+                            </template>
+
+                            <template v-else-if="button == 'history'">
+                                <history-buttons
+                                    :editor="editor"
+                                    :mode="mode"
+                                >
+                                </history-buttons>
+                            </template>
+
+                            <template v-else-if="button == 'editHtml'">
+                                <base-button
+                                    :isActive="mode == 'html'"
+                                    :clickMethod="switchMode"
+                                    :icon="['fas', 'file-code']"
+                                    :title="__('edit html')"
+                                >
+                                    
+                                </base-button>
+                                
+                            </template>
+
+                            <template v-else>
                                 <normal-button
-                                    :key="'button-'+buttonKey"
-                                    :buttonKey="buttonKey"
-                                    :commands="customCommands(commands)"
-                                    :isActive="isActive"
+                                    :editor="editor"
+                                    :button="button"
+                                    :mode="mode"
                                 >
                                 </normal-button>
                             </template>
-
-                            <span
-                                :key="'button-'+buttonKey"
-                                class="tiptap-button-container"
-                                v-if="buttonKey == 'link'"
-                            >
-                                <link-button
-                                    :commands="commands"
-                                    :isActive="isActive"
-                                    :linkMenuIsActive="linkMenuIsActive"
-                                    :linkUrl="linkUrl"
-                                    :hideLinkMenu="hideLinkMenu"
-                                    :showLinkMenu="showLinkMenu"
-                                    :getMarkAttrs="getMarkAttrs"
-                                    :setLinkUrl="setLinkUrl"
-                                >
-                                </link-button>
-                            </span>
-
-                        </template>
+                        </div>
                     </div>
-                </div>
-            </editor-menu-bar>
 
-            <editor-content            
-                :id="field.attribute"
+                    <div 
+                        class="flex items-center z-10"
+                        v-if="tableIsActive"
+                    >
+                        <table-buttons
+                            :editor="editor"
+                        >
+                        </table-buttons>
+                    </div>
+                </template>
+            </div>
+
+            <div 
                 class="
-                tiptap-content
-                py-3 h-auto
-                pr-6
-                pb-4
-                pt-4
-                w-full
-                form-control
-                form-input
-                form-input-bordered
-                mt-2
-                no-focus
+                    nova-tiptap-editor
+                    mt-4
+                    form-input-bordered w-full
+                    pt-2 pb-2
                 "
-                :editor="editor"
-                v-if="!editHTML"
-            />
-            <textarea
-                    v-model="value"
-                    @change="updateEditorValue"
-                    v-if="editHTML"
-                    class="w-full form-control form-input form-input-bordered py-3 h-auto edit-html"
-            ></textarea>
+                v-show="mode == 'editor'"
+            >
+                <editor-content :editor="editor" />
+            </div>
+
+            <div 
+                class="
+                    mt-4
+                    w-full px-0
+                "
+                v-show="mode == 'html'"
+            >
+                <edit-html :updateMethod="updateValueFromHtml" :theme="htmlTheme" v-model="htmlModeValue" />
+            </div>
         </template>
     </default-field>
 </template>
 
 <script>
 
-import { FormField, HandlesValidationErrors } from 'laravel-nova';
-import { Editor, EditorContent, EditorMenuBar, EditorMenuBubble } from 'tiptap';
+import { Editor, EditorContent, VueNodeViewRenderer } from '@tiptap/vue-2';
+
+import Text from '@tiptap/extension-text';
+
+import Bold from '@tiptap/extension-bold';
+import Code from '@tiptap/extension-code';
+import Italic from '@tiptap/extension-italic';
+import Highlight from '@tiptap/extension-highlight';
+import Link from '@tiptap/extension-link';
+import Strike from '@tiptap/extension-strike';
+import TextStyle from '@tiptap/extension-text-style';
+import Underline from '@tiptap/extension-underline';
+
+import Blockquote from '@tiptap/extension-blockquote';
+import BulletList from '@tiptap/extension-bullet-list';
+import OrderedList from '@tiptap/extension-ordered-list';
+import ListItem from '@tiptap/extension-list-item';
+import CodeBlock from '@tiptap/extension-code-block';
+import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
+import HorizontalRule from '@tiptap/extension-horizontal-rule';
+
+import Heading from '@tiptap/extension-heading';
+import TextAlign from '@tiptap/extension-text-align';
+import History from '@tiptap/extension-history';
+import Document from '@tiptap/extension-document';
+
+import Table from '@tiptap/extension-table';
+import TableRow from '@tiptap/extension-table-row';
+import TableCell from '@tiptap/extension-table-cell';
+import TableHeader from '@tiptap/extension-table-header';
+
+import Paragraph from '@tiptap/extension-paragraph';
+import HardBreak from '@tiptap/extension-hard-break';
+import Placeholder from '@tiptap/extension-placeholder';
+
+import Image from '@tiptap/extension-image';
+import Dropcursor from '@tiptap/extension-dropcursor';
+
+import LinkButton from './buttons/LinkButton';
+import NormalButton from './buttons/NormalButton';
 import HeadingButtons from './buttons/HeadingButtons';
 import TableButtons from './buttons/TableButtons';
-import NormalButton from './buttons/NormalButton';
-import LinkButton from './buttons/LinkButton';
+import TextAlignButtons from './buttons/TextAlignButtons';
+import HistoryButtons from './buttons/HistoryButtons';
+import ImageButton from './buttons/ImageButton';
 
-import {
-    Blockquote,
-    CodeBlock,
-    HardBreak,
-    Heading,
-    OrderedList,
-    BulletList,
-    HorizontalRule,
-    ListItem,
-    TodoItem,
-    TodoList,
-    Bold,
-    Code,
-    Italic,
-    Link,
-    Table,
-    TableHeader,
-    TableCell,
-    TableRow,
-    Strike,
-    Underline,
-    History,
-} from 'tiptap-extensions';
+import BaseButton from './buttons/BaseButton.vue';
 
-import { Superscript } from 'tiptap-extension-superscript';
-import { Subscript } from 'tiptap-extension-subscript';
+import CodeBlockComponent from './CodeBlockComponent';
+import EditHtml from './EditHtml';
 
-import Iframe from '../extensions/iframe.js';
+import Gapcursor from '@tiptap/extension-gapcursor';
+
+import lowlight from 'lowlight';
+import pretty from 'pretty';
+
+import buttonHovers from '../mixins/buttonHovers';
+
+import { FormField, HandlesValidationErrors } from 'laravel-nova';
 
 export default {
-    mixins: [FormField, HandlesValidationErrors],
+    mixins: [FormField, HandlesValidationErrors, buttonHovers],
 
     props: ['resourceName', 'resourceId', 'field'],
 
     components: {
         EditorContent,
-        EditorMenuBar,
+        LinkButton,
+        NormalButton,
         HeadingButtons,
         TableButtons,
-        NormalButton,
-        LinkButton,
+        TextAlignButtons,
+        HistoryButtons,
+        ImageButton,
+        EditHtml,
+        BaseButton,
     },
 
-    data: function () {
+    data() {
         return {
-            headingLevels: 6,
-
-            linkUrl: null,
-
-            linkMenuIsActive: false,
-
             editor: null,
+            mode: 'editor',
+            htmlModeValue: '',
+            placeholder: '',
+            imageDisk: '',
+            imagePath: '',
+            fileDisk: '',
+            filePath: '',
+        }
+    },
 
-            editHTML: false,
+    watch: {
+        htmlModeValue: function (val) {
+            this.editor.commands.setContent(val);
+            this.updateValue(this.editor.getHTML());
         }
     },
 
     computed: {
         buttons() {
-            return this.field.buttons ? this.field.buttons : ['bold', 'italic'];
+            let tmpButtons = this.field.buttons ? this.field.buttons : ['bold', 'italic'];  
+            
+            return _.map(tmpButtons, function(button){
+                return button == '|' || button == 'br' ? button : _.camelCase(button);
+            });
+        },
+
+        headingLevels() {
+            return this.field.headingLevels ? this.field.headingLevels : [1, 2, 3];
+        },
+
+        alignments() {
+            return this.field.alignments ? this.field.alignments : ['left', 'center', 'right', 'justify'];
+        },
+
+        alignElements() {
+            return this.field.alignElements ? this.field.alignElements : ['heading', 'paragraph'];
+        },
+
+        defaultAlignment() {
+            return this.field.defaultAlignment ? this.field.defaultAlignment : 'left';
+        },
+
+        htmlTheme() {
+            return this.field.htmlTheme ? this.field.htmlTheme : 'material';
+        },
+
+        tableIsActive() {
+           if(this.buttons.indexOf('table') > -1) {
+               return this.editor ? this.editor.isActive('table') : false;
+           }
+           return false;
         }
     },
 
     methods: {
-        initEditor() {
-            let outsideScope = this;
+        updateValue(value) {
+            this.value = value;
+        },
 
-            this.editor = new Editor({
-                onUpdate(state){
-                    outsideScope.value = state.getHTML();
-                },
-                extensions: [
-                    new Blockquote(),
-                    new BulletList(),
-                    new CodeBlock(),
-                    new HardBreak(),
-                    new Heading({ levels: [1, 2, 3, 4, 5, 6] }),
-                    new HorizontalRule(),
-                    new ListItem(),
-                    new OrderedList(),
-                    new TodoItem(),
-                    new TodoList(),
-                    new Bold(),
-                    new Code(),
-                    new Italic(),
-                    new Link({
-                        openOnClick: false,
-                    }),
-                    new Strike(),
-                    new Underline(),
-                    new History(),
-                    new Table({
-                        resizable: true,
-                    }),
-                    new TableHeader(),
-                    new TableCell(),
-                    new TableRow(),
-                    new Superscript(),
-                    new Subscript(),
-                    new Iframe(),
-                ],
-                editorProps: {
-                    handleKeyDown: (editorView, keyboardEvent) => {
-                        // Prevent ? or / from triggering Nova global search
-                        keyboardEvent.stopPropagation();
-                    }
-                }
-            });
-
-            this.editor.setContent(this.value);
-
-            // set heading levels
-            if (this.field.headingLevels) {
-                this.headingLevels = this.field.headingLevels;
+        switchMode() {
+            if (this.mode == 'html') {
+                this.editor.commands.setContent(this.htmlModeValue);
+                this.updateValue(this.editor.getHTML());
+                this.mode = 'editor';
             } else {
-                // fallback for the old style like this: 'heading' => 4
-                _.forEach(this.buttons, function(params, key) {
-                    if (key == 'heading') {
-                        this.headingLevels = params;
-                    }
-                }.bind(this));
+                this.htmlModeValue = pretty(this.editor.getHTML());
+                this.mode = 'html';
             }
-
         },
-
-        showLinkMenu(attrs) {
-            this.linkUrl = attrs.href;
-            this.linkMenuIsActive = true;
-        },
-
-        hideLinkMenu() {
-            this.linkUrl = null;
-            this.linkMenuIsActive = false;
-        },
-
-        setLinkUrl(command, url) {
-            command({ href: url });
-            this.hideLinkMenu();
-            this.editor.focus();
-        },
-
-        updateEditorValue() {
-            this.editor.setContent(this.value);
-        },
-
-        customCommands(commands) {
-
-            commands.edit_html = function () {
-                this.editHTML = !this.editHTML;
-                if (this.editHTML) {
-                    this.value = pretty(this.value);
-                }
-            }.bind(this);
-
-            return commands;
-        }
     },
 
-    mounted: function () {
-        this.initEditor();
-    }
+    mounted() {
+        this.placeholder = this.field.placeholder ? this.field.placeholder 
+                            : (this.field.extraAttributes ? this.field.extraAttributes.placeholder : '');
+
+        if (this.field.imageSettings && this.field.imageSettings.path) {
+            this.imagePath = this.field.imageSettings.path;
+        }
+        if (this.field.imageSettings && this.field.imageSettings.disk) {
+            this.imageDisk = this.field.imageSettings.disk;
+        }
+        if (this.field.fileSettings && this.field.fileSettings.path) {
+            this.filePath = this.field.fileSettings.path;
+        }
+        if (this.field.fileSettings && this.field.fileSettings.disk) {
+            this.fileDisk = this.field.fileSettings.disk;
+        }
+
+
+
+        let extensions = [
+            Document,
+            Bold,
+            Code,
+            Italic,
+            Highlight,
+            Link.extend({
+                addAttributes() {
+                    return {
+                        ...this.parent?.(),
+                        'tt-mode': {
+                            default: 'url',
+                        },
+                        class: {
+                            default: '',
+                        },
+                        title: {
+                            default: '',
+                        },
+                    }
+                }
+            }),
+            Strike,
+            TextStyle,
+            Underline,
+            
+            Heading.configure({
+                levels: this.headingLevels,
+            }),
+            Blockquote,
+            BulletList,
+            HorizontalRule,
+            ListItem,    
+            OrderedList,
+            HardBreak,
+            Paragraph,
+            Table.configure({
+                resizable: true,
+            }),
+            TableRow,
+            TableCell,
+            TableHeader,
+            TextAlign.configure({
+                types: this.alignElements,
+                alignments: this.alignments,
+                defaultAlignment: this.defaultAlignment,
+            }),
+            History,
+            Text,
+            Gapcursor,
+            Placeholder.configure({
+                placeholder: this.placeholder,
+            }),
+            Image.extend({
+                addAttributes() {
+                    return {
+                        ...this.parent?.(),
+                        'tt-mode': {
+                            default: 'file',
+                        },
+                        'tt-link-url': {
+                            default: '',
+                        },
+                        'tt-link-target': {
+                            default: '',
+                        },
+                        'tt-link-mode': {
+                            default: 'url',
+                        },
+                        class: {
+                            default: '',
+                        },
+                        title: {
+                            default: '',
+                        },
+                        alt: {
+                            default: '',
+                        },
+                    }
+                }
+            }),
+            Dropcursor,
+        ];
+
+        if (this.buttons.includes('codeBlock') && this.field.syntaxHighlighting) {
+            extensions.push(
+                CodeBlockLowlight
+                .extend({
+                    addNodeView() {
+                        return VueNodeViewRenderer(CodeBlockComponent)
+                    },
+                })
+                .configure({
+                    lowlight,
+                })
+            );
+        } else if(this.buttons.includes('codeBlock')) {
+            extensions.push(CodeBlock);
+        }
+
+        const context = this;
+
+        this.editor = new Editor({
+            extensions: extensions,
+            content: this.value,
+            onUpdate() {
+                context.updateValue(this.getHTML());
+            },
+        });
+    },
+
+    beforeDestroy() {
+        this.editor.destroy()
+    },
 }
 </script>
 
-<style>
-.tiptap-content {
-    outline: none !important;
-    box-shadow: none !important;
-}
+<style lang="scss">
+.nova-tiptap-editor {
+    padding-bottom: 20px;
+    padding-top: 20px;
 
-.tiptap-content .ProseMirror:focus {
-    outline: none;
-}
+    .ProseMirror-focused {
+        outline: none;
+    }
 
-.tiptap-content .ProseMirror.resize-cursor {
-    cursor: col-resize;
-}
+    img.ProseMirror-selectednode {
+        outline: 3px solid var(--primary-30);
+    }
 
-.tiptap-content .ProseMirror ins {
-    text-decoration: none;
-    background-color: highlight;
-}
+    .ProseMirror {
+        p.is-editor-empty:first-child::before {
+            content: attr(data-placeholder);
+            float: left;
+            color: #ced4da;
+            pointer-events: none;
+            height: 0;
+        }
 
-.tiptap-content .ProseMirror p, .tiptap-content .ProseMirror ul, .tiptap-content .ProseMirror ol, .tiptap-content .ProseMirror blockquote, .tiptap-content .ProseMirror pre {
-    margin-bottom: 1em;
-}
+        p, h1, h2, h3, h4, h5, h6, blockquote, ul, ol, table, pre {
+            margin-top: 1em;
+            line-height: 1.5em;
+        }
 
-.tiptap-content .ProseMirror h1, .tiptap-content .ProseMirror h2, .tiptap-content .ProseMirror h3, .tiptap-content .ProseMirror h4, .tiptap-content .ProseMirror h5, .tiptap-content .ProseMirror h6 {
-    margin-bottom: 0.5em;
-}
+        pre {
+            padding-top: 5px;
+            padding-bottom: 5px;
+            padding-left: 12px;
+            padding-right: 12px;
+            background-color: var(--90);
+            color: white;
+            border-radius: .125rem;
+        }
 
-.tiptap-content .relationship-tabs-panel .ProseMirror h1 {
-    display: block;
-}
+        p:first-child, 
+        h1:first-child, 
+        h2:first-child, 
+        h3:first-child, 
+        h4:first-child, 
+        h5:first-child, 
+        h6:first-child, 
+        blockquote:first-child, 
+        ul:first-child, 
+        ol:first-child, 
+        table:first-child, 
+        pre:first-child {
+            margin-top: 0;
+        }
 
-.tiptap-content .ProseMirror pre {
-    white-space: pre-line;
-}
+        blockquote {
+            display: block;
+            margin-top: 1.5em;
+            margin-bottom: 1.5em;
+            padding-left: 15px;
+            border-left: 3px solid #dddddd;
+        }
+        
+        a {
+            pointer-events: none;
+        }
 
-.tiptap-content .ProseMirror blockquote {
-    border-left: 4px solid var(--60);
-    padding-left: 12px;
-    margin-left: 0;
-    font-style: italic;
-}
+        hr {
+            border-top: 1px solid var(--80);
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
 
-.tiptap-content .ProseMirror p:last-child {
-    margin-bottom: 0;
-}
+        .tableWrapper {
+            margin-top: 15px;
+            overflow-x: auto;
+        }
 
-.tiptap-content .ProseMirror td p {
-    margin-bottom: 0;
-}
-.tiptap-content .ProseMirror td p:last-child {
-    margin-bottom: 0;
-}
+        .resize-cursor {
+            cursor: ew-resize;
+            cursor: col-resize;
+        }
 
-.tiptap-content .ProseMirror table {
-    border: 1px solid var(--60);
-}
+        table {
+            border-collapse: collapse;
+            table-layout: fixed;
+            width: 100%;
+            overflow: hidden;
 
-.tiptap-content .ProseMirror td.selectedCell {
-    background-color: blanchedalmond;
-}
+            td,
+            th {
+                min-width: 1em;
+                border: 2px solid var(--90);
+                padding: 3px 5px;
+                vertical-align: top;
+                box-sizing: border-box;
+                position: relative;
 
-.tiptap-content .ProseMirror td {
-    border: 1px solid var(--60);
-    padding: 6px;
-}
+                > * {
+                    margin-bottom: 0;
+                }
+            }
 
-.tiptap-button {
-    box-sizing: border-box;
-    vertical-align: top;
-    margin-right: 8px;
-    font-weight: 700;
-    margin-bottom: 8px;
-}
-.tiptap-button.is-thin {
-    font-weight: 400;
-}
+            th {
+                font-weight: bold;
+                text-align: left;
+                background-color: #f1f3f5;
+            }
 
-.tiptap-button-container {
-    position: relative;
-    overflow: visible;
-}
+            .selectedCell:after {
+                z-index: 2;
+                position: absolute;
+                content: "";
+                left: 0; right: 0; top: 0; bottom: 0;
+                background: rgba(200, 200, 255, 0.4);
+                pointer-events: none;
+            }
 
-.tiptap-button-form {
-    position: absolute;
-    top: 36px;
-    left: -130px;
-}
-
-.tiptap-button-form .form-input {
-    width: 300px;
-    margin-right: 20px;
-    color: black;
-}
-
-.tiptap-button-form .btn {
-    width: 16px;
-    height: 16px;
-}
-
-
-.tiptap-button::before {
-    margin: 0;
-    height: 16px;
-    line-height: 0;
-    position: relative;
-}
-
-.tiptap-button.is-bold::before {
-    content: 'B';
-}
-
-.tiptap-button.is-italic::before {
-    font-style: italic;
-    content: 'I';
-}
-
-.tiptap-button.is-strike::before {
-    text-decoration: line-through;
-    content: 'S';
-}
-
-.tiptap-button.is-underline::before {
-    text-decoration: underline;
-    content: 'U';
-}
-
-.tiptap-button.is-code::before {
-    content: '<>';
-}
-
-.tiptap-button.is-code_block::before {
-    content: '</>';
-}
-
-.tiptap-content .edit-html {
-    min-height:400px;
-    margin-top:10px;
-}
-
-.tiptap-content .iframe__embed{
-    border: 0;
-}
-.tiptap-content .iframe__input {
-    display: block;
-    width: 100%;
-    font: inherit;
-    border: 0;
-    border-radius: 5px;
-    background-color: rgba(0,0,0, 0.1);
-    padding: 0.3rem 0.5rem;
-    margin-bottom: 0.5rem;
-}
-.tiptap-content hr {
-    display: block;
-    border-top: 1px solid var(--70);
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
+            .column-resize-handle {
+                position: absolute;
+                right: -2px;
+                top: 0;
+                bottom: -2px;
+                width: 4px;
+                background-color: #adf;
+                pointer-events: none;
+            }
+        }
+    }
 }
 </style>
