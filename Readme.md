@@ -47,7 +47,7 @@ Tiptap::make('FieldName')
         'bulletList',
         'orderedList',
         'br',
-        'code_block',
+        'codeBlock',
         'blockquote',
         '|',
         'horizontalRule',
