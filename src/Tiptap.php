@@ -161,6 +161,19 @@ class Tiptap extends Field
         ]);
     }
 
+    /**
+     * Disable link modes
+     *
+     * @param  bool  $disableLinkModes
+     * @return $this
+     */
+    public function disableLinkModes($disableLinkModes = true)
+    {
+        return $this->withMeta([
+            'disableLinkModes' => $disableLinkModes
+        ]);
+    }
+
     public function jsonSerialize()
     {
         return array_merge(parent::jsonSerialize(), [
