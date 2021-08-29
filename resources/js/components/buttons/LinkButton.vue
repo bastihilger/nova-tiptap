@@ -10,27 +10,29 @@
         >
             <div class="rounded-lg shadow-lg overflow-hidden z-20 w-full w-action-fields max-w-full">
                 <div class="px-8 py-8 bg-white">
-                    <span 
-                        class="cursor-pointer font-bold text-sm border-b-2 "
-                        :class="{
-                            'text-primary border-primary': linkMode == 'url',
-                            'text-80 border-transparent': linkMode != 'url'
-                        }"
-                        @click="linkMode = 'url'"
-                        v-text="__('url')"
-                    >
-                    </span>
+                    <template v-if="withFileUpload">
+                        <span 
+                            class="cursor-pointer font-bold text-sm border-b-2 "
+                            :class="{
+                                'text-primary border-primary': linkMode == 'url',
+                                'text-80 border-transparent': linkMode != 'url'
+                            }"
+                            @click="linkMode = 'url'"
+                            v-text="__('url')"
+                        >
+                        </span>
 
-                    <span 
-                        class="ml-2 cursor-pointer font-bold text-sm border-b-2 "
-                        :class="{
-                            'text-primary border-primary': linkMode == 'file',
-                            'text-80 border-transparent': linkMode != 'file'
-                        }"
-                        @click="linkMode = 'file'"
-                        v-text="__('file upload')"
-                    >
-                    </span>
+                        <span 
+                            class="ml-2 cursor-pointer font-bold text-sm border-b-2 "
+                            :class="{
+                                'text-primary border-primary': linkMode == 'file',
+                                'text-80 border-transparent': linkMode != 'file'
+                            }"
+                            @click="linkMode = 'file'"
+                            v-text="__('file upload')"
+                        >
+                        </span>
+                    </template>
                 </div>
 
                 <div class="px-8 pb-8 bg-white">
@@ -77,7 +79,10 @@
                         </div>
                     </div>
 
-                    <div v-show="linkMode == 'file'">
+                    <div 
+                        v-if="withFileUpload" 
+                        v-show="linkMode == 'file'"
+                    >
                         <div 
                             class="flex items-center transition-opacity duration-150"
                             :class="{
@@ -245,6 +250,15 @@ export default {
         linkCanBeUsed() {
            return this.editor ? (this.mode == 'editor' && !this.editor.isActive('image')) : true;
         },
+
+        withFileUpload() {
+            return !this.field.linkSettings
+                    ||
+                    (
+                        typeof(this.field.linkSettings.withFileUpload) != 'boolean'
+                        || this.field.linkSettings.withFileUpload
+                    );
+        },
     },
 
     methods: {
@@ -325,7 +339,6 @@ export default {
                 .catch(function (error) {
                     this.resetUploading();
                     this.removeFile();
-                    console.log(error);
                 }.bind(this));
         },
 

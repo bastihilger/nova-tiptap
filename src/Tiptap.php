@@ -2,8 +2,8 @@
 
 namespace Manogi\Tiptap;
 
-use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Fields\Expandable;
+use Laravel\Nova\Fields\Field;
 
 class Tiptap extends Field
 {
@@ -32,12 +32,12 @@ class Tiptap extends Field
     public function buttons(array $buttons)
     {
         return $this->withMeta([
-            'buttons' => $buttons
+            'buttons' => $buttons,
         ]);
     }
 
     /**
-     * Set the heading levels that should be available when using headings
+     * Set the heading levels that should be available when using headings.
      *
      * @param  mixed  $headingLevels
      * @return $this
@@ -53,12 +53,12 @@ class Tiptap extends Field
         }
 
         return $this->withMeta([
-            'headingLevels' => $headingLevelsArr
+            'headingLevels' => $headingLevelsArr,
         ]);
     }
 
     /**
-     * Turn on syntax highlighting when using code_block
+     * Turn on syntax highlighting when using code_block.
      *
      * @param  mixed  $syntaxHighlighting
      * @return $this
@@ -66,12 +66,12 @@ class Tiptap extends Field
     public function syntaxHighlighting()
     {
         return $this->withMeta([
-            'syntaxHighlighting' => true
+            'syntaxHighlighting' => true,
         ]);
     }
 
     /**
-     * Set the heading levels that should be available when using headings
+     * Set the heading levels that should be available when using headings.
      *
      * @param  mixed  $htmlTheme
      * @return $this
@@ -79,12 +79,12 @@ class Tiptap extends Field
     public function htmlTheme($htmlTheme)
     {
         return $this->withMeta([
-            'htmlTheme' => $htmlTheme
+            'htmlTheme' => $htmlTheme,
         ]);
     }
 
     /**
-     * Set the alignments that should be available when using textAlign
+     * Set the alignments that should be available when using textAlign.
      *
      * @param  mixed  $alignments
      * @return $this
@@ -92,12 +92,12 @@ class Tiptap extends Field
     public function alignments($alignments)
     {
         return $this->withMeta([
-            'alignments' => $alignments
+            'alignments' => $alignments,
         ]);
     }
 
     /**
-     * Set the DOM elements that can be aligned when using textAlign
+     * Set the DOM elements that can be aligned when using textAlign.
      *
      * @param  mixed  $alignElements
      * @return $this
@@ -105,12 +105,12 @@ class Tiptap extends Field
     public function alignElements($alignElements)
     {
         return $this->withMeta([
-            'alignElements' => $alignElements
+            'alignElements' => $alignElements,
         ]);
     }
 
     /**
-     * Set the default alignment when using textAlign
+     * Set the default alignment when using textAlign.
      *
      * @param  mixed  $defaultAlignment
      * @return $this
@@ -118,12 +118,12 @@ class Tiptap extends Field
     public function defaultAlignment($defaultAlignment)
     {
         return $this->withMeta([
-            'defaultAlignment' => $defaultAlignment
+            'defaultAlignment' => $defaultAlignment,
         ]);
     }
 
     /**
-     * Set the placeholder
+     * Set the placeholder.
      *
      * @param  mixed  $placeholder
      * @return $this
@@ -131,12 +131,12 @@ class Tiptap extends Field
     public function placeholder($placeholder)
     {
         return $this->withMeta([
-            'placeholder' => $placeholder
+            'placeholder' => $placeholder,
         ]);
     }
 
     /**
-     * Set the disk and the path for images
+     * Set the disk and the path for images.
      *
      * @param  mixed  $imageSettings
      * @return $this
@@ -144,12 +144,12 @@ class Tiptap extends Field
     public function imageSettings($imageSettings)
     {
         return $this->withMeta([
-            'imageSettings' => $imageSettings
+            'imageSettings' => $imageSettings,
         ]);
     }
 
     /**
-     * Set the disk and the path for files
+     * Set the disk and the path for files.
      *
      * @param  mixed  $fileSettings
      * @return $this
@@ -157,7 +157,20 @@ class Tiptap extends Field
     public function fileSettings($fileSettings)
     {
         return $this->withMeta([
-            'fileSettings' => $fileSettings
+            'fileSettings' => $fileSettings,
+        ]);
+    }
+
+    /**
+     * Set the disk and the path for files.
+     *
+     * @param  mixed  $linkSettings
+     * @return $this
+     */
+    public function linkSettings($linkSettings)
+    {
+        return $this->withMeta([
+            'linkSettings' => $linkSettings,
         ]);
     }
 
