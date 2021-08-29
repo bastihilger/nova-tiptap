@@ -75,7 +75,7 @@ When just passing the string `'heading'` you will have H1, H2 and H3 to choose f
 
 ## Links and `linkSettings` and `fileSettings`
 
-When just passing the string `'link'` you will be able to link ext with an URL and define if the link should open in a new window. You will also be able to link text with a file you uploaded to the server. You can optionally use `linkSettings` to define if this file upload should be possible/visible like so:
+When just passing the string `'link'` you will be able to link text with an URL and define if the link should open in a new window. You will also be able to link text with a file you uploaded to the server. You can optionally use `linkSettings` to define if this file upload should be possible/visible like so:
 
 ``` php
 Tiptap::make('FieldName')
