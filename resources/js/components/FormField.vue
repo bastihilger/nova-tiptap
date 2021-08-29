@@ -127,6 +127,7 @@
                     form-input-bordered w-full
                     pt-2 pb-2
                 "
+                :style="cssProps"
                 v-show="mode == 'editor'"
             >
                 <editor-content :editor="editor" />
@@ -270,6 +271,12 @@ export default {
             return this.field.defaultAlignment ? this.field.defaultAlignment : 'left';
         },
 
+        cssProps() {
+            return {
+                '--text-align': this.defaultAlignment
+            }
+        },
+
         htmlTheme() {
             return this.field.htmlTheme ? this.field.htmlTheme : 'material';
         },
@@ -315,8 +322,6 @@ export default {
         if (this.field.fileSettings && this.field.fileSettings.disk) {
             this.fileDisk = this.field.fileSettings.disk;
         }
-
-
 
         let extensions = [
             Document,
@@ -460,6 +465,10 @@ export default {
         p, h1, h2, h3, h4, h5, h6, blockquote, ul, ol, table, pre {
             margin-top: 1em;
             line-height: 1.5em;
+        }
+
+        p, h1, h2, h3, h4, h5, h6 {
+            text-align: var(--text-align);
         }
 
         pre {

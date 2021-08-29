@@ -11,7 +11,7 @@
             <div class="rounded-lg shadow-lg overflow-hidden z-20 w-action-fields max-w-full">
                 <div class="px-8 py-8 bg-white">
                     <div 
-                        v-if="!imageIsActive"
+                        v-if="!imageIsActive && withFileUpload"
                     >
                         <span 
                             class="cursor-pointer font-bold text-sm border-b-2 "
@@ -40,7 +40,7 @@
                         v-if="!imageIsActive"
                         class="pt-8"
                     >
-                        <div v-show="imageMode == 'file'">
+                        <div v-if="withFileUpload" v-show="imageMode == 'file'">
                             <div 
                                 class="flex items-center transition-opacity duration-150"
                                 :class="{
@@ -246,7 +246,7 @@ export default {
             uploadProgress: 0,
             uploading: false,
             extraClasses: '',
-            imageMode: 'file',
+            imageMode: 'url',
             title: '',
             alt: '',
         }
@@ -260,6 +260,17 @@ export default {
     computed: {
         imageIsActive() {
            return this.editor ? this.editor.isActive('image') : false;
+        },
+        withFileUpload() {
+            return !this.field.imageSettings
+                    ||
+                    (
+                        typeof(this.field.imageSettings.withFileUpload) != 'boolean'
+                        || this.field.imageSettings.withFileUpload
+                    );
+        },
+        defaultMode() {
+            return this.withFileUpload ? 'file' : 'url';
         }
     },
 
@@ -268,13 +279,13 @@ export default {
             if (this.imageIsActive) {
                 let attributes = this.editor.getAttributes('image');
                 this.url = attributes.src;
-                this.imageMode = attributes['tt-mode'] ? attributes['tt-mode'] : 'file';
+                this.imageMode = attributes['tt-mode'] ? attributes['tt-mode'] : this.defaultMode;
                 this.extraClasses = attributes.class ? attributes.class : '';
                 this.title = attributes.title ? attributes.title : '';
                 this.alt = attributes.alt ? attributes.alt : '';
             } else {
                 this.url = '';
-                this.imageMode = 'file';
+                this.imageMode = this.defaultMode;
                 this.extraClasses = '';
                 this.title = '';
                 this.alt = '';

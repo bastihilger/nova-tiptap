@@ -38,8 +38,8 @@ Tiptap::make('FieldName')
         'italic',
         'bold',
         '|',
-        'code',
         'link',
+        'code',
         'strike',
         'underline',
         'highlight',
@@ -54,9 +54,9 @@ Tiptap::make('FieldName')
         '|',
         'table',
         '|',
-        'textAlign',
-        '|',
         'image',
+        '|',
+        'textAlign',
         '|',
         'history',
         '|',
@@ -65,11 +65,115 @@ Tiptap::make('FieldName')
     ->headingLevels([2, 3, 4]),
 ```
 
+## `|` and `br`
+
+You can use `|` to define a vetical line between two buttons, and you can use `br` to define a hard break after a button.
+
+## Headings and `headingLevels`
+
 When just passing the string `'heading'` you will have H1, H2 and H3 to choose from. You can set the level of headings by using for example `headingLevels([2, 3, 4])` which will give you H2 through H4.
 
-### The two different "code" buttons
+## Links and `linkSettings` and `fileSettings`
 
-`'code'` is inline code (like `<code></code>`) while `'code_block'` will give you `<pre><code></code></pre>`.
+When just passing the string `'link'` you will be able to link ext with an URL and define if the link should open in a new window. You will also be able to link text with a file you uploaded to the server. You can optionally use `linkSettings` to define if this file upload should be possible/visible like so:
+
+``` php
+Tiptap::make('FieldName')
+  ->buttons([
+      'italic',
+      'bold',
+      'link',
+  ])
+  ->linkSettings([
+      'withFileUpload' => false,
+  ]),
+```
+
+And you can optionally use `fileSettings` to define the **disk** and the **path**:
+
+``` php
+Tiptap::make('FieldName')
+  ->buttons([
+      'italic',
+      'bold',
+      'link',
+  ])
+  ->fileSettings([
+      'disk' => 'your_custom_disk',
+      'path' => 'your/custom/path',
+  ]),
+```
+
+If no disk is defined here, it assumes `public` if a `public` disk is defined in your `config/filesystems.php`, otherwise it assumes `config('filesystems.default')`.
+
+And if no path is defined here, it assumes the root folder of that disk.
+
+## Images and `imageSettings`
+
+With the button `'image'` you can let the user add images either from a file upload or from adding a URL. And you can optionally use `imageSettings` to define the **disk** and the **path**:
+
+``` php
+Tiptap::make('FieldName')
+  ->buttons([
+      'italic',
+      'bold',
+      'image',
+  ])
+  ->imageSettings([
+      'disk' => 'your_custom_disk',
+      'path' => 'your/custom/path',
+  ]),
+```
+
+If no disk is defined here, it assumes `public` if a `public` disk is defined in your `config/filesystems.php`, otherwise it assumes `config('filesystems.default')`.
+
+And if no path is defined here, it assumes the root folder of that disk.
+
+### Disallowing file upload for images
+
+For images you can also disallow the file upload completely with the `withFileUpload` attribute:
+
+``` php
+Tiptap::make('FieldName')
+  ->buttons([
+      'italic',
+      'bold',
+      'image',
+  ])
+  ->imageSettings([
+      'withFileUpload' => false,
+  ]),
+```
+
+## Text alignment with `textAlign`
+
+When adding `textAlign` you get four buttons for aligning text **left**, **right**, **center** and **justify**. The default alignment will be **left**. 
+
+``` php
+Tiptap::make('FieldName')
+  ->buttons([
+      'italic',
+      'bold',
+      'textAlign',
+  ]),
+```
+
+If you want to change some of this, you can use the methods `alignments` and `defaultAlignment`:
+
+``` php
+Tiptap::make('FieldName')
+  ->buttons([
+      'italic',
+      'bold',
+      'textAlign',
+  ])
+  ->alignments(['right', 'left'])
+  ->defaultAlignment('right'),
+```
+
+## The two different "code" buttons
+
+`'code'` is inline code (like `<code></code>`) while `'codeBlock'` will give you `<pre><code></code></pre>`.
 
 ## Syntax Highlighting when using `codeBlock`
 
