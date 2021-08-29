@@ -342,6 +342,9 @@ export default {
                         title: {
                             default: '',
                         },
+                        download: {
+                            default: '',
+                        },
                     }
                 }
             }),

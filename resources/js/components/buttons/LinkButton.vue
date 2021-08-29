@@ -330,6 +330,7 @@ export default {
                         'tt-mode': 'file',
                         class: this.extraClasses,
                         title: this.title,
+                        download: '',
                     };
 
                     this.editor.chain().focus().setLink(attributes).run();
