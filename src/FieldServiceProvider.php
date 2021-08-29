@@ -2,6 +2,7 @@
 
 namespace Manogi\Tiptap;
 
+use Illuminate\Support\Facades\Route;
 use Laravel\Nova\Nova;
 use Laravel\Nova\Events\ServingNova;
 use Illuminate\Support\ServiceProvider;
@@ -15,18 +16,36 @@ class FieldServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
+        $this->app->booted(function () {
+            $this->routes();
+        });
 
         Nova::provideToScript([
             'novaTiptap' => [
                 'translations' => $this->translations()
             ]
         ]);
-        
+
         Nova::serving(function (ServingNova $event) {
             Nova::script('tiptap', __DIR__.'/../dist/js/field.js');
             Nova::style('tiptap', __DIR__.'/../dist/css/field.css');
         });
+    }
+
+    /**
+     * Register routes.
+     *
+     * @return void
+     */
+    protected function routes()
+    {
+        if ($this->app->routesAreCached()) {
+            return;
+        }
+
+        Route::middleware(['nova'])
+            ->prefix('nova-tiptap/api')
+            ->group(__DIR__.'/../routes/api.php');
     }
 
     /**
