@@ -10,7 +10,7 @@
         >
             <div class="rounded-lg shadow-lg overflow-hidden z-20 w-full w-action-fields max-w-full">
                 <div class="px-8 py-8 bg-white">
-                    <template v-if="!this.field.disableLinkModes">
+                    <template v-if="withFileUpload">
                         <span 
                             class="cursor-pointer font-bold text-sm border-b-2 "
                             :class="{
@@ -79,7 +79,10 @@
                         </div>
                     </div>
 
-                    <div v-show="linkMode == 'file'">
+                    <div 
+                        v-if="withFileUpload" 
+                        v-show="linkMode == 'file'"
+                    >
                         <div 
                             class="flex items-center transition-opacity duration-150"
                             :class="{
@@ -247,6 +250,15 @@ export default {
         linkCanBeUsed() {
            return this.editor ? (this.mode == 'editor' && !this.editor.isActive('image')) : true;
         },
+
+        withFileUpload() {
+            return !this.field.linkSettings
+                    ||
+                    (
+                        typeof(this.field.linkSettings.withFileUpload) != 'boolean'
+                        || this.field.linkSettings.withFileUpload
+                    );
+        },
     },
 
     methods: {
@@ -327,7 +339,6 @@ export default {
                 .catch(function (error) {
                     this.resetUploading();
                     this.removeFile();
-                    console.log(error);
                 }.bind(this));
         },
 
