@@ -67,7 +67,7 @@ Tiptap::make('FieldName')
 
 ## `|` and `br`
 
-You can use `|` to define a vetical line between two buttons, and you can use `br` to define a hard break after a button.
+You can use `|` to define a vertical line between two buttons, and you can use `br` to define a hard break after a button.
 
 ## Headings and `headingLevels`
 
