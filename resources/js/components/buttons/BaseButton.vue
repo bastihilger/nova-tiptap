@@ -75,6 +75,8 @@ import {
     faUndoAlt,
     faUnlink,
     faFileCode,
+    faSubscript,
+    faSuperscript,
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
@@ -100,6 +102,8 @@ library.add(
     faFileCode,
     faHorizontalRule,
     faImagePolaroid,
+    faSubscript,
+    faSuperscript
 );
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';

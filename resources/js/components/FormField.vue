@@ -160,7 +160,8 @@ import Link from '@tiptap/extension-link';
 import Strike from '@tiptap/extension-strike';
 import TextStyle from '@tiptap/extension-text-style';
 import Underline from '@tiptap/extension-underline';
-
+import Subscript from '@tiptap/extension-subscript';
+import Superscript from '@tiptap/extension-superscript';
 import Blockquote from '@tiptap/extension-blockquote';
 import BulletList from '@tiptap/extension-bullet-list';
 import OrderedList from '@tiptap/extension-ordered-list';
@@ -351,6 +352,8 @@ export default {
             Strike,
             TextStyle,
             Underline,
+            Subscript,
+            Superscript,
             
             Heading.configure({
                 levels: this.headingLevels,

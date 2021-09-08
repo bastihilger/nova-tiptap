@@ -51,6 +51,10 @@ export default {
                 return ['fas', 'horizontal-rule'];
             } else if (this.button == 'table') {
                 return ['fas', 'table'];
+            } else if (this.button == 'subscript') {
+                return ['fas', 'subscript'];
+            } else if (this.button == 'superscript') {
+                return ['fas', 'superscript'];
             }
 
             return null;
@@ -61,10 +65,6 @@ export default {
                 return '<span> &lt;&gt; </span>';
             } else if (this.button == 'codeBlock') {
                 return '<span> &lt;/&gt; </span>';
-            } else if (this.button == 'superscript') {
-                return '<span>x<small><sup>2</sup></small></span>';
-            } else if (this.button == 'subscript') {
-                return '<span>x<small><sub>2</sub></small></span>';
             }
 
             return null;
@@ -86,6 +86,10 @@ export default {
                 command.toggleStrike();
             } else if (this.button == 'underline') {
                 command.toggleUnderline();
+            } else if (this.button == 'subscript') {
+                command.toggleSubscript();
+            } else if (this.button == 'superscript') {
+                command.toggleSuperscript();
             } else if (this.button == 'blockquote') {
                 command.toggleBlockquote();
             } else if (this.button == 'bulletList') {
