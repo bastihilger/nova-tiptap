@@ -162,7 +162,7 @@ class Tiptap extends Field
     }
 
     /**
-     * Set the disk and the path for files.
+     * Set the disk and the path for linked files.
      *
      * @param  mixed  $linkSettings
      * @return $this
@@ -171,6 +171,19 @@ class Tiptap extends Field
     {
         return $this->withMeta([
             'linkSettings' => $linkSettings,
+        ]);
+    }
+
+    /**
+     * Set the placeholder blocks array.
+     *
+     * @param  mixed  $placeholderBlocks
+     * @return $this
+     */
+    public function placeholderBlocks($placeholderBlocks)
+    {
+        return $this->withMeta([
+            'placeholderBlocks' => $placeholderBlocks,
         ]);
     }
 

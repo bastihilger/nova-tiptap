@@ -66,6 +66,16 @@
                                 </image-button>
                             </template>
 
+                            <template v-else-if="button == 'placeholderBlock'">
+                                <placeholder-block-button
+                                    :editor="editor"
+                                    :button="button"
+                                    :field="field"
+                                    :mode="mode"
+                                >
+                                </placeholder-block-button>
+                            </template>
+
                             <template v-else-if="button == 'textAlign'">
                                 <text-align-buttons
                                     :editor="editor"
@@ -194,7 +204,7 @@ import TableButtons from './buttons/TableButtons';
 import TextAlignButtons from './buttons/TextAlignButtons';
 import HistoryButtons from './buttons/HistoryButtons';
 import ImageButton from './buttons/ImageButton';
-
+import PlaceholderBlockButton from './buttons/PlaceholderBlockButton';
 import BaseButton from './buttons/BaseButton.vue';
 
 import CodeBlockComponent from './CodeBlockComponent';
@@ -208,6 +218,8 @@ import pretty from 'pretty';
 import buttonHovers from '../mixins/buttonHovers';
 
 import { FormField, HandlesValidationErrors } from 'laravel-nova';
+
+import PlaceholderBlockExtension from '../extensions/PlaceholderBlockExtension.js'
 
 export default {
     mixins: [FormField, HandlesValidationErrors, buttonHovers],
@@ -223,6 +235,7 @@ export default {
         TextAlignButtons,
         HistoryButtons,
         ImageButton,
+        PlaceholderBlockButton,
         EditHtml,
         BaseButton,
     },
@@ -330,6 +343,16 @@ export default {
             Code,
             Italic,
             Highlight,
+            PlaceholderBlockExtension.extend({
+                addAttributes() {
+                    return {
+                        ...this.parent?.(),
+                        'data-key': {
+                            default: 'bogus',
+                        },
+                    }
+                },
+            }),
             Link.extend({
                 addAttributes() {
                     return {

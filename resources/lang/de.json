@@ -1,4 +1,5 @@
 {
+    "add placeholder block": "Platzhalter-Block hinzufügen",
     "add image": "Bild hinzufügen",
     "align center": "zentrieren",
     "align justify": "Blocksatz",
@@ -37,5 +38,6 @@
     "update image": "Bild aktualisieren",
     "upload and add image": "Bild hochladen und hinzufügen",
     "upload and link file": "Datei hochladen und als Link einsetzen",
-    "url": "URL"
+    "url": "URL",
+    "which placeholder block do you want to add": "Welchen Platzhalter-Block möchten Sie hinzufügen"
 }
