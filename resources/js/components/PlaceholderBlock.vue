@@ -63,10 +63,6 @@ export default {
       deleteBlock() {
           this.$el.remove();
       }
-  },
-
-  mounted() {
-      console.log(this.$attrs);
-  },
+  }
 }
 </script>
