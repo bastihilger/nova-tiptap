@@ -52,7 +52,7 @@
         </div>
 
         <div 
-            class="flex justify-center"
+            class="flex justify-center hidden"
         >
             <div
                 v-text="nodeKey"

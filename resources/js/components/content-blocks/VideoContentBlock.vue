@@ -253,10 +253,6 @@ export default {
         __(str) {
             return str;
         }
-    },
-
-    mounted() {
-        console.log(this.node.attrs.key);
     }
 }
 </script>

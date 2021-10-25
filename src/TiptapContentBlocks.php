@@ -2,8 +2,6 @@
 
 namespace Manogi\Tiptap;
 
-use Illuminate\Support\Str;
-
 class TiptapContentBlocks
 {
     public function parse($content)
