@@ -12,6 +12,7 @@
         "@fortawesome/fontawesome-pro": "^5.15.3",
         "@fortawesome/fontawesome-svg-core": "^1.2.35",
         "@fortawesome/free-solid-svg-icons": "^5.15.3",
+        "@fortawesome/pro-regular-svg-icons": "^5.15.3",
         "@fortawesome/pro-solid-svg-icons": "^5.15.3",
         "@fortawesome/vue-fontawesome": "^2.0.2",
         "cross-env": "^7.0",

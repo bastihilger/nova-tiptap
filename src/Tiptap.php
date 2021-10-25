@@ -191,6 +191,12 @@ class Tiptap extends Field
     {
         return array_merge(parent::jsonSerialize(), [
             'shouldShow' => $this->shouldBeExpanded(),
+            'contentBlocks' => [
+                [
+                    'key' => 'video',
+                    'title' => 'Video',
+                ],
+            ],
         ]);
     }
 }

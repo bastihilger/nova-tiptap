@@ -54,6 +54,10 @@ import {
     faImagePolaroid
 } from '@fortawesome/pro-solid-svg-icons';
 
+import {
+    faCube
+} from '@fortawesome/pro-regular-svg-icons';
+
 import { 
     faAlignCenter,
     faAlignJustify,
@@ -61,7 +65,7 @@ import {
     faAlignRight,
     faBold,
     faCode,
-    faCube,
+    faCubes,
     faHighlighter,
     faImage,
     faItalic,
@@ -88,6 +92,7 @@ library.add(
     faBold,
     faCode,
     faCube,
+    faCubes,
     faHighlighter,
     faImage,
     faItalic,

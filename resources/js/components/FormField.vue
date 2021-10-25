@@ -76,6 +76,16 @@
                                 </placeholder-block-button>
                             </template>
 
+                            <template v-else-if="button == 'contentBlock'">
+                                <content-block-button
+                                    :editor="editor"
+                                    :button="button"
+                                    :field="field"
+                                    :mode="mode"
+                                >
+                                </content-block-button>
+                            </template>
+
                             <template v-else-if="button == 'textAlign'">
                                 <text-align-buttons
                                     :editor="editor"
@@ -205,6 +215,7 @@ import TextAlignButtons from './buttons/TextAlignButtons';
 import HistoryButtons from './buttons/HistoryButtons';
 import ImageButton from './buttons/ImageButton';
 import PlaceholderBlockButton from './buttons/PlaceholderBlockButton';
+import ContentBlockButton from './buttons/ContentBlockButton';
 import BaseButton from './buttons/BaseButton.vue';
 
 import CodeBlockComponent from './CodeBlockComponent';
@@ -219,7 +230,8 @@ import buttonHovers from '../mixins/buttonHovers';
 
 import { FormField, HandlesValidationErrors } from 'laravel-nova';
 
-import PlaceholderBlockExtension from '../extensions/PlaceholderBlockExtension.js'
+import PlaceholderBlockExtension from '../extensions/PlaceholderBlockExtension.js';
+import VideoContentBlockExtension from './content-blocks/VideoContentBlockExtension.js';
 
 export default {
     mixins: [FormField, HandlesValidationErrors, buttonHovers],
@@ -236,6 +248,7 @@ export default {
         HistoryButtons,
         ImageButton,
         PlaceholderBlockButton,
+        ContentBlockButton,
         EditHtml,
         BaseButton,
     },
@@ -353,6 +366,7 @@ export default {
                     }
                 },
             }),
+            VideoContentBlockExtension,
             Link.extend({
                 addAttributes() {
                     return {

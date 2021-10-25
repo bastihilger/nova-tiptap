@@ -3,9 +3,9 @@
 namespace Manogi\Tiptap;
 
 use Illuminate\Support\Facades\Route;
-use Laravel\Nova\Nova;
-use Laravel\Nova\Events\ServingNova;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Nova\Events\ServingNova;
+use Laravel\Nova\Nova;
 
 class FieldServiceProvider extends ServiceProvider
 {
@@ -23,8 +23,9 @@ class FieldServiceProvider extends ServiceProvider
         Nova::serving(function (ServingNova $event) {
             Nova::provideToScript([
                 'novaTiptap' => [
-                    'translations' => $this->translations()
-                ]
+                    'translations' => $this->translations(),
+                ],
+
             ]);
 
             Nova::script('tiptap', __DIR__.'/../dist/js/field.js');
@@ -55,19 +56,22 @@ class FieldServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind('tiptap-content-blocks', function () {
+            return new TiptapContentBlocks();
+        });
     }
 
     private function translations()
     {
         $file = resource_path('lang/vendor/nova-tiptap/'.app()->getLocale().'.json');
 
-        if (!is_readable($file)) {
+        if (! is_readable($file)) {
             $file = base_path('vendor/manogi/nova-tiptap/resources/lang/'.app()->getLocale().'.json');
         }
 
         if (is_readable($file)) {
             $json = json_decode(file_get_contents($file));
+
             return is_object($json) ? $json : [];
         }
 

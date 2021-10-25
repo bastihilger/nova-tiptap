@@ -11,14 +11,14 @@
             <div class="rounded-lg shadow-lg overflow-hidden z-20 w-action-fields max-w-full">
                 <div class="px-8 py-8 bg-white">
                     <p
-                        v-text="__('which placeholder block do you want to add')+':'"
+                        v-text="__('which content block do you want to add')+':'"
                         class="mb-4"
                     />
                     <div
                         class="max-h-search overflow-auto"
                     >
                         <div
-                            v-for="block in field.placeholderBlocks"
+                            v-for="block in field.contentBlocks"
                             :key="block.key"
                             class="mb-2"
                         >
@@ -60,8 +60,8 @@
             <base-button
                 :isDisabled="mode != 'editor'"
                 :clickMethod="showMenu"
-                :icon="['far', 'cube']"
-                :title="__('add placeholder')"
+                :icon="['fas', 'cubes']"
+                :title="__('add content')"
             >
                 
             </base-button>
@@ -93,17 +93,21 @@ export default {
 
     methods: {
         addBlock(block) {
+            let content = '';
+            let key = String(_.random(0, 999))+String(Date.now());
+            if (block.key == 'video') {
+                content += '<video-content-block key="'+key+'"></video-content-block>';
+            }
+
             this.editor
                 .chain()
                 .focus()
-                .insertContent('<placeholder-block data-key="'+block.key+'">'+block.title+'</placeholder-block>')
+                .insertContent(content)
                 .run();
             this.menuIsActive = false;
         },
 
         showMenu() {
-            
-            
             this.menuIsActive = true;
         },
 
