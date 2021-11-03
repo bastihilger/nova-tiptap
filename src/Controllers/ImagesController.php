@@ -10,10 +10,10 @@ class ImagesController
     public function store()
     {
         $file = request()->file('file');
-        
+
         $disk = request()->disk;
 
-        if (!$disk) {
+        if (! $disk) {
             $disk = config('filesystems.disks.public') ? 'public' : config('filesystems.default');
         }
 
@@ -22,8 +22,8 @@ class ImagesController
         if (substr($path, 0, 1) == '/') {
             $path = substr($path, 1);
         }
-        if (substr($path, strlen($path)-1) == '/') {
-            $path = substr($path, 0, strlen($path)-1);
+        if (substr($path, strlen($path) - 1) == '/') {
+            $path = substr($path, 0, strlen($path) - 1);
         }
 
         $fileName = $file->getClientOriginalName();
@@ -36,7 +36,7 @@ class ImagesController
             $fileName,
             $disk
         );
-        
+
         $url = Storage::disk($disk)->url($newPath);
 
         return [

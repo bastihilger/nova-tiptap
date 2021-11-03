@@ -24,6 +24,34 @@ class TiptapContentBlocks
             $content
           );
 
+        $content = preg_replace_callback(
+            '/<gallery-content-block slides="(.*?)" slidecount="(.*?)" mode="(.*?)" key="(.*?)" imagedisk="(.*?)" imagepath="(.*?)"><\/gallery-content-block>/is',
+            function ($matches) {
+                $slides = json_decode(html_entity_decode($matches[1]));
+                $slideCount = intval($matches[2]);
+                $mode = $matches[3];
+
+                $html = '<div class="ttcp-'.$mode.'-wrapper"><div class="ttcp-'.$mode.'-inner"><div class="ttcp-'.$mode.'-stage">';
+
+                foreach ($slides as $slide) {
+                    $html .= '<div class="ttcp-'.$mode.'-slide">';
+                    $html .= '<div class="ttcp-'.$mode.'-image-wrapper">';
+                    $html .= '<img class="ttcp-'.$mode.'-image" src="'.$slide->src.'" />';
+                    $html .= '</div>';
+                    $html .= '<div class="ttcp-'.$mode.'-subtext">';
+                    $html .= '<div class="ttcp-'.$mode.'-caption">'.$slide->caption.'</div>';
+                    $html .= '<div class="ttcp-'.$mode.'-credits">'.$slide->caption.'</div>';
+                    $html .= '</div>';
+                    $html .= '</div>';
+                }
+
+                $html .= '</div></div></div>';
+
+                return $html;
+            },
+            $content
+          );
+
         return $content;
     }
 }

@@ -78,6 +78,8 @@ export default {
         'editor',
         'field',
         'mode',
+        'imageDisk',
+        'imagePath',
     ],
 
     data: function () {
@@ -95,9 +97,8 @@ export default {
         addBlock(block) {
             let content = '';
             let key = String(_.random(0, 999))+String(Date.now());
-            if (block.key == 'video') {
-                content += '<video-content-block key="'+key+'"></video-content-block>';
-            }
+            content += '<'+block.key+'-content-block key="'+key+'" imageDisk="'+this.imageDisk+'" imagePath="'+this.imagePath+'"></'+block.key+'-content-block>';
+
 
             this.editor
                 .chain()

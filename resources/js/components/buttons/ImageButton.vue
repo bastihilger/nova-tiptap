@@ -388,6 +388,6 @@ export default {
             
             this.hideImageMenu();
         }
-    }
+    },
 }
 </script>

@@ -82,6 +82,8 @@
                                     :button="button"
                                     :field="field"
                                     :mode="mode"
+                                    :imageDisk="imageDisk"
+                                    :imagePath="imagePath"
                                 >
                                 </content-block-button>
                             </template>
@@ -232,6 +234,7 @@ import { FormField, HandlesValidationErrors } from 'laravel-nova';
 
 import PlaceholderBlockExtension from '../extensions/PlaceholderBlockExtension.js';
 import VideoContentBlockExtension from './content-blocks/VideoContentBlockExtension.js';
+import GalleryContentBlockExtension from './content-blocks/GalleryContentBlockExtension.js';
 
 export default {
     mixins: [FormField, HandlesValidationErrors, buttonHovers],
@@ -367,6 +370,7 @@ export default {
                 },
             }),
             VideoContentBlockExtension,
+            GalleryContentBlockExtension,
             Link.extend({
                 addAttributes() {
                     return {

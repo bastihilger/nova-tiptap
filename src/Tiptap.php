@@ -196,6 +196,10 @@ class Tiptap extends Field
                     'key' => 'video',
                     'title' => 'Video',
                 ],
+                [
+                    'key' => 'gallery',
+                    'title' => 'Gallery',
+                ],
             ],
         ]);
     }
