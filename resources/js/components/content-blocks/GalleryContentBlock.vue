@@ -1,7 +1,7 @@
 <template>
     <ContentBlockWrapper label="Gallery" :nodeKey="node.attrs.key">
         <div 
-            @click="showMenu" 
+            @click="showModal" 
             class="cursor-pointer grid grid-cols-2"
         >
             <div 
@@ -21,7 +21,7 @@
                 w-full h-full overflow-scroll py-8
                 z-50 flex items-center justify-center
             "
-            v-show="menuIsActive"
+            v-show="modalIsActive"
         >
             <div class="m-auto rounded-lg shadow-lg overflow-hidden z-20 w-action-fields max-w-full">
                 <div class="px-8 py-8 bg-white">
@@ -149,7 +149,7 @@
 
                                     <div class="grid grid-cols-2 gap-8">
                                         <div>
-                                            <label class="text-sm mb-1 ml-1 capitalize" v-text="__('caption')" />
+                                            <label class="block text-sm mb-1 ml-1 capitalize" v-text="__('caption')" />
 
                                             <input
                                                 type="text"
@@ -165,7 +165,7 @@
                                         </div>
 
                                         <div>
-                                            <label class="text-sm mb-1 ml-1 capitalize" v-text="__('credits')" />
+                                            <label class="block text-sm mb-1 ml-1 capitalize" v-text="__('credits')" />
 
                                             <input
                                                 type="text"
@@ -194,27 +194,50 @@
                             </div>
                         </div>
 
-                        <div class="mt-8">
-                            <label class="block text-sm mb-2 capitalize" v-text="__('mode')"></label>
-                            <div
-                                v-for="(modeName, modeOption) in modeOptions" 
-                                :key="modeOption"
-                                class="inline-flex mr-4 items-center"
-                            >
-                                <input
-                                    type="radio"
+                        <div class="mt-8 grid grid-cols-2 gap-8">
+                            <div>
+                                <label class="block text-sm mb-2 capitalize" v-text="__('mode')"></label>
+                                <div
+                                    v-for="(modeName, modeOption) in modeOptions" 
+                                    :key="modeOption"
+                                    class="inline-flex mr-4 items-center"
+                                >
+                                    <input
+                                        type="radio"
+                                        class="
+                                            radio h-5 w-5
+                                        "
+                                        :value="modeOption"
+                                        v-model="mode"
+                                        :id="modeOption"
+                                    />
+                                    <label 
+                                        :for="modeOption"
+                                        v-text="modeName"
+                                        class="ml-2"
+                                    />
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm mb-1 ml-1 capitalize" v-text="__('max columns')"></label>
+                                <select
                                     class="
-                                        radio h-5 w-5
+                                        form-input
+                                        form-input-bordered
+                                        px-2 py-1 w-full
+                                        text-sm text-90
+                                        leading-none
                                     "
-                                    :value="modeOption"
-                                    v-model="mode"
-                                    :id="modeOption"
-                                />
-                                <label 
-                                    :for="modeOption"
-                                    v-text="modeName"
-                                    class="ml-2"
-                                />
+                                    v-model="maxColumns"
+                                >
+                                    <option 
+                                        v-for="num in 12" 
+                                        :key="num"
+                                        :value="num"
+                                        v-text="num"
+                                    />
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -274,10 +297,11 @@ export default {
 
     data() {
         return {
-            menuIsActive: false,
+            modalIsActive: false,
             slides: [],
             uploadingIndexes: [],
             mode: '',
+            maxColumns: 1,
             modeOptions: {
                 slideshow: 'Slideshow',
                 grid: 'Grid',
@@ -397,16 +421,18 @@ export default {
                 }.bind(this));
         },
 
-        showMenu() {
+        showModal() {
             this.slides = _.size(this.node.attrs.slides) ? JSON.parse(this.node.attrs.slides) : [];
             this.mode = this.node.attrs.mode;
-            this.menuIsActive = true;
+            this.maxColumns = this.node.attrs.maxColumns ? this.node.attrs.maxColumns : 3;
+            this.modalIsActive = true;
         },
 
         update() {
             this.updateAttributes({
                 slides: this.slides ? JSON.stringify(this.slides) : '',
                 mode: this.mode,
+                maxColumns: this.maxColumns,
                 slideCount: this.slides ? _.size(this.slides) : 0,
             });
 
@@ -414,7 +440,7 @@ export default {
         },
 
         hideMenu() {
-            this.menuIsActive = false;
+            this.modalIsActive = false;
         },
 
         deleteBlock() {

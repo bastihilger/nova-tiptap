@@ -25,13 +25,13 @@ class TiptapContentBlocks
           );
 
         $content = preg_replace_callback(
-            '/<gallery-content-block slides="(.*?)" slidecount="(.*?)" mode="(.*?)" key="(.*?)" imagedisk="(.*?)" imagepath="(.*?)"><\/gallery-content-block>/is',
+            '/<gallery-content-block slides="(.*?)" slidecount="(.*?)" maxcolumns="(.*?)" mode="(.*?)" key="(.*?)" imagedisk="(.*?)" imagepath="(.*?)"><\/gallery-content-block>/is',
             function ($matches) {
                 $slides = json_decode(html_entity_decode($matches[1]));
-                $slideCount = intval($matches[2]);
-                $mode = $matches[3];
+                $mode = $matches[4];
+                $maxcolumns = $matches[3];
 
-                $html = '<div class="ttcp-'.$mode.'-wrapper"><div class="ttcp-'.$mode.'-inner"><div class="ttcp-'.$mode.'-stage">';
+                $html = '<div class="ttcp-'.$mode.'-wrapper"><div class="ttcp-'.$mode.'-inner"><div class="ttcp-'.$mode.'-stage ttcp-'.$mode.'-cols-'.$maxcolumns.'">';
 
                 foreach ($slides as $slide) {
                     $html .= '<div class="ttcp-'.$mode.'-slide">';

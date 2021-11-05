@@ -19,6 +19,9 @@ export default Node.create({
             slideCount: {
                 default: 0,
             },
+            maxColumns: {
+                default: 3,
+            },
             mode: {
                 default: 'slideshow',
             },
