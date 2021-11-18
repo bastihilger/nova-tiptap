@@ -26,10 +26,10 @@ export default {
             if (!this.editor) {
                 return false;
             }
-            
+
             return this.editor.isActive(this.button);
         },
-        
+
         icon() {
             if (this.button == 'bold') {
                 return ['fas', 'bold'];
@@ -55,6 +55,8 @@ export default {
                 return ['fas', 'subscript'];
             } else if (this.button == 'superscript') {
                 return ['fas', 'superscript'];
+            } else if (this.button == 'hardBreak') {
+                return ['fas', 'hand-point-down'];
             }
 
             return null;
@@ -102,6 +104,8 @@ export default {
                 command.setHorizontalRule();
             } else if (this.button == 'table') {
                 command.insertTable({ rows: 3, cols: 3, withHeaderRow: true });
+            } else if (this.button == 'hardBreak') {
+              command.setHardBreak();
             }
 
             command.run();
