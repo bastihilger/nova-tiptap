@@ -209,6 +209,20 @@ Tiptap::make('FieldName')
 
 When using `'editHtml'` you can set the theme by using using `htmlTheme()`. The default theme used is "material". You can find all the codemirror themes used [here](https://codemirror.net/demo/theme.html) .
 
+## Save JSON 
+
+You can optionally use `saveAsJson` to enable the ability to save to the tiptap editor content as JSON in the field
+
+``` php
+Tiptap::make('FieldName')
+  ->buttons([
+      'italic',
+      'bold',
+      'code'
+  ])
+  ->saveAsJson(true),
+```
+
 ## Visibility in index view
 
 Like `Textarea` and `Trix` fields this field is hidden from index views. You can make the content visible by using a [computed field](https://nova.laravel.com/docs/3.0/resources/fields.html#computed-fields).
