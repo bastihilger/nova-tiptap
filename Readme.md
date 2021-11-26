@@ -51,6 +51,7 @@ Tiptap::make('FieldName')
         'blockquote',
         '|',
         'horizontalRule',
+        'hardBreak',
         '|',
         'table',
         '|',
