@@ -55,8 +55,6 @@ export default {
                 return ['fas', 'subscript'];
             } else if (this.button == 'superscript') {
                 return ['fas', 'superscript'];
-            } else if (this.button == 'hardBreak') {
-                return ['fas', 'hand-point-down'];
             }
 
             return null;
@@ -67,6 +65,8 @@ export default {
                 return '<span> &lt;&gt; </span>';
             } else if (this.button == 'codeBlock') {
                 return '<span> &lt;/&gt; </span>';
+            } else if (this.button == 'hardBreak') {
+                return '<span> BR </span>';
             }
 
             return null;
