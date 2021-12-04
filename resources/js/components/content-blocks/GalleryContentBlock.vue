@@ -35,9 +35,20 @@
                                     class="my-6 p-2 bg-40 rounded-lg"
                                 >   
                                     <div class="mb-2 flex items-center justify-between text-primary">
-                                        <div 
-                                            v-text="'Slide '+(slideIndex + 1)"
-                                        />
+                                        <div class="flex items-center">
+                                            <div 
+                                                v-text="'Slide '+(slideIndex + 1)"
+                                            />
+
+                                            <div
+                                                class="ml-4 cursor-pointer"
+                                                @click="removeSlide(slideIndex)"
+                                            >
+                                                <font-awesome-icon :icon="['fas', 'trash-alt']">
+                                                </font-awesome-icon>
+                                                
+                                            </div>
+                                        </div>
 
                                         <div>
                                             <div
@@ -110,7 +121,7 @@
                                                     cursor-pointer ml-8 text-xl text-primary
                                                 "
                                             >
-                                                <font-awesome-icon :icon="['fas', 'trash-alt']">
+                                                <font-awesome-icon :icon="['fas', 'times-circle']">
                                                 </font-awesome-icon>
                                             </div>
 
@@ -334,6 +345,18 @@ export default {
                 uploadProgress: 0,
             });
             
+        },
+
+        removeSlide(index) {
+            let newSlides = [];
+
+            for(let i = 0; i < this.slideCount; i++) {
+                if (i != index) {
+                    newSlides.push(this.slides[i]);
+                }
+            }
+
+            this.slides = newSlides;
         },
 
         moveDown(index) {
