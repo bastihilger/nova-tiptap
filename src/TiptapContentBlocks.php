@@ -56,11 +56,12 @@ class TiptapContentBlocks
                         $html .= '<div class="ttcp-slideshow-slide swiper-slide">';
                         $html .= '<div class="ttcp-slideshow-image-wrapper"><div class="ttcp-slideshow-image-inner">';
                         $html .= '<img class="ttcp-slideshow-image" src="'.$slide->src.'" />';
-                        $html .= '</div></div>';
                         $html .= '<div class="ttcp-slideshow-subtext">';
                         $html .= '<div class="ttcp-slideshow-caption">'.$slide->caption.'</div>';
                         $html .= '<div class="ttcp-slideshow-credits">'.$slide->credits.'</div>';
                         $html .= '</div>';
+
+                        $html .= '</div></div>';
                         $html .= '</div>';
                     }
 
