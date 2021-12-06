@@ -230,7 +230,7 @@
                                 </div>
                             </div>
 
-                            <div>
+                            <div v-show="mode == 'grid'">
                                 <label class="block text-sm mb-1 ml-1 capitalize" v-text="__('max columns')"></label>
                                 <select
                                     class="
