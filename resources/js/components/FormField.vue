@@ -481,7 +481,10 @@ export default {
             content: this.value,
             onCreate() {
                 if (context.saveAsJson) {
-                    this.commands.setContent(JSON.parse(context.value));
+                    try {
+                        let content = JSON.parse(context.value);
+                        this.commands.setContent(content);
+                    } catch {}
                 }
             },
             onUpdate() {
