@@ -2,6 +2,8 @@
 
 namespace Manogi\Tiptap;
 
+use Illuminate\Support\Str;
+
 class TiptapContentBlocks
 {
     public function parse($content)
@@ -31,21 +33,49 @@ class TiptapContentBlocks
                 $mode = $matches[4];
                 $maxcolumns = $matches[3];
 
-                $html = '<div class="ttcp-'.$mode.'-wrapper"><div class="ttcp-'.$mode.'-inner"><div class="ttcp-'.$mode.'-stage ttcp-'.$mode.'-cols-'.$maxcolumns.'">';
+                if ($mode == 'grid') {
+                    $html = '<div class="ttcp-grid-wrapper"><div class="ttcp-grid-inner"><div class="ttcp-grid-stage ttcp-grid-cols-'.$maxcolumns.'">';
 
-                foreach ($slides as $slide) {
-                    $html .= '<div class="ttcp-'.$mode.'-slide">';
-                    $html .= '<div class="ttcp-'.$mode.'-image-wrapper">';
-                    $html .= '<img class="ttcp-'.$mode.'-image" src="'.$slide->src.'" />';
+                    foreach ($slides as $slide) {
+                        $html .= '<div class="ttcp-grid-slide">';
+                        $html .= '<div class="ttcp-grid-image-wrapper">';
+                        $html .= '<img class="ttcp-grid-image" src="'.$slide->src.'" />';
+                        $html .= '</div>';
+                        $html .= '<div class="ttcp-grid-subtext">';
+                        $html .= '<div class="ttcp-grid-caption">'.$slide->caption.'</div>';
+                        $html .= '<div class="ttcp-grid-credits">'.$slide->credits.'</div>';
+                        $html .= '</div>';
+                        $html .= '</div>';
+                    }
+
+                    $html .= '</div></div></div>';
+                } elseif ($mode == 'slideshow') {
+                    $html = '<div class="ttcp-slideshow-wrapper"><div class="ttcp-slideshow-inner"><div id="swiper_'.Str::random(12).'" class="swiper"><div class="swiper-wrapper">';
+
+                    foreach ($slides as $slide) {
+                        $html .= '<div class="ttcp-slideshow-slide swiper-slide">';
+                        $html .= '<div class="ttcp-slideshow-image-wrapper"><div class="ttcp-slideshow-image-inner">';
+                        $html .= '<img class="ttcp-slideshow-image" src="'.$slide->src.'" />';
+                        $html .= '<div class="ttcp-slideshow-subtext">';
+                        $html .= '<div class="ttcp-slideshow-caption">'.$slide->caption.'</div>';
+                        $html .= '<div class="ttcp-slideshow-credits">'.$slide->credits.'</div>';
+                        $html .= '</div>';
+
+                        $html .= '</div></div>';
+                        $html .= '</div>';
+                    }
+
                     $html .= '</div>';
-                    $html .= '<div class="ttcp-'.$mode.'-subtext">';
-                    $html .= '<div class="ttcp-'.$mode.'-caption">'.$slide->caption.'</div>';
-                    $html .= '<div class="ttcp-'.$mode.'-credits">'.$slide->caption.'</div>';
-                    $html .= '</div>';
-                    $html .= '</div>';
+
+                    if (count($slides) > 1) {
+                        $html .= '<div class="swiper-pagination"></div>';
+
+                        $html .= '<div class="swiper-button-prev"></div>';
+                        $html .= '<div class="swiper-button-next"></div>';
+                    }
+
+                    $html .= '</div></div></div>';
                 }
-
-                $html .= '</div></div></div>';
 
                 return $html;
             },
