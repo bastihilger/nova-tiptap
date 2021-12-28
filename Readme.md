@@ -211,7 +211,7 @@ When using `'editHtml'` you can set the theme by using using `htmlTheme()`. The 
 
 ## Save JSON 
 
-You can optionally use `saveAsJson` to enable the ability to save to the tiptap editor content as JSON in the field
+You can optionally use `saveAsJson` to enable the ability to save the tiptap editor content as JSON in the field
 
 ``` php
 Tiptap::make('FieldName')
