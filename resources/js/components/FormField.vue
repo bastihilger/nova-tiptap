@@ -480,12 +480,10 @@ export default {
             extensions: extensions,
             content: this.value,
             onCreate() {
-                if (context.saveAsJson) {
-                    try {
-                        let content = JSON.parse(context.value);
-                        this.commands.setContent(content);
-                    } catch {}
-                }
+                try {
+                    let content = JSON.parse(context.value);
+                    this.commands.setContent(content);
+                } catch {} 
             },
             onUpdate() {
                 if (context.saveAsJson) {
