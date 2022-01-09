@@ -409,15 +409,6 @@ export default {
             
             Heading.configure({
                 levels: this.headingLevels,
-            }).extend({
-                addAttributes() {
-                    return {
-                        ...this.parent?.(),
-                        dir: {
-                            default: 'auto',
-                        },
-                    }
-                }
             }),
             Blockquote,
             BulletList,
@@ -425,16 +416,7 @@ export default {
             ListItem,    
             OrderedList,
             HardBreak,
-            Paragraph.extend({
-                addAttributes() {
-                    return {
-                        ...this.parent?.(),
-                        dir: {
-                            default: 'auto',
-                        },
-                    }
-                }
-            }),
+            Paragraph,
             Table.configure({
                 resizable: true,
             }),
