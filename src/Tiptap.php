@@ -200,10 +200,10 @@ class Tiptap extends Field
      * @param  boolean  $saveAsJson
      * @return $this
      */
-    public function saveAsJson($saveAsJson)
+    public function saveAsJson()
     {
         return $this->withMeta([
-            'saveAsJson' => $saveAsJson,
+            'saveAsJson' => true,
         ]);
     }
 

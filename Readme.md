@@ -221,7 +221,7 @@ Tiptap::make('FieldName')
       'bold',
       'code'
   ])
-  ->saveAsJson(true),
+  ->saveAsJson(),
 ```
 
 ## Visibility in index view
