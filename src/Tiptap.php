@@ -24,6 +24,13 @@ class Tiptap extends Field
     public $showOnIndex = false;
 
     /**
+     * Indicates if the field should save it's content as json object.
+     *
+     * @var bool
+     */
+    public $saveAsJson = false;
+
+    /**
      * Set the buttons that should be available in the menu.
      *
      * @param  array  $buttons
@@ -184,6 +191,19 @@ class Tiptap extends Field
     {
         return $this->withMeta([
             'placeholderBlocks' => $placeholderBlocks,
+        ]);
+    }
+
+    /**
+     * Set setting to save the input as json object.
+     *
+     * @param  boolean  $saveAsJson
+     * @return $this
+     */
+    public function saveAsJson()
+    {
+        return $this->withMeta([
+            'saveAsJson' => true,
         ]);
     }
 

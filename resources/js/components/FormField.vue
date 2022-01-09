@@ -316,6 +316,10 @@ export default {
                return this.editor ? this.editor.isActive('table') : false;
            }
            return false;
+        },
+
+        saveAsJson() {
+            return this.field.saveAsJson ? this.field.saveAsJson : false;
         }
     },
 
@@ -472,8 +476,19 @@ export default {
         this.editor = new Editor({
             extensions: extensions,
             content: this.value,
+            onCreate() {
+                try {
+                    let content = JSON.parse(context.value);
+                    this.commands.setContent(content);
+                } catch {} 
+            },
             onUpdate() {
-                context.updateValue(this.getHTML());
+                if (context.saveAsJson) {
+                    let jsonContent = this.getJSON();
+                    context.updateValue(JSON.stringify(jsonContent.content));
+                } else {
+                    context.updateValue(this.getHTML());
+                }
             },
         });
     },
