@@ -51,6 +51,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 
 import {
     faHorizontalRule,
+    faParagraphRtl,
     faImagePolaroid
 } from '@fortawesome/pro-solid-svg-icons';
 
@@ -99,6 +100,7 @@ library.add(
     faLink, 
     faListOl,
     faListUl,
+    faParagraphRtl,
     faQuoteRight,
     faRedoAlt,
     faStrikethrough,

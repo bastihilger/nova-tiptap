@@ -99,6 +99,14 @@
                                 </text-align-buttons>
                             </template>
 
+                            <template v-else-if="button == 'rtl'">
+                                <rtl-button
+                                    :editor="editor"
+                                    :mode="mode"
+                                >
+                                </rtl-button>
+                            </template>
+
                             <template v-else-if="button == 'history'">
                                 <history-buttons
                                     :editor="editor"
@@ -151,6 +159,7 @@
                 "
                 :style="cssProps"
                 v-show="mode == 'editor'"
+                
             >
                 <editor-content :editor="editor" />
             </div>
@@ -169,28 +178,27 @@
 </template>
 
 <script>
-
 import { Editor, EditorContent, VueNodeViewRenderer } from '@tiptap/vue-2';
 
 import Text from '@tiptap/extension-text';
 
-import Bold from '@tiptap/extension-bold';
-import Code from '@tiptap/extension-code';
-import Italic from '@tiptap/extension-italic';
-import Highlight from '@tiptap/extension-highlight';
-import Link from '@tiptap/extension-link';
-import Strike from '@tiptap/extension-strike';
-import TextStyle from '@tiptap/extension-text-style';
-import Underline from '@tiptap/extension-underline';
-import Subscript from '@tiptap/extension-subscript';
-import Superscript from '@tiptap/extension-superscript';
 import Blockquote from '@tiptap/extension-blockquote';
+import Bold from '@tiptap/extension-bold';
 import BulletList from '@tiptap/extension-bullet-list';
-import OrderedList from '@tiptap/extension-ordered-list';
-import ListItem from '@tiptap/extension-list-item';
+import Code from '@tiptap/extension-code';
 import CodeBlock from '@tiptap/extension-code-block';
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
+import Highlight from '@tiptap/extension-highlight';
 import HorizontalRule from '@tiptap/extension-horizontal-rule';
+import Italic from '@tiptap/extension-italic';
+import Link from '@tiptap/extension-link';
+import ListItem from '@tiptap/extension-list-item';
+import OrderedList from '@tiptap/extension-ordered-list';
+import Strike from '@tiptap/extension-strike';
+import Subscript from '@tiptap/extension-subscript';
+import Superscript from '@tiptap/extension-superscript';
+import TextStyle from '@tiptap/extension-text-style';
+import Underline from '@tiptap/extension-underline';
 
 import Heading from '@tiptap/extension-heading';
 import TextAlign from '@tiptap/extension-text-align';
@@ -214,6 +222,7 @@ import NormalButton from './buttons/NormalButton';
 import HeadingButtons from './buttons/HeadingButtons';
 import TableButtons from './buttons/TableButtons';
 import TextAlignButtons from './buttons/TextAlignButtons';
+import RtlButton from './buttons/RtlButton';
 import HistoryButtons from './buttons/HistoryButtons';
 import ImageButton from './buttons/ImageButton';
 import PlaceholderBlockButton from './buttons/PlaceholderBlockButton';
@@ -248,6 +257,7 @@ export default {
         HeadingButtons,
         TableButtons,
         TextAlignButtons,
+        RtlButton,
         HistoryButtons,
         ImageButton,
         PlaceholderBlockButton,
@@ -399,6 +409,15 @@ export default {
             
             Heading.configure({
                 levels: this.headingLevels,
+            }).extend({
+                addAttributes() {
+                    return {
+                        ...this.parent?.(),
+                        dir: {
+                            default: 'auto',
+                        },
+                    }
+                }
             }),
             Blockquote,
             BulletList,
@@ -406,7 +425,16 @@ export default {
             ListItem,    
             OrderedList,
             HardBreak,
-            Paragraph,
+            Paragraph.extend({
+                addAttributes() {
+                    return {
+                        ...this.parent?.(),
+                        dir: {
+                            default: 'auto',
+                        },
+                    }
+                }
+            }),
             Table.configure({
                 resizable: true,
             }),
