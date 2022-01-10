@@ -143,6 +143,90 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="mt-8">
+                        <label 
+                            class="block text-sm mb-1 ml-1"
+                            v-text="__('custom css classes')"
+                        >
+                        </label>
+
+                        <input
+                            class="
+                                form-input
+                                form-input-bordered
+                                px-2 py-1 w-full
+                                text-sm text-90
+                                leading-none
+                            "
+                            type="text"
+                            v-model="extraClasses"
+                        />
+
+                        <label 
+                            class="block text-sm mt-4 mb-1 ml-1"
+                            v-text="__('title')"
+                        >
+                        </label>
+
+                        <input
+                            class="
+                                form-input
+                                form-input-bordered
+                                px-2 py-1 w-full
+                                text-sm text-90
+                                leading-none
+                            "
+                            type="text"
+                            v-model="title"
+                        />
+
+                        <div class="
+                            grid grid-cols-3 gap-4
+                        ">
+                            <div class="flex items-center mt-5">
+                                <input 
+                                    :id="'nofollow_'+field.attribute"
+                                    type="checkbox"
+                                    v-model="nofollow"
+                                />
+                                <label
+                                    class="text-sm ml-2"
+                                    :for="'nofollow_'+field.attribute"
+                                    v-text="'nofollow'"
+                                >
+                                </label>
+                            </div>
+
+                            <div class="flex items-center mt-5">
+                                <input 
+                                    :id="'noopener_'+field.attribute"
+                                    type="checkbox"
+                                    v-model="noopener"
+                                />
+                                <label
+                                    class="text-sm ml-2"
+                                    :for="'noopener_'+field.attribute"
+                                    v-text="'noopener'"
+                                >
+                                </label>
+                            </div>
+
+                            <div class="flex items-center mt-5">
+                                <input 
+                                    :id="'noreferrer_'+field.attribute"
+                                    type="checkbox"
+                                    v-model="noreferrer"
+                                />
+                                <label
+                                    class="text-sm ml-2"
+                                    :for="'noreferrer_'+field.attribute"
+                                    v-text="'noreferrer'"
+                                >
+                                </label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="bg-30 px-6 py-3">   
@@ -234,6 +318,9 @@ export default {
             extraClasses: '',
             linkMode: 'url',
             title: '',
+            nofollow: false,
+            noopener: false,
+            noreferrer: false,
         }
     },
 
@@ -268,11 +355,17 @@ export default {
                 this.url = attributes.href;
                 this.openInNewWindow = attributes.target == '_blank' ? true : false;
                 this.linkMode = attributes['tt-mode'] ? attributes['tt-mode'] : 'url';
-                this.extraClasses = attributes.class.length ? attributes.class : '';
-                this.title = attributes.title.length ? attributes.title : '';
+                this.extraClasses = attributes.class ? attributes.class : '';
+                this.title = attributes.title ? attributes.title : '';
+                this.nofollow = attributes.rel && attributes.rel.indexOf('nofollow') > -1 ? true : false;
+                this.noopener = attributes.rel && attributes.rel.indexOf('noopener') > -1 ? true : false;
+                this.noreferrer = attributes.rel && attributes.rel.indexOf('noreferrer') > -1 ? true : false;
             } else {
                 this.url = '';
                 this.openInNewWindow = false;
+                this.nofollow = false;
+                this.noopener = false;
+                this.noreferrer = false;
                 this.linkMode = 'url';
                 this.extraClasses = '';
                 this.title = '';
@@ -328,11 +421,10 @@ export default {
                     let attributes = {
                         href: response.data.url,
                         'tt-mode': 'file',
-                        class: this.extraClasses,
-                        title: this.title,
+                        download: 'true',
                     };
 
-                    this.editor.chain().focus().setLink(attributes).run();
+                    this.setLink(attributes);
                     
                     this.hideLinkMenu();
                 }.bind(this))
@@ -348,8 +440,6 @@ export default {
             let attributes = {
                 href: this.url,
                 'tt-mode': 'url',
-                class: this.extraClasses,
-                title: this.title,
             };
 
             if (this.openInNewWindow) {
@@ -364,10 +454,31 @@ export default {
         },
 
         setLink(attributes) {
+            if (this.extraClasses) {
+                attributes.class = this.extraClasses;
+            }
+            if (this.title) {
+                attributes.title = this.title;
+            }
+            if (this.nofollow || this.noopener || this.noreferrer) {
+                attributes.rel = '';
+                if (this.nofollow) {
+                    attributes.rel += 'nofollow ';
+                }
+                if (this.noopener) {
+                    attributes.rel += 'noopener ';
+                }
+                if (this.noreferrer) {
+                    attributes.rel += 'noreferrer ';
+                }
+                attributes.rel = _.trim(attributes.rel);
+            }
+
             if (this.editor.isActive('image')) {
                 let attributes = this.editor.getAttributes('image');
                 
             } else {
+                this.editor.chain().extendMarkRange('link').unsetLink().run();
                 this.editor.chain().focus().setLink(attributes).run();
             }
             

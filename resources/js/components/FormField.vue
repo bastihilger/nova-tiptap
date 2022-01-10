@@ -392,12 +392,10 @@ export default {
                         'tt-mode': {
                             default: 'url',
                         },
-                        class: {
-                            default: '',
-                        },
-                        title: {
-                            default: '',
-                        },
+                        class: String,
+                        rel: String,
+                        title: String,
+                        download: String,
                     }
                 }
             }),
@@ -450,15 +448,9 @@ export default {
                         'tt-link-mode': {
                             default: 'url',
                         },
-                        class: {
-                            default: '',
-                        },
-                        title: {
-                            default: '',
-                        },
-                        alt: {
-                            default: '',
-                        },
+                        class: String,
+                        title: String,
+                        alt: String,
                     }
                 }
             }),
