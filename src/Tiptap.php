@@ -98,6 +98,12 @@ class Tiptap extends Field
      */
     public function alignments($alignments)
     {
+        $alignments = array_map(function($item){
+            if($item == 'left') { return 'start'; } 
+            if($item == 'right') { return 'end'; }
+            return $item;
+        }, $alignments);
+        
         return $this->withMeta([
             'alignments' => $alignments,
         ]);

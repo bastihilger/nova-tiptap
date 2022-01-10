@@ -59,6 +59,8 @@ Tiptap::make('FieldName')
         '|',
         'textAlign',
         '|',
+        'rtl',
+        '|',
         'history',
         '|',
         'editHtml',
@@ -170,6 +172,19 @@ Tiptap::make('FieldName')
   ])
   ->alignments(['right', 'left'])
   ->defaultAlignment('right'),
+```
+
+## RTL support with `rtl`
+
+When adding `rtl` you get a button for toggling RTL mode for all selected block elements (`dir="rtl"`). 
+
+``` php
+Tiptap::make('FieldName')
+  ->buttons([
+      'italic',
+      'bold',
+      'rtl',
+  ]),
 ```
 
 ## The two different "code" buttons

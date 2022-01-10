@@ -3,7 +3,7 @@
         <base-button
             :isActive="rtlIsActive()"
             :isDisabled="mode != 'editor'"
-            :clickMethod="toggleRtl"
+            :clickMethod="setRtl"
             :title="'RTL'"
             :icon="['fas', 'paragraph-rtl']"
         >
@@ -26,14 +26,21 @@ export default {
         rtlIsActive() {
            return this.editor ? this.editor.isActive({ dir: 'rtl' }) : false;
         },
-        toggleRtl() {
+        setRtl() {
+            const okNodes = [
+                'paragraph', 'heading'
+            ];
+
             if (this.rtlIsActive()) {
-                this.editor.chain().focus().updateAttributes('paragraph', { dir: 'auto' }).run();
+                okNodes.forEach(
+                    nodename => this.editor.chain().focus().updateAttributes(nodename, { dir: 'ltr' }).run()
+                );
+                 
             } else {
-                this.editor.chain().focus().updateAttributes('paragraph', { dir: 'rtl' }).run();
-                this.editor.chain().focus().updateAttributes('heading', { dir: 'rtl' }).run();
+                okNodes.forEach(
+                    nodename => this.editor.chain().focus().updateAttributes(nodename, { dir: 'rtl' }).run()
+                );
             }
-            
         }
     }
 }

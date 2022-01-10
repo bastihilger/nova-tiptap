@@ -300,7 +300,7 @@ export default {
         },
 
         alignments() {
-            return this.field.alignments ? this.field.alignments : ['left', 'center', 'right', 'justify'];
+            return this.field.alignments ? this.field.alignments : ['start', 'center', 'end', 'justify'];
         },
 
         alignElements() {
@@ -407,14 +407,49 @@ export default {
             
             Heading.configure({
                 levels: this.headingLevels,
+            }).extend({
+                addAttributes() {
+                    return {
+                        ...this.parent?.(),
+                        dir: String,
+                    }
+                }
             }),
-            Blockquote,
-            BulletList,
+            Blockquote.extend({
+                addAttributes() {
+                    return {
+                        ...this.parent?.(),
+                        dir: String,
+                    }
+                }
+            }),
+            BulletList.extend({
+                addAttributes() {
+                    return {
+                        ...this.parent?.(),
+                        dir: String,
+                    }
+                }
+            }),
             HorizontalRule,
             ListItem,    
-            OrderedList,
+            OrderedList.extend({
+                addAttributes() {
+                    return {
+                        ...this.parent?.(),
+                        dir: String,
+                    }
+                }
+            }),
             HardBreak,
-            Paragraph,
+            Paragraph.extend({
+                addAttributes() {
+                    return {
+                        ...this.parent?.(),
+                        dir: String,
+                    }
+                }
+            }),
             Table.configure({
                 resizable: true,
             }),
