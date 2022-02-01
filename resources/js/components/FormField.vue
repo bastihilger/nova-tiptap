@@ -447,6 +447,7 @@ export default {
                     return {
                         ...this.parent?.(),
                         dir: String,
+                        data: String,
                     }
                 }
             }),
