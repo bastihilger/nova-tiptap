@@ -55,6 +55,8 @@ export default {
                 return ['fas', 'subscript'];
             } else if (this.button == 'superscript') {
                 return ['fas', 'superscript'];
+            } else if (this.button == 'paragraph') {
+                return ['fas', 'paragraph'];
             }
 
             return null;
@@ -106,6 +108,8 @@ export default {
                 command.insertTable({ rows: 3, cols: 3, withHeaderRow: true });
             } else if (this.button == 'hardBreak') {
               command.setHardBreak();
+            } else if (this.button == 'paragraph') {
+              command.setParagraph();
             }
 
             command.run();
