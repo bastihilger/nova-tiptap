@@ -25,6 +25,12 @@ export default Node.create({
             mode: {
                 default: 'slideshow',
             },
+            formatMode: {
+                default: 'flexible',
+            },
+            format: {
+                default: 'square',
+            },
             key: {
                 default: '',
             },
@@ -33,7 +39,7 @@ export default Node.create({
             },
             imagePath: {
                 default: '',
-            },
+            }
         }
     },
 

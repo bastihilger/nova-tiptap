@@ -32,7 +32,7 @@
                                 <div
                                     v-for="(slide, slideIndex) in slides"
                                     :key="slideIndex"
-                                    class="my-6 p-2 bg-40 rounded-lg"
+                                    class="my-6 px-2 pt-2 pb-4 bg-40 rounded-lg"
                                 >   
                                     <div class="mb-2 flex items-center justify-between text-primary">
                                         <div class="flex items-center">
@@ -158,7 +158,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="grid grid-cols-2 gap-8">
+                                    <div class="grid grid-cols-2  gap-x-6 gap-y-4">
                                         <div>
                                             <label class="block text-sm mb-1 ml-1 capitalize" v-text="__('caption')" />
 
@@ -189,6 +189,45 @@
                                                 "
                                                 v-model="slides[slideIndex].credits"
                                             />
+                                        </div>
+
+                                        <div>
+                                            <label class="block text-sm mb-1 ml-1 capitalize" v-text="__('link')" />
+
+                                            <input
+                                                type="text"
+                                                class="
+                                                    form-input
+                                                    form-input-bordered
+                                                    px-2 py-1 w-full
+                                                    text-sm text-90
+                                                    leading-none
+                                                "
+                                                v-model="slides[slideIndex].link"
+                                            />
+                                        </div>
+
+                                        <div>
+                                            <label class="block text-sm mb-1 ml-1 capitalize" v-text="__('link target')" />
+                                            <select
+                                                class="
+                                                    form-input
+                                                    form-input-bordered
+                                                    px-2 py-1 w-full
+                                                    text-sm text-90
+                                                    leading-none
+                                                "
+                                                v-model="slides[slideIndex].linkTarget"
+                                            >
+                                                <option 
+                                                    value=""
+                                                    v-text="__('same tab/window')"
+                                                />
+                                                <option 
+                                                    value="_blank"
+                                                    v-text="__('new tab/window')"
+                                                />
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -247,6 +286,53 @@
                                         :key="num"
                                         :value="num"
                                         v-text="num"
+                                    />
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mt-8 grid grid-cols-2 gap-8">
+                            <div>
+                                <label class="block text-sm mb-2 capitalize" v-text="__('format mode')"></label>
+                                <div
+                                    v-for="(formatModeName, formatModeOption) in formatModeOptions" 
+                                    :key="formatModeOption"
+                                    class="inline-flex mr-4 items-center"
+                                >
+                                    <input
+                                        type="radio"
+                                        class="
+                                            radio h-5 w-5
+                                        "
+                                        :value="formatModeOption"
+                                        v-model="formatMode"
+                                        :id="formatModeOption"
+                                    />
+                                    <label 
+                                        :for="formatModeOption"
+                                        v-text="formatModeName"
+                                        class="ml-2"
+                                    />
+                                </div>
+                            </div>
+
+                            <div v-show="formatMode == 'fixed'">
+                                <label class="block text-sm mb-1 ml-1 capitalize" v-text="__('format')"></label>
+                                <select
+                                    class="
+                                        form-input
+                                        form-input-bordered
+                                        px-2 py-1 w-full
+                                        text-sm text-90
+                                        leading-none
+                                    "
+                                    v-model="format"
+                                >
+                                    <option 
+                                        v-for="(fixedModeName, fixedModeOption) in fixedModeOptions" 
+                                        :key="fixedModeOption"
+                                        :value="fixedModeOption"
+                                        v-text="fixedModeName"
                                     />
                                 </select>
                             </div>
@@ -312,10 +398,25 @@ export default {
             slides: [],
             uploadingIndexes: [],
             mode: '',
+            formatMode: 'flexible',
+            format: '',
             maxColumns: 1,
             modeOptions: {
                 slideshow: 'Slideshow',
                 grid: 'Grid',
+            },
+            formatModeOptions: {
+                flexible: 'flexible',
+                fixed: 'fixed',
+            },
+            fixedModeOptions: {
+                extratall: 'extratall',
+                tall: 'tall',
+                portrait: 'portrait',
+                square: 'square',
+                landscape: 'landscape',
+                wide: 'wide',
+                extrawide: 'extrawide',
             },
         }
     },
@@ -341,6 +442,8 @@ export default {
                 preview: '',
                 file: '',
                 src: '',
+                link: '',
+                linkTarget: '',
                 uploading: false,
                 uploadProgress: 0,
             });
@@ -414,7 +517,6 @@ export default {
 
         uploadImage(index, e) {
             e.preventDefault();
-            console.log(this.slides);
             this.slides[index].uploading = true;
             
             let data = new FormData();
@@ -447,6 +549,8 @@ export default {
         showModal() {
             this.slides = _.size(this.node.attrs.slides) ? JSON.parse(this.node.attrs.slides) : [];
             this.mode = this.node.attrs.mode;
+            this.formatMode = this.node.attrs.formatMode ? this.node.attrs.formatMode : 'flexible';
+            this.format = this.node.attrs.format ? this.node.attrs.format : 'square';
             this.maxColumns = this.node.attrs.maxColumns ? this.node.attrs.maxColumns : 3;
             this.modalIsActive = true;
         },
@@ -456,6 +560,8 @@ export default {
                 slides: this.slides ? JSON.stringify(this.slides) : '',
                 mode: this.mode,
                 maxColumns: this.maxColumns,
+                formatMode: this.formatMode,
+                format: this.format,
                 slideCount: this.slides ? _.size(this.slides) : 0,
             });
 
