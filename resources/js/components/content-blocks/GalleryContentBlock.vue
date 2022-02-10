@@ -329,10 +329,10 @@
                                     v-model="format"
                                 >
                                     <option 
-                                        v-for="(fixedModeName, fixedModeOption) in fixedModeOptions" 
+                                        v-for="fixedModeOption in fixedModeOptions" 
                                         :key="fixedModeOption"
                                         :value="fixedModeOption"
-                                        v-text="fixedModeName"
+                                        v-text="fixedModeOption"
                                     />
                                 </select>
                             </div>
@@ -409,15 +409,15 @@ export default {
                 flexible: 'flexible',
                 fixed: 'fixed',
             },
-            fixedModeOptions: {
-                extratall: 'extratall',
-                tall: 'tall',
-                portrait: 'portrait',
-                square: 'square',
-                landscape: 'landscape',
-                wide: 'wide',
-                extrawide: 'extrawide',
-            },
+            fixedModeOptions: [
+                '16:9',
+                '4:3',
+                '1:1',
+                '9:16',
+                '3:4',
+                '2:1',
+                '8:5',
+            ]
         }
     },
 

@@ -33,13 +33,13 @@ class TiptapContentBlocks
                 $mode = $matches[4];
                 $maxcolumns = $matches[3];
                 $formatmode = $matches[5];
-                $format = $matches[6];
+                $ratio = $matches[6];
 
                 if ($mode == 'grid') {
                     $html = '<div class="ttcp-grid-wrapper"><div class="ttcp-grid-inner"><div class="ttcp-grid-stage ttcp-grid-cols-'.$maxcolumns.'">';
 
                     foreach ($slides as $slide) {
-                        $html .= '<div class="ttcp-grid-slide ttcp-grid-formatmode-'.$formatmode.' ttcp-grid-format-'.$format.'">';
+                        $html .= '<div class="ttcp-grid-slide ttcp-grid-formatmode-'.$formatmode.'" ratio="'.$ratio.'">';
                         $html .= '<div class="ttcp-grid-image-wrapper">';
                         if (@$slide->link) {
                             $html .= '<a href="'.$slide->link.'"';
