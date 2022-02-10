@@ -39,17 +39,28 @@ class TiptapContentBlocks
                     $html = '<div class="ttcp-grid-wrapper"><div class="ttcp-grid-inner"><div class="ttcp-grid-stage ttcp-grid-cols-'.$maxcolumns.'">';
 
                     foreach ($slides as $slide) {
+                        $embedCode = '';
+                        if (@$slide->embedCode && stristr($slide->embedCode, '<iframe')) {
+                            $embedCode = $slide->embedCode;
+                        }
+
                         $html .= '<div class="ttcp-grid-slide ttcp-grid-formatmode-'.$formatmode.'" ratio="'.$ratio.'">';
                         $html .= '<div class="ttcp-grid-image-wrapper">';
-                        if (@$slide->link) {
+                        if (@$slide->link && ! $embedCode) {
                             $html .= '<a href="'.$slide->link.'"';
                             if (@$slide->linkTarget) {
                                 $html .= ' target="'.$slide->linkTarget.'" ';
                             }
                             $html .= '>';
                         }
-                        $html .= '<img class="ttcp-grid-image" src="'.$slide->src.'" />';
-                        if (@$slide->link) {
+
+                        if (! $embedCode) {
+                            $html .= '<img class="ttcp-grid-image" src="'.$slide->src.'" />';
+                        } else {
+                            $html .= $embedCode;
+                        }
+
+                        if (@$slide->link && ! $embedCode) {
                             $html .= '</a>';
                         }
                         $html .= '</div>';

@@ -229,6 +229,20 @@
                                                 />
                                             </select>
                                         </div>
+
+                                        <div class="col-span-2">
+                                            <label class="block text-sm mb-1 ml-1 capitalize" v-text="__('embed code')" />
+                                            <textarea
+                                                class="
+                                                    form-input
+                                                    form-input-bordered
+                                                    px-2 py-1 w-full
+                                                    text-sm text-90
+                                                    leading-none h-16
+                                                "
+                                                v-model="slides[slideIndex].embedCode"
+                                            />      
+                                        </div>
                                     </div>
                                 </div>
 
@@ -444,6 +458,7 @@ export default {
                 src: '',
                 link: '',
                 linkTarget: '',
+                embedCode: '',
                 uploading: false,
                 uploadProgress: 0,
             });
@@ -524,7 +539,6 @@ export default {
             data.append('disk', parseInt(this.node.attrs.imageDisk) != 0 ? this.node.attrs.imageDisk : '');   
             data.append('path', parseInt(this.node.attrs.imagePath) != 0 ? this.node.attrs.imagePath : '');   
 
-            console.log(this.node.attrs.imageDisk);
             const config = {
                 headers: {
                     'Content-Type': 'multipart/form-data'
@@ -582,7 +596,7 @@ export default {
     },
 
     mounted() {
-        console.log(this.node.attrs);
+
     }
 }
 </script>

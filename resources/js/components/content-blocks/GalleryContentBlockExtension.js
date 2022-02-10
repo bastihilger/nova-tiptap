@@ -29,7 +29,7 @@ export default Node.create({
                 default: 'flexible',
             },
             format: {
-                default: 'square',
+                default: '1:1',
             },
             key: {
                 default: '',

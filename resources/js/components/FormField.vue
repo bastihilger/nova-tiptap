@@ -287,6 +287,14 @@ export default {
     },
 
     computed: {
+        contentWithTrailingParagraph() {
+            
+            if (_.isString(this.value) && _.endsWith(_.trim(this.value), 'content-block>')) {
+                return this.value+'<p></p>';
+            }
+
+            return this.value;
+        },
         buttons() {
             let tmpButtons = this.field.buttons ? this.field.buttons : ['bold', 'italic'];  
             
@@ -513,7 +521,7 @@ export default {
 
         this.editor = new Editor({
             extensions: extensions,
-            content: this.value,
+            content: this.contentWithTrailingParagraph,
             onCreate() {
                 try {
                     let content = JSON.parse(context.value);
