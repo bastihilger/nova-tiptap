@@ -360,7 +360,7 @@ export default {
 
     mounted() {
         this.placeholder = this.field.placeholder ? this.field.placeholder 
-                            : (this.field.extraAttributes ? this.field.extraAttributes.placeholder : '');
+                         : (this.field.extraAttributes ? this.field.extraAttributes.placeholder : '');
 
         if (this.field.imageSettings && this.field.imageSettings.path) {
             this.imagePath = this.field.imageSettings.path;

@@ -29,7 +29,7 @@ class TiptapContentBlocks
         $content = preg_replace_callback(
             '/<gallery-content-block slides="(.*?)" slidecount="(.*?)" maxcolumns="(.*?)" mode="(.*?)" formatmode="(.*?)" format="(.*?)" key="(.*?)" imagedisk="(.*?)" imagepath="(.*?)"><\/gallery-content-block>/is',
             function ($matches) {
-                $slides = json_decode(html_entity_decode($matches[1]));
+                $slides = json_decode(html_entity_decode($matches[1])) ?: [];
                 $mode = $matches[4];
                 $maxcolumns = $matches[3];
                 $formatmode = $matches[5];
@@ -44,6 +44,11 @@ class TiptapContentBlocks
                             $embedCode = $slide->embedCode;
                         }
 
+                        $text = '';
+                        if (@$slide->text && trim(strip_tags($slide->text))) {
+                            $text = $slide->text;
+                        }
+
                         $html .= '<div class="ttcp-grid-slide ttcp-grid-formatmode-'.$formatmode.'" ratio="'.$ratio.'">';
                         $html .= '<div class="ttcp-grid-image-wrapper">';
                         if (@$slide->link && ! $embedCode) {
@@ -54,10 +59,12 @@ class TiptapContentBlocks
                             $html .= '>';
                         }
 
-                        if (! $embedCode) {
-                            $html .= '<img class="ttcp-grid-image" src="'.$slide->src.'" />';
-                        } else {
+                        if ($embedCode) {
                             $html .= $embedCode;
+                        } elseif ($text) {
+                            $html .= $text;
+                        } else {
+                            $html .= '<img class="ttcp-grid-image" src="'.$slide->src.'" />';
                         }
 
                         if (@$slide->link && ! $embedCode) {

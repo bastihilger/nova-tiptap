@@ -243,6 +243,19 @@
                                                 v-model="slides[slideIndex].embedCode"
                                             />      
                                         </div>
+
+                                        <div class="col-span-2">
+                                            <label class="block text-sm mb-1 ml-1 capitalize" v-text="__('text')" />
+                                            
+                                            <trix-editor
+                                                ref="textEditor"
+                                                @keydown.stop
+                                                @trix-change="updateSlideText(slideIndex)"
+                                                @trix-initialize="initSlideText(slideIndex)"
+                                                :value="slides[slideIndex].text"
+                                                class="bg-white"
+                                            />
+                                        </div>
                                     </div>
                                 </div>
 
@@ -431,7 +444,11 @@ export default {
                 '3:4',
                 '2:1',
                 '8:5',
-            ]
+            ],
+            imageDisk: '',
+            imagePath: '',
+            fileDisk: '',
+            filePath: '',
         }
     },
 
@@ -445,6 +462,13 @@ export default {
     },
 
     methods: {
+        initSlideText(index) {
+            this.$refs.textEditor[index].editor.insertHTML(this.slides[index].text)
+                //this.$refs.theEditor.editor.insertHTML(this.value)
+        },
+        updateSlideText(index) {
+            this.slides[index].text = this.$refs.textEditor[index].value
+        },
         addSlide() {
             let key = String(_.random(0, 999))+String(Date.now());
             let fileInputKey = String(_.random(0, 999))+String(Date.now());
@@ -459,6 +483,7 @@ export default {
                 link: '',
                 linkTarget: '',
                 embedCode: '',
+                text: '',
                 uploading: false,
                 uploadProgress: 0,
             });
@@ -596,7 +621,10 @@ export default {
     },
 
     mounted() {
-
+        this.imageDisk = parseInt(this.node.attrs.imageDisk) != 0 ? this.node.attrs.imageDisk : '';   
+        this.imagePath = parseInt(this.node.attrs.imagePath) != 0 ? this.node.attrs.imagePath : '';  
+        this.fileDisk = parseInt(this.node.attrs.fileDisk) != 0 ? this.node.attrs.fileDisk : '';   
+        this.filePath = parseInt(this.node.attrs.filePath) != 0 ? this.node.attrs.filePath : '';   
     }
 }
 </script>
