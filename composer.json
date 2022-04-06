@@ -16,12 +16,11 @@
         }
     ],
     "require": {
-        "php": ">=7.3.0",
-        "optimistdigital/nova-tailwind": "^1.1"
+        "php": "^8.0|^7.3"
     },
     "require-dev": {
-        "laravel/nova": "~3.0",
-        "orchestra/testbench": "^5.3",
+        "laravel/nova": "^4.0",
+        "orchestra/testbench": "^7.3.0",
         "phpunit/phpunit": "^9.2"
     },
     "autoload": {
