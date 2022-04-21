@@ -1,5 +1,4 @@
 <?php
-
 namespace Manogi\Tiptap;
 
 use Illuminate\Support\Str;
@@ -11,20 +10,20 @@ class TiptapContentBlocks
         $content = preg_replace_callback(
             '/<video-content-block embedcode="(.*?)" caption="(.*?)" credits="(.*?)" ratio="(.*?)" key="(.*?)"><\/video-content-block>/is',
             function ($matches) {
-                return '<div class="ttcp-video-wrapper" ratio="'.$matches[4].'">
+                return '<div class="ttcp-video-wrapper" ratio="' . $matches[4] . '">
                     <div class="ttcp-video-inner">
                         <div class="ttcp-iframe-wrapper">'
-                        .html_entity_decode($matches[1])
-                        .'</div>
+                        . html_entity_decode($matches[1])
+                        . '</div>
                         <div class="ttcp-below-video">
-                            <div class="ttcp-caption">'.($matches[2] ?: '').'</div>
-                            <div class="ttcp-credits">'.($matches[3] ?: '').'</div>
+                            <div class="ttcp-caption">' . ($matches[2] ?: '') . '</div>
+                            <div class="ttcp-credits">' . ($matches[3] ?: '') . '</div>
                         </div>
                     </div>
                 </div>';
             },
             $content
-          );
+        );
 
         $content = preg_replace_callback(
             '/<gallery-content-block slides="(.*?)" slidecount="(.*?)" maxcolumns="(.*?)" mode="(.*?)" formatmode="(.*?)" format="(.*?)" key="(.*?)" imagedisk="(.*?)" imagepath="(.*?)"><\/gallery-content-block>/is',
@@ -36,7 +35,7 @@ class TiptapContentBlocks
                 $ratio = $matches[6];
 
                 if ($mode == 'grid') {
-                    $html = '<div class="ttcp-grid-wrapper"><div class="ttcp-grid-inner"><div class="ttcp-grid-stage ttcp-grid-cols-'.$maxcolumns.'">';
+                    $html = '<div class="ttcp-grid-wrapper"><div class="ttcp-grid-inner"><div class="ttcp-grid-stage ttcp-grid-cols-' . $maxcolumns . '">';
 
                     foreach ($slides as $slide) {
                         $embedCode = '';
@@ -49,12 +48,12 @@ class TiptapContentBlocks
                             $text = $slide->text;
                         }
 
-                        $html .= '<div class="ttcp-grid-slide ttcp-grid-formatmode-'.$formatmode.'" ratio="'.$ratio.'">';
+                        $html .= '<div class="ttcp-grid-slide ttcp-grid-formatmode-' . $formatmode . '" ratio="' . $ratio . '">';
                         $html .= '<div class="ttcp-grid-image-wrapper">';
-                        if (@$slide->link && ! $embedCode) {
-                            $html .= '<a href="'.$slide->link.'"';
+                        if (@$slide->link && !$embedCode) {
+                            $html .= '<a href="' . $slide->link . '"';
                             if (@$slide->linkTarget) {
-                                $html .= ' target="'.$slide->linkTarget.'" ';
+                                $html .= ' target="' . $slide->linkTarget . '" ';
                             }
                             $html .= '>';
                         }
@@ -64,31 +63,51 @@ class TiptapContentBlocks
                         } elseif ($text) {
                             $html .= $text;
                         } else {
-                            $html .= '<img class="ttcp-grid-image" src="'.$slide->src.'" />';
+                            if ($this->isVideo($slide->src)) {
+                                $html .= '<video
+                                    autoplay muted loop playsinline
+                                    class="ttcp-grid-image"
+                                >
+                                    <source src="' . $slide->src . '" type="video/mp4">
+                                </video>';
+                            } else {
+                                $html .= '<img class="ttcp-grid-image" src="' . $slide->src . '" />';
+                            }
                         }
 
-                        if (@$slide->link && ! $embedCode) {
+                        if (@$slide->link && !$embedCode) {
                             $html .= '</a>';
                         }
                         $html .= '</div>';
                         $html .= '<div class="ttcp-grid-subtext">';
-                        $html .= '<div class="ttcp-grid-caption">'.$slide->caption.'</div>';
-                        $html .= '<div class="ttcp-grid-credits">'.$slide->credits.'</div>';
+                        $html .= '<div class="ttcp-grid-caption">' . $slide->caption . '</div>';
+                        $html .= '<div class="ttcp-grid-credits">' . $slide->credits . '</div>';
                         $html .= '</div>';
                         $html .= '</div>';
                     }
 
                     $html .= '</div></div></div>';
                 } elseif ($mode == 'slideshow') {
-                    $html = '<div class="ttcp-slideshow-wrapper"><div class="ttcp-slideshow-inner"><div id="swiper_'.Str::random(12).'" class="swiper"><div class="swiper-wrapper">';
+                    $html = '<div class="ttcp-slideshow-wrapper"><div class="ttcp-slideshow-inner"><div id="swiper_' . Str::random(12) . '" class="swiper"><div class="swiper-wrapper">';
 
                     foreach ($slides as $slide) {
                         $html .= '<div class="ttcp-slideshow-slide swiper-slide">';
                         $html .= '<div class="ttcp-slideshow-image-wrapper"><div class="ttcp-slideshow-image-inner">';
-                        $html .= '<img class="ttcp-slideshow-image" src="'.$slide->src.'" />';
+
+                        if ($this->isVideo($slide->src)) {
+                            $html .= '<video
+                                autoplay muted loop playsinline
+                                class="ttcp-slideshow-image"
+                            >
+                                <source src="' . $slide->src . '" type="video/mp4">
+                            </video>';
+                        } else {
+                            $html .= '<img class="ttcp-slideshow-image" src="' . $slide->src . '" />';
+                        }
+
                         $html .= '<div class="ttcp-slideshow-subtext">';
-                        $html .= '<div class="ttcp-slideshow-caption">'.$slide->caption.'</div>';
-                        $html .= '<div class="ttcp-slideshow-credits">'.$slide->credits.'</div>';
+                        $html .= '<div class="ttcp-slideshow-caption">' . $slide->caption . '</div>';
+                        $html .= '<div class="ttcp-slideshow-credits">' . $slide->credits . '</div>';
                         $html .= '</div>';
 
                         $html .= '</div></div>';
@@ -110,8 +129,29 @@ class TiptapContentBlocks
                 return $html;
             },
             $content
-          );
+        );
 
         return $content;
+    }
+
+    protected function isVideo($filename)
+    {
+        $extension = $this->getExtension($filename);
+        $good = ['mp4', 'mov'];
+        if (in_array($extension, $good)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    protected function getExtension($filename)
+    {
+        $extension = '';
+        if (strrpos($filename, '.')) {
+            $extension = strtolower(substr($filename, strrpos($filename, '.') + 1));
+        }
+
+        return $extension;
     }
 }

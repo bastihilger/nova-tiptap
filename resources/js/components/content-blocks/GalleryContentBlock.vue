@@ -93,15 +93,33 @@
                                                     :key="slide.fileInputKey"
                                                     type="file" 
                                                     @change="changeFile(slideIndex, $event.target.files)"
-                                                    accept="image/*" 
+                                                    accept="image/*,video/*" 
                                                     class="opacity-0 w-full h-full absolute top-0 left-0"
                                                 />
                                                 <span v-text="__('select file')"></span>
                                             </label>
                                             
-                                            
-                                            <img v-if="slide.src" :src="slide.src" class="h-16 w-auto" />
+                                            <div 
+                                                v-if="slide.src"
+                                                class="h-16 w-auto"
+                                            >
+                                                <div 
+                                                    v-if="isVideo(slide.src)"
+                                                    class="
+                                                        h-16 w-16
+                                                        flex items-center justify-center
+                                                        border border-primary text-primary
+                                                    "
+                                                >
+                                                    <span>Video</span>
+                                                </div>
 
+                                                <img 
+                                                    v-else :src="slide.src" 
+                                                    class="h-16 w-auto" 
+                                                />
+                                            </div>
+                                            
                                             <div 
                                                 class="ml-8 h-16 flex items-center"
                                                  v-if="!slide.src"
@@ -111,7 +129,28 @@
                                                     v-text="__('no file selected')"
                                                 > 
                                                 </span>
-                                                <img v-if="slide.preview" :src="slide.preview" class="h-16 w-auto" />
+
+                                                <div 
+                                                    v-if="slide.preview"
+                                                    class="h-16 w-auto"
+                                                >
+                                                    <div 
+                                                        v-if="isVideo(slide.name)"
+                                                        class="
+                                                            h-16 w-16
+                                                            flex items-center justify-center
+                                                            border border-primary text-primary
+                                                        "
+                                                    >
+                                                        <span>Video</span>
+                                                    </div>
+
+                                                    <img 
+                                                        v-else :src="slide.preview" 
+                                                        class="h-16 w-auto"
+                                                    />
+                                                </div>
+                                                
                                             </div>
 
                                             <div 
@@ -479,6 +518,7 @@ export default {
                 credits: '',
                 preview: '',
                 file: '',
+                name: '',
                 src: '',
                 link: '',
                 linkTarget: '',
@@ -543,6 +583,7 @@ export default {
             if (files.length) {
                 this.slides[index].src = '';
                 this.slides[index].file = files[0];
+                this.slides[index].name = this.slides[index].file.name;
                 this.slides[index].preview = URL.createObjectURL(this.slides[index].file);
             }
          },
@@ -613,6 +654,12 @@ export default {
 
         deleteBlock() {
             this.$el.remove();
+        },
+
+        isVideo(filename) {
+            var ext = filename.substr(filename.lastIndexOf('.') + 1).toLowerCase();
+            console.log(ext);
+            return (ext == 'mp4' || ext == 'mov');
         },
 
         __(str) {
