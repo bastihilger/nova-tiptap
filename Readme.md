@@ -9,8 +9,16 @@ A Laravel Nova implementation of the [tiptap editor for Vue.js](https://github.c
 
 Install via composer:
 
+**For Nova 4 use this** (it installs Version 3 of nova-tiptap):
+
 ``` php
 composer require manogi/nova-tiptap
+```
+
+**For Nova 3 use this** (it installs Version 2 of nova-tiptap):
+
+``` php
+composer require manogi/nova-tiptap "^2.8"
 ```
 
 ## Usage with default settings:
