@@ -98,12 +98,17 @@ class Tiptap extends Field
      */
     public function alignments($alignments)
     {
-        $alignments = array_map(function($item){
-            if($item == 'left') { return 'start'; } 
-            if($item == 'right') { return 'end'; }
+        $alignments = array_map(function ($item) {
+            if ($item == 'left') {
+                return 'start';
+            }
+            if ($item == 'right') {
+                return 'end';
+            }
+
             return $item;
         }, $alignments);
-        
+
         return $this->withMeta([
             'alignments' => $alignments,
         ]);
@@ -203,7 +208,7 @@ class Tiptap extends Field
     /**
      * Set setting to save the input as json object.
      *
-     * @param  boolean  $saveAsJson
+     * @param  bool  $saveAsJson
      * @return $this
      */
     public function saveAsJson()
@@ -213,7 +218,7 @@ class Tiptap extends Field
         ]);
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return array_merge(parent::jsonSerialize(), [
             'shouldShow' => $this->shouldBeExpanded(),

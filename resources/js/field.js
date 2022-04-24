@@ -2,15 +2,10 @@ window.pretty = require('pretty');
 window._ = require('lodash');
 window.axios = require('axios');
 
-Nova.booting((Vue, router) => {
-    
+import DetailField from './components/DetailField'
+import FormField from './components/FormField'
 
-    Vue.component('detail-tiptap', require('./components/DetailField.vue').default);
-    Vue.component('form-tiptap', require('./components/FormField.vue').default);
+Nova.booting((app, store) => {
+  app.component('detail-tiptap', DetailField)
+  app.component('form-tiptap', FormField)
 })
-
-if (typeof Nova.config.novaTiptap === 'object') {
-    if (typeof Nova.config.novaTiptap.translations === 'object') {
-        Object.assign(Nova.config.translations, Nova.config.novaTiptap.translations)
-    }
-}

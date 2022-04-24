@@ -1,5 +1,5 @@
 import { Node, mergeAttributes } from '@tiptap/core'
-import { VueNodeViewRenderer } from '@tiptap/vue-2'
+import { VueNodeViewRenderer } from '@tiptap/vue-3'
 import VideoContentBlock from './VideoContentBlock.vue'
 
 export default Node.create({

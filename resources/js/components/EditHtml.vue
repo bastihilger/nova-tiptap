@@ -1,29 +1,44 @@
 <template>
-    <codemirror 
-        v-bind:value="value" 
+    <!-- <codemirror 
+        :value="value" 
         @input="updateValue"
         :options="cmOptions"
         class="border border-60 rounded-lg overflow-hidden"
+    /> -->
+
+    <Codemirror
+        :value="modelValue"
+        :options="cmOptions"
+        border
+        placeholder="test placeholder"
+        :height="200"
+        @change="updateValue"
     />
 </template>
 
 <script>
-import { codemirror } from 'vue-codemirror';
+import Codemirror from "codemirror-editor-vue3";
 
-import 'codemirror/mode/xml/xml.js';
-import 'codemirror/lib/codemirror.css';
-import '../../css/codemirror-themes.css';
+
+
+// language
+import "codemirror/mode/javascript/javascript.js";
+
+// theme
+import "codemirror/theme/dracula.css"
 
 export default {
-    props: ['value', 'theme'],
-    components: { codemirror },
+    props: {
+        modelValue: String, 
+        theme: String,
+    },
+    components: { Codemirror },
     data () {
         return {
-            localValue: '<p>Fooo</p>',
             cmOptions: {
                 tabSize: 4,
                 mode: 'text/xml',
-                theme: this.theme,
+                theme: this.theme ? this.theme: 'dracula',
                 lineNumbers: true,
                 line: true,
             }
@@ -31,7 +46,8 @@ export default {
     },
     methods: {
         updateValue: function (value) {
-            this.$emit('input', value);
+            this.$emit('update:modelValue', value)
+            //this.$emit('input', value);
         }
     }
 }

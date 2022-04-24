@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { NodeViewWrapper, NodeViewContent, nodeViewProps } from '@tiptap/vue-2'
+import { NodeViewWrapper, NodeViewContent, nodeViewProps } from '@tiptap/vue-3'
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 

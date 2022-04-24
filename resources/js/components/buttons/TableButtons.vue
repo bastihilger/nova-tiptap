@@ -1,6 +1,6 @@
 <template>
     <div class="
-        bg-primary
+        bg-primary-500
         p-1 leading-none text-xs"
     >
         <button
@@ -10,10 +10,11 @@
             @click="button.command()"
             :disabled="button.disabledIf()"
             v-html="button.title"
-            class="px-2 rounded-full py-px mx-1 my-1 text-black text-xs bg-white hover:bg-20"
+            class="px-2 rounded-full py-px text-black text-xs bg-white hover:bg-gray-200"
+            style="margin: 4px"
+            :style="button.disabledIf() ? 'opacity: 0.5' : ''"
             :class="{
                 'cursor-not-allowed': button.disabledIf(),
-                'opacity-50': button.disabledIf(),
             }"
 
         >
