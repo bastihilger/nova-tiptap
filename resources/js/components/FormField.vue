@@ -5,14 +5,16 @@
         :full-width-content="true"
         :show-help-text="showHelpText"
     >
-        <template slot="field">
-            <div
-                class="
-                    w-full sticky overflow-break top-3 z-10
-                    bg-40 rounded-lg
-                "
-            >
-                <template>
+        <template #field>
+            <div style="position: relative; top: 0; left: 0">
+                <div
+                    class="
+                        w-full overflow-break z-10
+                        bg-gray-100 rounded
+                    "
+                    style="position: sticky; top: 0; left: 0"
+                >
+                   
                     <div class="p-1">
                         <div 
                             v-for="button in buttons" 
@@ -23,10 +25,10 @@
                         >
                             <template v-if="button == '|'">
                                 <button class="
-                                    w-px h-6 relative top-2 mx-1
-                                    bg-60
+                                    w-[1px] h-6 relative top-2 mx-1
+                                    bg-gray-400
                                 ">
-                                     
+                                    
                                 </button>
                             </template>
 
@@ -147,38 +149,40 @@
                         >
                         </table-buttons>
                     </div>
-                </template>
-            </div>
 
-            <div 
-                class="
-                    nova-tiptap-editor
-                    mt-4
-                    form-input-bordered w-full
-                    pt-2 pb-2
-                "
-                :style="cssProps"
-                v-show="mode == 'editor'"
-                
-            >
-                <editor-content :editor="editor" />
-            </div>
+                </div>
 
-            <div 
-                class="
-                    mt-4
-                    w-full px-0
-                "
-                v-show="mode == 'html'"
-            >
-                <edit-html :updateMethod="updateValueFromHtml" :theme="htmlTheme" v-model="htmlModeValue" />
+                <div 
+                    class="
+                        nova-tiptap-editor
+                        mt-4
+                        form-input
+                        form-input-bordered w-full
+                        pt-2 pb-2
+                    "
+                    :style="cssProps"
+                    v-show="mode == 'editor'"
+                    
+                >
+                    <editor-content :editor="editor" />
+                </div>
+
+                <div 
+                    class="
+                        mt-4
+                        w-full px-0
+                    "
+                    v-show="mode == 'html'"
+                >
+                    <edit-html :theme="htmlTheme" v-model="htmlModeValue" />
+                </div>
             </div>
         </template>
     </default-field>
 </template>
 
 <script>
-import { Editor, EditorContent, VueNodeViewRenderer } from '@tiptap/vue-2';
+import { Editor, EditorContent, VueNodeViewRenderer } from '@tiptap/vue-3';
 
 import Text from '@tiptap/extension-text';
 
@@ -326,7 +330,7 @@ export default {
         },
 
         htmlTheme() {
-            return this.field.htmlTheme ? this.field.htmlTheme : 'material';
+            return this.field.htmlTheme ? this.field.htmlTheme : '';
         },
 
         tableIsActive() {
@@ -572,8 +576,32 @@ export default {
             line-height: 1.5em;
         }
 
-        p, h1, h2, h3, h4, h5, h6 {
+        h1 {
+            font-size: 3em;
+        }
+        h2 {
+            font-size: 2.4em;
+        }
+        h3 {
+            font-size: 1.8em;
+        }
+        h4 {
+            font-size: 1.5em;
+        }
+        h5 {
+            font-size: 1.3em;
+        }
+        h6 {
+            font-size: 1.1em;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
             text-align: var(--text-align);
+        }
+
+        a {
+            color: #0ea5e9;
+            text-decoration: underline;
         }
 
         pre {
@@ -581,7 +609,7 @@ export default {
             padding-bottom: 5px;
             padding-left: 12px;
             padding-right: 12px;
-            background-color: var(--90);
+            background-color: #3c4b5f;
             color: white;
             border-radius: .125rem;
         }
@@ -613,8 +641,24 @@ export default {
             pointer-events: none;
         }
 
+        ul {
+            padding-left: 16px;
+
+            li {
+                list-style: disc;
+            }
+        }
+
+        ol {
+            padding-left: 16px;
+
+            li {
+                list-style: numeric;
+            }
+        }
+
         hr {
-            border-top: 1px solid var(--80);
+            border-top: 1px solid #dddddd;
             margin-top: 20px;
             margin-bottom: 10px;
         }
@@ -638,7 +682,7 @@ export default {
             td,
             th {
                 min-width: 1em;
-                border: 2px solid var(--90);
+                border: 2px solid #dddddd;
                 padding: 3px 5px;
                 vertical-align: top;
                 box-sizing: border-box;
@@ -652,7 +696,7 @@ export default {
             th {
                 font-weight: bold;
                 text-align: left;
-                background-color: #f1f3f5;
+                background-color: #fafafa;
             }
 
             .selectedCell:after {

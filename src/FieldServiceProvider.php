@@ -20,16 +20,15 @@ class FieldServiceProvider extends ServiceProvider
             $this->routes();
         });
 
+        $this->loadJsonTranslationsFrom(__DIR__.'/../resources/lang');
+
         Nova::serving(function (ServingNova $event) {
             Nova::provideToScript([
-                'novaTiptap' => [
-                    'translations' => $this->translations(),
-                ],
-
+                'tiptapTranslations' => $this->translations(),
             ]);
 
             Nova::script('tiptap', __DIR__.'/../dist/js/field.js');
-            Nova::style('tiptap', __DIR__.'/../dist/css/field.css');
+            Nova::style('tiptap', __DIR__.'/../dist/css/tiptap.css');
         });
     }
 

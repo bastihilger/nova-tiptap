@@ -30,6 +30,7 @@ export default {
            return this.editor ? this.editor.isActive('heading', { level: level }) : false;
         },
         setHeading(level) {
+
             this.editor ? this.editor.chain().focus().toggleHeading({ level: level }).run() : null
         },
     }

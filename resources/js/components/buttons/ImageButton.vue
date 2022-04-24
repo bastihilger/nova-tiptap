@@ -1,128 +1,104 @@
 <template>
     <span class="z-10">
-        <div
-            class="
-                fixed top-0 left-0
-                w-full h-full
-                z-50 flex items-center justify-center
-            "
-            v-show="imageMenuIsActive"
+        <Modal 
+            :isActive="imageMenuIsActive"
+            :hideMethod="hideImageMenu"
         >
-            <div class="rounded-lg shadow-lg overflow-hidden z-20 w-action-fields max-w-full">
-                <div class="px-8 py-8 bg-white">
-                    <div 
-                        v-if="!imageIsActive && withFileUpload"
+            <div class="px-8 py-8 bg-white">
+                <div 
+                    v-if="!imageIsActive && withFileUpload"
+                >
+                    <span 
+                        class="cursor-pointer font-bold text-sm border-b-2 "
+                        :class="{
+                            'text-primary border-primary': imageMode == 'file',
+                            'text-80 border-transparent': imageMode != 'file'
+                        }"
+                        @click="imageMode = 'file'"
+                        v-text="ttt('file upload')"
                     >
-                        <span 
-                            class="cursor-pointer font-bold text-sm border-b-2 "
-                            :class="{
-                                'text-primary border-primary': imageMode == 'file',
-                                'text-80 border-transparent': imageMode != 'file'
-                            }"
-                            @click="imageMode = 'file'"
-                            v-text="__('file upload')"
-                        >
-                        </span>
+                    </span>
 
-                        <span 
-                            class="ml-2 cursor-pointer font-bold text-sm border-b-2 "
-                            :class="{
-                                'text-primary border-primary': imageMode == 'url',
-                                'text-80 border-transparent': imageMode != 'url'
-                            }"
-                            @click="imageMode = 'url'"
-                            v-text="__('external url')"
-                        >
-                        </span>
-                    </div>
-
-                    <div 
-                        v-if="!imageIsActive"
-                        class="pt-8"
+                    <span 
+                        class="ml-2 cursor-pointer font-bold text-sm border-b-2 "
+                        :class="{
+                            'text-primary border-primary': imageMode == 'url',
+                            'text-80 border-transparent': imageMode != 'url'
+                        }"
+                        @click="imageMode = 'url'"
+                        v-text="ttt('external url')"
                     >
-                        <div v-if="withFileUpload" v-show="imageMode == 'file'">
-                            <div 
-                                class="flex items-center transition-opacity duration-150"
-                                :class="{
-                                    'pointer-events-none opacity-50': uploading
-                                }" 
-                            >   
-                                <label class="relative btn btn-default btn-primary">
-                                    <input 
-                                        ref="fileInput"
-                                        type="file" 
-                                        @change="changeFile($event.target.files)"
-                                        accept="image/*" 
-                                        class="opacity-0 w-full h-full absolute top-0 left-0"
-                                    />
-                                    <span v-text="__('select file')"></span>
-                                </label>
+                    </span>
+                </div>
 
-                                <div class="ml-8 h-16 flex items-center">
-                                    <span 
-                                        v-if="!preview"
-                                        v-text="__('no file selected')"
-                                    > 
-                                    </span>
-                                    <img v-if="preview" :src="preview" class="h-16 w-auto" />
-                                </div>
+                <div 
+                    v-if="!imageIsActive"
+                    class="pt-8"
+                >
+                    <div v-if="withFileUpload" v-show="imageMode == 'file'">
+                        <div 
+                            class="flex items-center transition-opacity duration-150"
+                            :class="{
+                                'pointer-events-none opacity-50': uploading
+                            }" 
+                        >   
+                            <label class="relative btn btn-default btn-primary">
+                                <input 
+                                    ref="fileInput"
+                                    type="file" 
+                                    @change="changeFile($event.target.files)"
+                                    accept="image/*" 
+                                    class="opacity-0 w-full h-full absolute top-0 left-0"
+                                />
+                                <span v-text="ttt('select file')"></span>
+                            </label>
 
-                                <div 
-                                    v-if="file"
-                                    @click="removeFile()"
-                                    class="
-                                        cursor-pointer ml-8 text-xl text-primary
-                                    "
-                                >
-                                    <font-awesome-icon :icon="['fas', 'trash-alt']">
-                                    </font-awesome-icon>
-                                </div>
+                            <div class="ml-8 h-16 flex items-center">
+                                <span 
+                                    v-if="!preview"
+                                    v-text="ttt('no file selected')"
+                                > 
+                                </span>
+                                <img v-if="preview" :src="preview" class="h-16 w-auto" />
                             </div>
 
                             <div 
-                                class="w-full h-2 mt-4"
-                                :class="{
-                                    'bg-20': uploading
+                                v-if="file"
+                                @click="removeFile()"
+                                class="
+                                    cursor-pointer ml-8 text-xl text-primary
+                                "
+                            >
+                                <font-awesome-icon :icon="['fas', 'trash-alt']">
+                                </font-awesome-icon>
+                            </div>
+                        </div>
+
+                        <div 
+                            class="w-full h-2 mt-4"
+                            :class="{
+                                'bg-20': uploading
+                            }"
+                        >
+                            <div 
+                                class="
+                                    bg-primary h-full
+                                "
+                                :style="{
+                                    'width': uploadProgress+'%'
                                 }"
                             >
-                                <div 
-                                    class="
-                                        bg-primary h-full
-                                    "
-                                    :style="{
-                                        'width': uploadProgress+'%'
-                                    }"
-                                >
 
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div 
-                            class=""
-                            v-show="imageMode == 'url'"
-                        >
-                            <div class="flex flex-col">
-                                <label class="text-sm mb-1 ml-1" v-text="__('url')"></label>
-                                <input
-                                    class="
-                                        form-input
-                                        form-input-bordered
-                                        px-2 py-1 w-full
-                                        text-sm text-90
-                                        leading-none
-                                    "
-                                    type="text"
-                                    v-model="url"
-                                    placeholder="https://"
-                                />
                             </div>
                         </div>
                     </div>
-
-                    <div class="pt-8">
+                    
+                    <div 
+                        class=""
+                        v-show="imageMode == 'url'"
+                    >
                         <div class="flex flex-col">
-                            <label class="text-sm mb-1 ml-1" v-text="__('custom css classes')"></label>
+                            <label class="text-sm mb-1 ml-1" v-text="ttt('url')"></label>
                             <input
                                 class="
                                     form-input
@@ -132,75 +108,84 @@
                                     leading-none
                                 "
                                 type="text"
-                                v-model="extraClasses"
+                                v-model="url"
+                                placeholder="https://"
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pt-8">
+                    <div class="flex flex-col">
+                        <label class="text-sm mb-1 ml-1" v-text="ttt('custom css classes')"></label>
+                        <input
+                            class="
+                                form-input
+                                form-input-bordered
+                                px-2 py-1 w-full
+                                text-sm text-90
+                                leading-none
+                            "
+                            type="text"
+                            v-model="extraClasses"
+                        />
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3 mt-4">
+                        <div class="flex flex-col">
+                            <label class="text-sm mb-1 ml-1" v-text="ttt('title')"></label>
+                            <input
+                                class="
+                                    form-input
+                                    form-input-bordered
+                                    px-2 py-1 w-full
+                                    text-sm text-90
+                                    leading-none
+                                "
+                                type="text"
+                                v-model="title"
                             />
                         </div>
 
-                        <div class="grid grid-cols-2 gap-3 mt-4">
-                            <div class="flex flex-col">
-                                <label class="text-sm mb-1 ml-1" v-text="__('title')"></label>
-                                <input
-                                    class="
-                                        form-input
-                                        form-input-bordered
-                                        px-2 py-1 w-full
-                                        text-sm text-90
-                                        leading-none
-                                    "
-                                    type="text"
-                                    v-model="title"
-                                />
-                            </div>
-
-                            <div class="flex flex-col">
-                                <label class="text-sm mb-1 ml-1" v-text="__('alt text')"></label>
-                                <input
-                                    class="
-                                        form-input
-                                        form-input-bordered
-                                        px-2 py-1 w-full
-                                        text-sm text-90
-                                        leading-none
-                                    "
-                                    type="text"
-                                    v-model="alt"
-                                />
-                            </div>
+                        <div class="flex flex-col">
+                            <label class="text-sm mb-1 ml-1" v-text="ttt('alt text')"></label>
+                            <input
+                                class="
+                                    form-input
+                                    form-input-bordered
+                                    px-2 py-1 w-full
+                                    text-sm text-90
+                                    leading-none
+                                "
+                                type="text"
+                                v-model="alt"
+                            />
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="bg-30 px-6 py-3">   
-                    <div class="flex items-center justify-end">
-                        <button
-                            type="button"
-                            class="btn h-9 px-3 font-normal text-80"
-                            @click="hideImageMenu"
-                            v-text="__('cancel')"
-                        >
-                        </button>
+            <div class="bg-30 px-6 py-3">   
+                <div class="flex items-center justify-end">
+                    <button
+                        type="button"
+                        class="btn h-9 px-3 font-normal text-80"
+                        @click="hideImageMenu"
+                        v-text="ttt('cancel')"
+                    >
+                    </button>
 
-                        <button
-                            type="button"
-                            class="ml-3 btn btn-default btn-primary"
-                            :disabled="!imageIsActive && ((imageMode == 'url' && !url) || (imageMode == 'file' && !file))"
-                            @click="imageIsActive ? updateImage($event) : (imageMode == 'url' ? addImageFromUrl($event) : uploadAndAddImage($event))"
-                            v-text="imageIsActive ? __('update image') : (imageMode == 'url' ? __('add image') : __('upload and add image'))"
-                        >
-                        </button>
-                    </div>
+                    <button
+                        type="button"
+                        class="ml-3 btn btn-default btn-primary"
+                        :disabled="!imageIsActive && ((imageMode == 'url' && !url) || (imageMode == 'file' && !file))"
+                        @click="imageIsActive ? updateImage($event) : (imageMode == 'url' ? addImageFromUrl($event) : uploadAndAddImage($event))"
+                        v-text="imageIsActive ? ttt('update image') : (imageMode == 'url' ? ttt('add image') : ttt('upload and add image'))"
+                    >
+                    </button>
                 </div>
             </div>
-
-            <div 
-                class="
-                    z-10 absolute top-0 left-0 w-full h-full
-                    bg-80 opacity-75
-                "
-                @click="hideImageMenu"
-            >
-            </div>
-        </div>
+        </Modal>
 
         <span class="whitespace-nowrap">
             <base-button
@@ -208,7 +193,7 @@
                 :isDisabled="mode != 'editor'"
                 :clickMethod="showImageMenu"
                 :icon="['fas', 'image']"
-                :title="!imageIsActive ? __('add image') : __('edit image')"
+                :title="!imageIsActive ? ttt('add image') : ttt('edit image')"
             >
                 
             </base-button>
@@ -224,10 +209,15 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { faTimesCircle, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import BaseButton from './BaseButton.vue';
+import Modal from '../Modal.vue';
+
+import translations from '../../mixins/translations';
 
 library.add(faTimesCircle, faTrashAlt);
 
 export default {
+    mixins: [translations],
+
     props: [
         'button', 
         'editor',
@@ -255,6 +245,7 @@ export default {
     components: {
         FontAwesomeIcon,
         BaseButton,
+        Modal,
     },
 
     computed: {

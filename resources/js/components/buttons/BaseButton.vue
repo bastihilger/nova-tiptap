@@ -3,24 +3,29 @@
         type="button"
         class="
             group relative
-            btn btn-default
-            p-2 m-1
+            p-2
             leading-none text-xs
-            min-w-8 h-8 
+            rounded shadow
             tiptap-button
+            
         "
+        style="margin: 4px; min-width: 32px; height: 32px"
         :class="{ 
-            'btn-primary': isActive,
-            'bg-white hover:bg-20': !isActive,
+            'bg-primary-500 hover:bg-primary-400 text-white': isActive,
+            'bg-white hover:bg-gray-200 text-black': !isActive,
             'opacity-50 pointer-events-none': isDisabled,
         }"
+        @mouseover="hovered = true"
+        @mouseout="hovered = false"
         @click="callClickMethod"
     >
         <div 
             class="
-                transition-opacity opacity-0 group-hover:opacity-100 pointer-events-none
-                absolute left-0 bottom-9 w-full flex justify-center z-100
+                pointer-events-none
+                absolute left-0 w-full flex justify-center z-100
             "
+            style="bottom: 36px;"
+            v-show="hovered"
         >
             <div 
                 v-html="title"
@@ -40,7 +45,7 @@
         </template>
 
         <template v-else>
-            <span v-html="innerHtml"></span>
+            <span class="font-bold" v-html="innerHtml"></span>
         </template>
     </button>
 </template>
@@ -120,6 +125,12 @@ library.add(
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 export default {
+    data() {
+        return {
+            hovered: false,
+            myClickMethodParameters: null,
+        }
+    },
     props: [
         'clickMethod', 
         'clickMethodParameters',
@@ -136,16 +147,21 @@ export default {
 
     methods: {
         callClickMethod() {
-            if (this.clickMethodParameters) {
-                if (!typeof(this.clickMethodParameters) != 'object') {
-                    this.clickMethodParameters = [this.clickMethodParameters];
+            if (this.myClickMethodParameters) {
+                
+                if (!typeof(this.myClickMethodParameters) != 'object') {
+                    this.myClickMethodParameters = [this.myClickMethodParameters];
                 }
 
-                this.clickMethod(...this.clickMethodParameters);
+                this.clickMethod(...this.myClickMethodParameters);
             } else {
                 this.clickMethod();
             }
         }
+    },
+
+    mounted() {
+        this.myClickMethodParameters = this.clickMethodParameters;
     }
 }
 </script>

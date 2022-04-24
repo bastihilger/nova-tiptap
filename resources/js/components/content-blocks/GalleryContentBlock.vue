@@ -410,7 +410,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 library.add(faTimesCircle, faTrashAlt, faAngleDown, faAngleUp);
 
 import ContentBlockWrapper from './ContentBlockWrapper';
-import { nodeViewProps } from '@tiptap/vue-2';
+import { nodeViewProps } from '@tiptap/vue-3';
 
 export default {
     props: nodeViewProps,
