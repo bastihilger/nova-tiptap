@@ -10,7 +10,6 @@
                         class="
                             uppercase cursor-pointer font-bold text-sm border-b
                         "
-                        style=""
                         :class="{
                             'text-primary-500 border-primary-500': linkMode == 'url',
                             'text-gray-500 border-transparent': linkMode != 'url'
@@ -139,12 +138,12 @@
                     <div 
                         class="w-full h-2 mt-4"
                         :class="{
-                            'bg-20': uploading
+                            'bg-gray-200': uploading
                         }"
                     >
                         <div 
                             class="
-                                bg-primary h-full
+                                bg-primary-400 h-full
                             "
                             :style="{
                                 'width': uploadProgress+'%'
@@ -241,7 +240,7 @@
                 </div>
             </div>
 
-            <div class="bg-gray-200 px-6 py-3">   
+            <div class="bg-gray-200 px-8 py-3">   
                 <div class="flex items-center justify-end">
                     <button
                         type="button"

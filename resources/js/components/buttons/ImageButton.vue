@@ -9,10 +9,10 @@
                     v-if="!imageIsActive && withFileUpload"
                 >
                     <span 
-                        class="cursor-pointer font-bold text-sm border-b-2 "
+                        class="uppercase cursor-pointer font-bold text-sm border-b"
                         :class="{
-                            'text-primary border-primary': imageMode == 'file',
-                            'text-80 border-transparent': imageMode != 'file'
+                            'text-primary-500 border-primary-500': imageMode == 'file',
+                            'text-gray-500 border-transparent': imageMode != 'file'
                         }"
                         @click="imageMode = 'file'"
                         v-text="ttt('file upload')"
@@ -20,10 +20,10 @@
                     </span>
 
                     <span 
-                        class="ml-2 cursor-pointer font-bold text-sm border-b-2 "
+                        class="ml-4 uppercase cursor-pointer font-bold text-sm border-b"
                         :class="{
-                            'text-primary border-primary': imageMode == 'url',
-                            'text-80 border-transparent': imageMode != 'url'
+                            'text-primary-500 border-primary-500': imageMode == 'url',
+                            'text-gray-500 border-transparent': imageMode != 'url'
                         }"
                         @click="imageMode = 'url'"
                         v-text="ttt('external url')"
@@ -33,41 +33,56 @@
 
                 <div 
                     v-if="!imageIsActive"
-                    class="pt-8"
+                    style="padding-top: 32px;"
                 >
                     <div v-if="withFileUpload" v-show="imageMode == 'file'">
                         <div 
-                            class="flex items-center transition-opacity duration-150"
+                            class="flex items-center"
                             :class="{
                                 'pointer-events-none opacity-50': uploading
                             }" 
                         >   
-                            <label class="relative btn btn-default btn-primary">
+                            <label 
+                                class="
+                                    relative bg-primary-500 text-white rounded
+                                    font-bold shadow py-1 px-4 cursor-pointer
+                                "
+                            >
                                 <input 
                                     ref="fileInput"
                                     type="file" 
                                     @change="changeFile($event.target.files)"
                                     accept="image/*" 
-                                    class="opacity-0 w-full h-full absolute top-0 left-0"
+                                    class="w-full h-full absolute top-0 left-0"
+                                    style="opacity: 0"
                                 />
                                 <span v-text="ttt('select file')"></span>
                             </label>
 
-                            <div class="ml-8 h-16 flex items-center">
+                            <div 
+                                class="h-16 flex items-center"
+                                style="margin-left: 16px;"
+                            >
                                 <span 
                                     v-if="!preview"
                                     v-text="ttt('no file selected')"
                                 > 
                                 </span>
-                                <img v-if="preview" :src="preview" class="h-16 w-auto" />
+                                <img 
+                                    v-if="preview" 
+                                    :src="preview" 
+                                    class="w-auto" 
+                                    style="height: 64px"
+                                />
                             </div>
 
                             <div 
                                 v-if="file"
                                 @click="removeFile()"
                                 class="
-                                    cursor-pointer ml-8 text-xl text-primary
+                                    cursor-pointer text-xl text-primary
                                 "
+                                style="margin-left: 16px;"
                             >
                                 <font-awesome-icon :icon="['fas', 'trash-alt']">
                                 </font-awesome-icon>
@@ -77,12 +92,12 @@
                         <div 
                             class="w-full h-2 mt-4"
                             :class="{
-                                'bg-20': uploading
+                                'bg-gray-200': uploading
                             }"
                         >
                             <div 
                                 class="
-                                    bg-primary h-full
+                                    bg-primary-400 h-full
                                 "
                                 :style="{
                                     'width': uploadProgress+'%'
@@ -115,7 +130,7 @@
                     </div>
                 </div>
 
-                <div class="pt-8">
+                <div style="padding-top: 32px">
                     <div class="flex flex-col">
                         <label class="text-sm mb-1 ml-1" v-text="ttt('custom css classes')"></label>
                         <input
@@ -147,7 +162,7 @@
                             />
                         </div>
 
-                        <div class="flex flex-col">
+                        <div class="flex flex-col mt-4">
                             <label class="text-sm mb-1 ml-1" v-text="ttt('alt text')"></label>
                             <input
                                 class="
@@ -165,11 +180,14 @@
                 </div>
             </div>
 
-            <div class="bg-30 px-6 py-3">   
+            <div class="bg-gray-200 px-8 py-3">   
                 <div class="flex items-center justify-end">
                     <button
                         type="button"
-                        class="btn h-9 px-3 font-normal text-80"
+                        class="
+                            font-bold py-1 cursor-pointer
+                            mr-4
+                        "
                         @click="hideImageMenu"
                         v-text="ttt('cancel')"
                     >
@@ -177,7 +195,12 @@
 
                     <button
                         type="button"
-                        class="ml-3 btn btn-default btn-primary"
+                        class="
+                            relative bg-primary-500 text-white rounded
+                            font-bold shadow py-1 px-4 cursor-pointer
+                        "
+                        :style="((imageMode == 'url' && !url) || (imageMode == 'file' && !file)) ? 'opacity: 0.5' : ''"
+                        
                         :disabled="!imageIsActive && ((imageMode == 'url' && !url) || (imageMode == 'file' && !file))"
                         @click="imageIsActive ? updateImage($event) : (imageMode == 'url' ? addImageFromUrl($event) : uploadAndAddImage($event))"
                         v-text="imageIsActive ? ttt('update image') : (imageMode == 'url' ? ttt('add image') : ttt('upload and add image'))"
