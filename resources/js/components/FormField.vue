@@ -8,9 +8,10 @@
         <template slot="field">
             <div
                 class="
-                    w-full sticky overflow-break top-3 z-10
+                    w-full sticky overflow-break top-3
                     bg-40 rounded-lg
                 "
+                style="z-index: 100"
             >
                 <template>
                     <div class="p-1">

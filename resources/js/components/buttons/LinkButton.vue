@@ -1,11 +1,12 @@
 <template>
-    <span class="z-10">
+    <div class="z-10">
         <div
             class="
-                fixed top-0 left-0
+                fixed
                 w-full h-full
                 z-50 flex items-center justify-center
             "
+            style="top: 0; left: 0;"
             v-show="linkMenuIsActive"
         >
             <div class="rounded-lg shadow-lg overflow-hidden z-20 w-full w-action-fields max-w-full">
@@ -280,7 +281,7 @@
             >
             </base-button>
         </span>
-    </span>
+    </div>
 </template>
 
 <script>
