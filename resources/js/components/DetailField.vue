@@ -1,13 +1,13 @@
 <template>
-    <panel-item :field="field">
-        <template slot="value">
-            <excerpt :content="field.value" :should-show="field.shouldShow" />
-        </template>
-    </panel-item>
+  <PanelItem :index="index" :field="field">
+    <template #value>
+      <Excerpt :content="field.value" :should-show="field.shouldShow" />
+    </template>
+  </PanelItem>
 </template>
 
 <script>
 export default {
-    props: ['resource', 'resourceName', 'resourceId', 'field'],
+  props: ['index', 'resource', 'resourceName', 'resourceId', 'field'],
 }
 </script>
