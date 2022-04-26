@@ -11,7 +11,7 @@
                     w-full sticky overflow-break top-3
                     bg-40 rounded-lg
                 "
-                style="z-index: 100"
+                style="z-index: 10"
             >
                 <template>
                     <div class="p-1">

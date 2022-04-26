@@ -1,47 +1,155 @@
 <template>
     <div class="z-10">
-        <div
-            class="
-                fixed
-                w-full h-full
-                z-50 flex items-center justify-center
-            "
-            style="top: 0; left: 0;"
-            v-show="linkMenuIsActive"
-        >
-            <div class="rounded-lg shadow-lg overflow-hidden z-20 w-full w-action-fields max-w-full">
-                <div class="px-8 py-8 bg-white">
-                    <template v-if="withFileUpload">
-                        <span 
-                            class="cursor-pointer font-bold text-sm border-b-2 "
-                            :class="{
-                                'text-primary border-primary': linkMode == 'url',
-                                'text-80 border-transparent': linkMode != 'url'
-                            }"
-                            @click="linkMode = 'url'"
-                            v-text="__('url')"
-                        >
-                        </span>
-
-                        <span 
-                            class="ml-2 cursor-pointer font-bold text-sm border-b-2 "
-                            :class="{
-                                'text-primary border-primary': linkMode == 'file',
-                                'text-80 border-transparent': linkMode != 'file'
-                            }"
-                            @click="linkMode = 'file'"
-                            v-text="__('file upload')"
-                        >
-                        </span>
-                    </template>
-                </div>
-
-                <div class="px-8 pb-8 bg-white">
-                    <div v-show="linkMode == 'url'">
-                        <div class="flex flex-col">
-                            <label 
-                                class="text-sm mb-1 ml-1"
+        <portal to="modals">
+            <div
+                class="
+                    fixed
+                    w-full h-full
+                    z-50 flex items-center justify-center
+                "
+                style="top: 0; left: 0;"
+                v-if="linkMenuIsActive"
+            >
+                <div class="rounded-lg shadow-lg overflow-hidden z-20 w-full w-action-fields max-w-full">
+                    <div class="px-8 py-8 bg-white">
+                        <template v-if="withFileUpload">
+                            <span 
+                                class="cursor-pointer font-bold text-sm border-b-2 "
+                                :class="{
+                                    'text-primary border-primary': linkMode == 'url',
+                                    'text-80 border-transparent': linkMode != 'url'
+                                }"
+                                @click="linkMode = 'url'"
                                 v-text="__('url')"
+                            >
+                            </span>
+
+                            <span 
+                                class="ml-2 cursor-pointer font-bold text-sm border-b-2 "
+                                :class="{
+                                    'text-primary border-primary': linkMode == 'file',
+                                    'text-80 border-transparent': linkMode != 'file'
+                                }"
+                                @click="linkMode = 'file'"
+                                v-text="__('file upload')"
+                            >
+                            </span>
+                        </template>
+                    </div>
+
+                    <div class="px-8 pb-8 bg-white">
+                        <div v-show="linkMode == 'url'">
+                            <div class="flex flex-col">
+                                <label 
+                                    class="text-sm mb-1 ml-1"
+                                    v-text="__('url')"
+                                >
+                                </label>
+
+                                <input
+                                    class="
+                                        form-input
+                                        form-input-bordered
+                                        px-2 py-1 w-full
+                                        text-sm text-90
+                                        leading-none
+                                    "
+                                    type="text"
+                                    v-model="url"
+                                    placeholder="https://"
+                                />
+
+                                <div 
+                                    class="ml-1 mt-1 text-xs text-80"
+                                    v-text="__('external links should start with http:// or https://')"
+                                >
+                                </div>
+
+                                <div class="flex items-center mt-4">
+                                    <input 
+                                        :id="'openInNewWindow_'+field.attribute"
+                                        type="checkbox"
+                                        v-model="openInNewWindow"
+                                    />
+                                    <label
+                                        class="text-sm ml-2"
+                                        :for="'openInNewWindow_'+field.attribute"
+                                        v-text="__('open in new window')"
+                                    >
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div 
+                            v-if="withFileUpload" 
+                            v-show="linkMode == 'file'"
+                        >
+                            <div 
+                                class="flex items-center transition-opacity duration-150"
+                                :class="{
+                                    'pointer-events-none opacity-50': uploading
+                                }" 
+                            >   
+                                <label class="relative btn btn-default btn-primary">
+                                    <input 
+                                        ref="fileInput"
+                                        type="file" 
+                                        @change="changeFile($event.target.files)"
+                                        class="opacity-0 w-full h-full absolute top-0 left-0"
+                                    />
+                                    <span v-text="__('select file')"></span>
+                                </label>
+
+                                <div class="ml-8 h-16 flex items-center">
+                                    <span 
+                                        v-if="!file"
+                                        v-text="__('no file selected')"
+                                    >
+                                    </span>
+
+                                    <span 
+                                        v-if="file"
+                                        v-text="filename"
+                                    >
+                                    </span>
+                                </div>
+
+                                <div 
+                                    v-if="file"
+                                    @click="removeFile()"
+                                    class="
+                                        cursor-pointer ml-8 text-xl text-primary
+                                    "
+                                >
+                                    <font-awesome-icon :icon="['fas', 'trash-alt']">
+                                    </font-awesome-icon>
+                                </div>
+                            </div>
+
+                            <div 
+                                class="w-full h-2 mt-4"
+                                :class="{
+                                    'bg-20': uploading
+                                }"
+                            >
+                                <div 
+                                    class="
+                                        bg-primary h-full
+                                    "
+                                    :style="{
+                                        'width': uploadProgress+'%'
+                                    }"
+                                >
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-8">
+                            <label 
+                                class="block text-sm mb-1 ml-1"
+                                v-text="__('custom css classes')"
                             >
                             </label>
 
@@ -54,213 +162,110 @@
                                     leading-none
                                 "
                                 type="text"
-                                v-model="url"
-                                placeholder="https://"
+                                v-model="extraClasses"
+                            />
+
+                            <label 
+                                class="block text-sm mt-4 mb-1 ml-1"
+                                v-text="__('title')"
+                            >
+                            </label>
+
+                            <input
+                                class="
+                                    form-input
+                                    form-input-bordered
+                                    px-2 py-1 w-full
+                                    text-sm text-90
+                                    leading-none
+                                "
+                                type="text"
+                                v-model="title"
                             />
 
                             <div 
-                                class="ml-1 mt-1 text-xs text-80"
-                                v-text="__('external links should start with http:// or https://')"
+                                style="
+                                    display: grid; 
+                                    grid-template-columns: 1fr 1fr 1fr;
+                                "
                             >
-                            </div>
+                                <div class="flex items-center mt-4">
+                                    <input 
+                                        :id="'nofollow_'+field.attribute"
+                                        type="checkbox"
+                                        v-model="nofollow"
+                                    />
+                                    <label
+                                        class="text-sm ml-2"
+                                        :for="'nofollow_'+field.attribute"
+                                        v-text="'nofollow'"
+                                    >
+                                    </label>
+                                </div>
 
-                            <div class="flex items-center mt-5">
-                                <input 
-                                    :id="'openInNewWindow_'+field.attribute"
-                                    type="checkbox"
-                                    v-model="openInNewWindow"
-                                />
-                                <label
-                                    class="text-sm ml-2"
-                                    :for="'openInNewWindow_'+field.attribute"
-                                    v-text="__('open in new window')"
-                                >
-                                </label>
+                                <div class="flex items-center mt-4">
+                                    <input 
+                                        :id="'noopener_'+field.attribute"
+                                        type="checkbox"
+                                        v-model="noopener"
+                                    />
+                                    <label
+                                        class="text-sm ml-2"
+                                        :for="'noopener_'+field.attribute"
+                                        v-text="'noopener'"
+                                    >
+                                    </label>
+                                </div>
+
+                                <div class="flex items-center mt-4">
+                                    <input 
+                                        :id="'noreferrer_'+field.attribute"
+                                        type="checkbox"
+                                        v-model="noreferrer"
+                                    />
+                                    <label
+                                        class="text-sm ml-2"
+                                        :for="'noreferrer_'+field.attribute"
+                                        v-text="'noreferrer'"
+                                    >
+                                    </label>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <div 
-                        v-if="withFileUpload" 
-                        v-show="linkMode == 'file'"
-                    >
-                        <div 
-                            class="flex items-center transition-opacity duration-150"
-                            :class="{
-                                'pointer-events-none opacity-50': uploading
-                            }" 
-                        >   
-                            <label class="relative btn btn-default btn-primary">
-                                <input 
-                                    ref="fileInput"
-                                    type="file" 
-                                    @change="changeFile($event.target.files)"
-                                    class="opacity-0 w-full h-full absolute top-0 left-0"
-                                />
-                                <span v-text="__('select file')"></span>
-                            </label>
-
-                            <div class="ml-8 h-16 flex items-center">
-                                <span 
-                                    v-if="!file"
-                                    v-text="__('no file selected')"
-                                >
-                                </span>
-
-                                <span 
-                                    v-if="file"
-                                    v-text="filename"
-                                >
-                                </span>
-                            </div>
-
-                            <div 
-                                v-if="file"
-                                @click="removeFile()"
-                                class="
-                                    cursor-pointer ml-8 text-xl text-primary
-                                "
+                    <div class="bg-30 px-6 py-3">   
+                        <div class="flex items-center justify-end">
+                            <button
+                                type="button"
+                                class="btn h-9 px-3 font-normal text-80"
+                                @click="hideLinkMenu"
+                                v-text="__('cancel')"
                             >
-                                <font-awesome-icon :icon="['fas', 'trash-alt']">
-                                </font-awesome-icon>
-                            </div>
-                        </div>
+                            </button>
 
-                        <div 
-                            class="w-full h-2 mt-4"
-                            :class="{
-                                'bg-20': uploading
-                            }"
-                        >
-                            <div 
-                                class="
-                                    bg-primary h-full
-                                "
-                                :style="{
-                                    'width': uploadProgress+'%'
-                                }"
+                            <button
+                                type="button"
+                                class="ml-3 btn btn-default btn-primary"
+                                :disabled="(linkMode == 'url' && !url) || (linkMode == 'file' && !file)"
+                                @click="linkMode == 'url' ? setLinkFromUrl($event) : uploadAndAddFile($event)"
+                                v-text="linkMode == 'url' ? __('set link') : __('upload and link file')"
                             >
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mt-8">
-                        <label 
-                            class="block text-sm mb-1 ml-1"
-                            v-text="__('custom css classes')"
-                        >
-                        </label>
-
-                        <input
-                            class="
-                                form-input
-                                form-input-bordered
-                                px-2 py-1 w-full
-                                text-sm text-90
-                                leading-none
-                            "
-                            type="text"
-                            v-model="extraClasses"
-                        />
-
-                        <label 
-                            class="block text-sm mt-4 mb-1 ml-1"
-                            v-text="__('title')"
-                        >
-                        </label>
-
-                        <input
-                            class="
-                                form-input
-                                form-input-bordered
-                                px-2 py-1 w-full
-                                text-sm text-90
-                                leading-none
-                            "
-                            type="text"
-                            v-model="title"
-                        />
-
-                        <div class="
-                            grid grid-cols-3 gap-4
-                        ">
-                            <div class="flex items-center mt-5">
-                                <input 
-                                    :id="'nofollow_'+field.attribute"
-                                    type="checkbox"
-                                    v-model="nofollow"
-                                />
-                                <label
-                                    class="text-sm ml-2"
-                                    :for="'nofollow_'+field.attribute"
-                                    v-text="'nofollow'"
-                                >
-                                </label>
-                            </div>
-
-                            <div class="flex items-center mt-5">
-                                <input 
-                                    :id="'noopener_'+field.attribute"
-                                    type="checkbox"
-                                    v-model="noopener"
-                                />
-                                <label
-                                    class="text-sm ml-2"
-                                    :for="'noopener_'+field.attribute"
-                                    v-text="'noopener'"
-                                >
-                                </label>
-                            </div>
-
-                            <div class="flex items-center mt-5">
-                                <input 
-                                    :id="'noreferrer_'+field.attribute"
-                                    type="checkbox"
-                                    v-model="noreferrer"
-                                />
-                                <label
-                                    class="text-sm ml-2"
-                                    :for="'noreferrer_'+field.attribute"
-                                    v-text="'noreferrer'"
-                                >
-                                </label>
-                            </div>
+                            </button>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-30 px-6 py-3">   
-                    <div class="flex items-center justify-end">
-                        <button
-                            type="button"
-                            class="btn h-9 px-3 font-normal text-80"
-                            @click="hideLinkMenu"
-                            v-text="__('cancel')"
-                        >
-                        </button>
-
-                        <button
-                            type="button"
-                            class="ml-3 btn btn-default btn-primary"
-                            :disabled="(linkMode == 'url' && !url) || (linkMode == 'file' && !file)"
-                            @click="linkMode == 'url' ? setLinkFromUrl($event) : uploadAndAddFile($event)"
-                            v-text="linkMode == 'url' ? __('set link') : __('upload and link file')"
-                        >
-                        </button>
-                    </div>
+                <div 
+                    class="
+                        z-10 absolute top-0 left-0 w-full h-full
+                        bg-80 opacity-75
+                    "
+                    @click="hideLinkMenu"
+                >
                 </div>
             </div>
-
-            <div 
-                class="
-                    z-10 absolute top-0 left-0 w-full h-full
-                    bg-80 opacity-75
-                "
-                @click="hideLinkMenu"
-            >
-            </div>
-        </div>
+        </portal>
 
         <span class="whitespace-nowrap">
             <base-button
