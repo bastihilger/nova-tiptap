@@ -128,7 +128,6 @@ export default {
     data() {
         return {
             hovered: false,
-            myClickMethodParameters: null,
         }
     },
     props: [
@@ -147,21 +146,18 @@ export default {
 
     methods: {
         callClickMethod() {
-            if (this.myClickMethodParameters) {
+            let tmpParams = this.clickMethodParameters
+            if (tmpParams) {
                 
-                if (!typeof(this.myClickMethodParameters) != 'object') {
-                    this.myClickMethodParameters = [this.myClickMethodParameters];
+                if (!typeof(tmpParams) != 'object') {
+                    tmpParams = [tmpParams];
                 }
 
-                this.clickMethod(...this.myClickMethodParameters);
+                this.clickMethod(...tmpParams);
             } else {
                 this.clickMethod();
             }
         }
-    },
-
-    mounted() {
-        this.myClickMethodParameters = this.clickMethodParameters;
     }
 }
 </script>
