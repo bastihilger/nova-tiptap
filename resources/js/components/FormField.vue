@@ -238,7 +238,7 @@ import EditHtml from './EditHtml';
 
 import Gapcursor from '@tiptap/extension-gapcursor';
 
-import lowlight from 'lowlight';
+import {lowlight} from 'lowlight';
 import pretty from 'pretty';
 
 import buttonHovers from '../mixins/buttonHovers';
