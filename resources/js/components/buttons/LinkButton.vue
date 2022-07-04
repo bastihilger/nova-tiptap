@@ -433,11 +433,14 @@ export default {
                 .then(function (response) {
                     this.resetUploading();
                     this.removeFile();
+
+                    let startPosition = response.data.url.lastIndexOf('/');
+                    let filename = response.data.url.substr(startPosition + 1);
                     
                     let attributes = {
                         href: response.data.url,
                         'tt-mode': 'file',
-                        download: 'true',
+                        download: filename,
                     };
 
                     this.setLink(attributes);
