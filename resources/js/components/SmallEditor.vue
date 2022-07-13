@@ -3,7 +3,7 @@
         <div 
             class="
                 nova-tiptap-editor
-                mt-4
+                mt-3
                 form-input-bordered w-full
                 pt-2 pb-2
             "            

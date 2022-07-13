@@ -1,14 +1,18 @@
 <template>
-    <span class="z-10">
+    <span style="z-index: 10">
         <div
             class="
                 fixed top-0 left-0
                 w-full h-full
-                z-50 flex items-center justify-center
+                flex items-center justify-center
             "
+            style="z-index: 50"
             v-show="menuIsActive"
         >
-            <div class="rounded-lg shadow-lg overflow-hidden z-20 w-action-fields max-w-full">
+            <div 
+                class="rounded-lg shadow-lg overflow-hidden w-action-fields max-w-full"
+                style="z-index: 20"
+            >
                 <div class="px-8 py-8 bg-white">
                     <p
                         v-text="__('which content block do you want to add')+':'"
@@ -48,9 +52,10 @@
 
             <div 
                 class="
-                    z-10 absolute top-0 left-0 w-full h-full
+                    absolute top-0 left-0 w-full h-full
                     bg-80 opacity-75
                 "
+                style="z-index: 10"
                 @click="hideMenu"
             >
             </div>

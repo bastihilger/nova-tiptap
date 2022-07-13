@@ -4,14 +4,14 @@
             class="
                 fixed top-0 left-0
                 w-full h-full
-                z-50 flex items-center justify-center
+                flex items-center justify-center
             " 
-            style="z-index: 999"
+            style="z-index: 50"
             v-show="isActive"
         >
             <div 
-                class="rounded-lg shadow-lg overflow-hidden z-20"
-                style="width: 800px; max-width: 100%"
+                class="rounded-lg shadow-lg overflow-hidden"
+                style="z-index: 20; width: 800px; max-width: 100%"
             >
                 
                     <slot />
@@ -20,10 +20,10 @@
 
             <div 
                 class="
-                    z-10 absolute top-0 left-0 w-full h-full
+                    absolute top-0 left-0 w-full h-full
                     bg-black
                 "
-                style="opacity: 0.5"
+                style=" z-index: 10; opacity: 0.5"
                 @click="hideMethod"
             >
             </div>

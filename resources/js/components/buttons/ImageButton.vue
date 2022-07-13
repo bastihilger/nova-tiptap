@@ -1,5 +1,5 @@
 <template>
-    <span class="z-10">
+    <span style="z-index: 10">
         <Modal 
             :isActive="imageMenuIsActive"
             :hideMethod="hideImageMenu"
@@ -90,10 +90,11 @@
                         </div>
 
                         <div 
-                            class="w-full h-2 mt-4"
+                            class="w-full h-2"
                             :class="{
                                 'bg-gray-200': uploading
                             }"
+                            style="margin-top: 16px"
                         >
                             <div 
                                 class="
@@ -146,7 +147,9 @@
                         />
                     </div>
 
-                    <div class="grid grid-cols-2 gap-3 mt-4">
+                    <div 
+                        class="grid grid-cols-2 gap-3 mt-3"
+                    >
                         <div class="flex flex-col">
                             <label class="text-sm mb-1 ml-1" v-text="ttt('title')"></label>
                             <input
@@ -162,7 +165,7 @@
                             />
                         </div>
 
-                        <div class="flex flex-col mt-4">
+                        <div class="flex flex-col mt-3">
                             <label class="text-sm mb-1 ml-1" v-text="ttt('alt text')"></label>
                             <input
                                 class="

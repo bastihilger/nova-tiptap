@@ -63,7 +63,7 @@
                         >
                         </div>
 
-                        <div class="flex items-center mt-4">
+                        <div class="flex items-center mt-3">
                             <input 
                                 :id="'openInNewWindow_'+field.attribute"
                                 type="checkbox"
@@ -136,7 +136,7 @@
                     </div>
 
                     <div 
-                        class="w-full h-2 mt-4"
+                        class="w-full h-2 mt-3"
                         :class="{
                             'bg-gray-200': uploading
                         }"
@@ -174,7 +174,7 @@
                     />
 
                     <label 
-                        class="block text-sm mt-4 mb-1 ml-1"
+                        class="block text-sm mt-3 mb-1 ml-1"
                         v-text="ttt('title')"
                     >
                     </label>
@@ -192,7 +192,7 @@
                     />
 
                     <div 
-                        class="mt-4"
+                        class="mt-3"
                         style="display: grid; grid-template-columns: 1fr 1fr 1fr;"
                     >
                         <div class="flex items-center">

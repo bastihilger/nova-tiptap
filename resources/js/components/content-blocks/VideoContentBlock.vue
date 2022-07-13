@@ -39,11 +39,15 @@
             class="
                 fixed top-0 left-0
                 w-full h-full
-                z-50 flex items-center justify-center
+                flex items-center justify-center
             "
+            style="z-index: 50"
             v-show="menuIsActive"
         >
-            <div class="rounded-lg shadow-lg overflow-hidden z-20 w-action-fields max-w-full">
+            <div 
+                class="rounded-lg shadow-lg overflow-hidden w-action-fields max-w-full"
+                style="z-index: 20"
+            >
                 <div class="px-8 py-8 bg-white">
                     <div class="flex flex-col">
                         <div>
@@ -61,7 +65,7 @@
                             />
                         </div>
 
-                        <div class="mt-4">
+                        <div class="mt-3">
                             <label class="text-sm mb-1 ml-1 capitalize" v-text="__('caption')"></label>
                             <textarea
                                 class="
@@ -76,7 +80,7 @@
                             />
                         </div>
 
-                        <div class="mt-4">
+                        <div class="mt-3">
                             <label class="text-sm mb-1 ml-1 capitalize" v-text="__('credits')"></label>
                             <input
                                 type="text"
@@ -91,7 +95,7 @@
                             />
                         </div>
 
-                        <div class="mt-4">
+                        <div class="mt-3">
                             <label class="text-sm mb-1 ml-1 capitalize" v-text="__('ratio')"></label>
                             <select
                                 class="
@@ -137,9 +141,10 @@
 
             <div 
                 class="
-                    z-10 absolute top-0 left-0 w-full h-full
+                    absolute top-0 left-0 w-full h-full
                     bg-80 opacity-75
                 "
+                style="z-index: 10"
                 @click="hideMenu"
             >
             </div>

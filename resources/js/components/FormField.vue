@@ -9,10 +9,10 @@
             <div style="position: relative; top: 0; left: 0">
                 <div
                     class="
-                        w-full overflow-break z-10
+                        w-full overflow-break
                         bg-gray-100 rounded
                     "
-                    style="position: sticky; top: 0; left: 0"
+                    style="z-index: 10; position: sticky; top: 0; left: 0"
                 >
                    
                     <div class="p-1">
@@ -141,7 +141,8 @@
                     </div>
 
                     <div 
-                        class="flex items-center z-10"
+                        class="flex items-center rounded"
+                        style="z-index: 10;"
                         v-if="tableIsActive"
                     >
                         <table-buttons
@@ -155,10 +156,10 @@
                 <div 
                     class="
                         nova-tiptap-editor
-                        mt-4
                         form-input
                         form-input-bordered w-full
                         pt-2 pb-2
+                        mt-3
                     "
                     :style="cssProps"
                     v-show="mode == 'editor'"
@@ -169,7 +170,7 @@
 
                 <div 
                     class="
-                        mt-4
+                        mt-3
                         w-full px-0
                     "
                     v-show="mode == 'html'"
