@@ -19,11 +19,15 @@
             class="
                 fixed top-0 left-0
                 w-full h-full overflow-scroll py-8
-                z-50 flex items-center justify-center
+                flex items-center justify-center
             "
+            style="z-index: 50"
             v-show="modalIsActive"
         >
-            <div class="m-auto rounded-lg shadow-lg overflow-hidden z-20 w-action-fields max-w-full">
+            <div 
+                class="m-auto rounded-lg shadow-lg overflow-hidden w-action-fields max-w-full"
+                style="z-index: 20"
+            >
                 <div class="px-8 py-8 bg-white">
                     <div class="flex flex-col">
                         <div>
@@ -429,9 +433,10 @@
 
             <div 
                 class="
-                    z-10 fixed top-0 left-0 w-full h-full
+                    fixed top-0 left-0 w-full h-full
                     bg-80 opacity-75
                 "
+                style="z-index: 10"
                 @click="hideMenu"
             >
             </div>

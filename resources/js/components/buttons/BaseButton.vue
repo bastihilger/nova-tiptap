@@ -22,9 +22,9 @@
         <div 
             class="
                 pointer-events-none
-                absolute left-0 w-full flex justify-center z-100
+                absolute left-0 w-full flex justify-center
             "
-            style="bottom: 36px;"
+            style="z-index: 100; bottom: 36px;"
             v-show="hovered"
         >
             <div 

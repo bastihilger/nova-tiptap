@@ -52,9 +52,10 @@
 
             <div 
                 class="
-                    z-10 absolute top-0 left-0 w-full h-full
+                    absolute top-0 left-0 w-full h-full
                     bg-80 opacity-75
                 "
+                style="z-index: 10"
                 @click="hideMenu"
             >
             </div>
