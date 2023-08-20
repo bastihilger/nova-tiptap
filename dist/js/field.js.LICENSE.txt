@@ -6,18 +6,6 @@
  */
 
 /*!
- * Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com
- * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
- * Copyright 2022 Fonticons, Inc.
- */
-
-/*!
- * Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com
- * License - https://fontawesome.com/license (Commercial License)
- * Copyright 2022 Fonticons, Inc.
- */
-
-/*!
  * condense-newlines <https://github.com/jonschlinkert/condense-newlines>
  *
  * Copyright (c) 2014 Jon Schlinkert, contributors.

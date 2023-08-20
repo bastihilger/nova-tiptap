@@ -68,7 +68,7 @@
         "lodash": "^4.17.21",
         "lowlight": "^2.6.1",
         "npm": "^7.17.0",
-        "portal-vue": "^2.1.7",
+        "portal-vue": "^3.0",
         "pretty": "^2.0.0",
         "vue": "^3.2.33",
         "vue-loader": "^17.0.0",

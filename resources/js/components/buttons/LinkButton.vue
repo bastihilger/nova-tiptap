@@ -1,14 +1,14 @@
 <template>
     <span>
         <Modal 
-            :isActive="linkMenuIsActive"
-            :hideMethod="hideLinkMenu"
+            :show="linkMenuIsActive"
+            tabindex="-1"
         >
             <div class="px-8 py-8 bg-white">
                 <template v-if="withFileUpload">
                     <span 
                         class="
-                            uppercase cursor-pointer font-bold text-sm border-b
+                            inline-block uppercase cursor-pointer font-bold text-sm border-b mr-4
                         "
                         :class="{
                             'text-primary-500 border-primary-500': linkMode == 'url',
@@ -20,7 +20,7 @@
                     </span>
 
                     <span 
-                        class="ml-4 uppercase cursor-pointer font-bold text-sm border-b"
+                        class="inline-block uppercase cursor-pointer font-bold text-sm border-b"
                         :class="{
                             'text-primary-500 border-primary-500': linkMode == 'file',
                             'text-gray-500 border-transparent': linkMode != 'file'
@@ -302,7 +302,6 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import BaseButton from './BaseButton.vue';
-import Modal from '../Modal.vue';
 
 import translations from '../../mixins/translations';
 
@@ -341,7 +340,6 @@ export default {
     components: {
         FontAwesomeIcon,
         BaseButton,
-        Modal,
     },
 
     computed: {
