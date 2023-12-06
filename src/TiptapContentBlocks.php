@@ -91,8 +91,21 @@ class TiptapContentBlocks
                     $html = '<div class="ttcp-slideshow-wrapper"><div class="ttcp-slideshow-inner"><div id="swiper_' . Str::random(12) . '" class="swiper"><div class="swiper-wrapper">';
 
                     foreach ($slides as $slide) {
+                        $embedCode = '';
+                        if (@$slide->embedCode && stristr($slide->embedCode, '<iframe')) {
+                            $embedCode = $slide->embedCode;
+                        }
+
                         $html .= '<div class="ttcp-slideshow-slide swiper-slide">';
                         $html .= '<div class="ttcp-slideshow-image-wrapper"><div class="ttcp-slideshow-image-inner">';
+
+                        if (@$slide->link && !$embedCode) {
+                            $html .= '<a href="' . $slide->link . '"';
+                            if (@$slide->linkTarget) {
+                                $html .= ' target="' . $slide->linkTarget . '" ';
+                            }
+                            $html .= '>';
+                        }
 
                         if ($this->isVideo($slide->src)) {
                             $html .= '<video
@@ -103,6 +116,10 @@ class TiptapContentBlocks
                             </video>';
                         } else {
                             $html .= '<img class="ttcp-slideshow-image" src="' . $slide->src . '" />';
+                        }
+
+                        if (@$slide->link && !$embedCode) {
+                            $html .= '</a>';
                         }
 
                         $html .= '<div class="ttcp-slideshow-subtext">';
