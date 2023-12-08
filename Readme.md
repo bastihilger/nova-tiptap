@@ -249,7 +249,7 @@ Tiptap::make('FieldName')
 
 ## Visibility in index view
 
-Like `Textarea` and `Trix` fields this field is hidden from index views. You can make the content visible by using a [computed field](https://nova.laravel.com/docs/3.0/resources/fields.html#computed-fields).
+Like `Textarea` and `Trix` fields this field is hidden from index views. You can make the content visible by using a [computed field](https://nova.laravel.com/docs/4.0/resources/fields.html#computed-fields).
 
 ## Screenshots
 
