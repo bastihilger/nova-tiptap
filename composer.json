@@ -1,43 +1,43 @@
 {
-    "name": "manogi/nova-tiptap",
-    "description": "A Laravel Nova tiptap editor field.",
-    "keywords": [
-        "laravel",
-        "nova",
-        "tiptap",
-        "vue",
-        "editor"
-    ],
-    "license": "MIT",
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://nova.laravel.com"
-        }
-    ],
-    "require": {
-        "php": "^8.0|^8.1",
-        "laravel/nova": "^4.0"
-    },
-    "require-dev": {
-        "orchestra/testbench": "^7.3.0",
-        "phpunit/phpunit": "^9.2"
-    },
-    "autoload": {
-        "psr-4": {
-            "Manogi\\Tiptap\\": "src/"
-        }
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Manogi\\Tiptap\\FieldServiceProvider"
-            ]
-        }
-    },
-    "config": {
-        "sort-packages": true
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+  "name": "manogi/nova-tiptap",
+  "description": "A Laravel Nova tiptap editor field.",
+  "keywords": [
+    "laravel",
+    "nova",
+    "tiptap",
+    "vue",
+    "editor"
+  ],
+  "license": "MIT",
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://nova.laravel.com"
+    }
+  ],
+  "require": {
+    "php": "^8.0|^8.1",
+    "laravel/nova": "^4.0"
+  },
+  "require-dev": {
+    "orchestra/testbench": "^7.3.0",
+    "phpunit/phpunit": "^9.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "Manogi\\Tiptap\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Manogi\\Tiptap\\FieldServiceProvider"
+      ]
+    }
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
 }

@@ -1,6 +1,6 @@
 <template>
-    <default-field 
-        :field="field"
+    <default-field
+        :field="currentField"
         :errors="errors"
         :full-width-content="true"
         :show-help-text="showHelpText"
@@ -14,10 +14,10 @@
                     "
                     style="z-index: 10; position: sticky; top: 0; left: 0"
                 >
-                   
+
                     <div class="p-1">
-                        <div 
-                            v-for="button in buttons" 
+                        <div
+                            v-for="button in buttons"
                             :key="'button-'+button"
                             :class="{
                                 'inline-block': button != 'br'
@@ -28,7 +28,7 @@
                                     w-[1px] h-6 relative top-2 mx-1
                                     bg-gray-400
                                 ">
-                                    
+
                                 </button>
                             </template>
 
@@ -48,7 +48,7 @@
                                 <link-button
                                     :editor="editor"
                                     :button="button"
-                                    :field="field"
+                                    :field="currentField"
                                     :mode="mode"
                                     :fileDisk="fileDisk"
                                     :filePath="filePath"
@@ -60,7 +60,7 @@
                                 <image-button
                                     :editor="editor"
                                     :button="button"
-                                    :field="field"
+                                    :field="currentField"
                                     :mode="mode"
                                     :imageDisk="imageDisk"
                                     :imagePath="imagePath"
@@ -72,7 +72,7 @@
                                 <placeholder-block-button
                                     :editor="editor"
                                     :button="button"
-                                    :field="field"
+                                    :field="currentField"
                                     :mode="mode"
                                 >
                                 </placeholder-block-button>
@@ -82,7 +82,7 @@
                                 <content-block-button
                                     :editor="editor"
                                     :button="button"
-                                    :field="field"
+                                    :field="currentField"
                                     :mode="mode"
                                     :imageDisk="imageDisk"
                                     :imagePath="imagePath"
@@ -124,9 +124,9 @@
                                     :icon="['fas', 'file-code']"
                                     :title="__('edit html')"
                                 >
-                                    
+
                                 </base-button>
-                                
+
                             </template>
 
                             <template v-else>
@@ -140,7 +140,7 @@
                         </div>
                     </div>
 
-                    <div 
+                    <div
                         class="flex items-center rounded"
                         style="z-index: 10;"
                         v-if="tableIsActive"
@@ -153,7 +153,7 @@
 
                 </div>
 
-                <div 
+                <div
                     class="
                         nova-tiptap-editor
                         form-input
@@ -163,12 +163,12 @@
                     "
                     :style="cssProps"
                     v-show="mode == 'editor'"
-                    
+
                 >
                     <editor-content :editor="editor" />
                 </div>
 
-                <div 
+                <div
                     class="
                         mt-3
                         w-full px-0
@@ -244,14 +244,14 @@ import pretty from 'pretty';
 
 import buttonHovers from '../mixins/buttonHovers';
 
-import { FormField, HandlesValidationErrors } from 'laravel-nova';
+import { DependentFormField, HandlesValidationErrors } from 'laravel-nova';
 
 import PlaceholderBlockExtension from '../extensions/PlaceholderBlockExtension.js';
 import VideoContentBlockExtension from './content-blocks/VideoContentBlockExtension.js';
 import GalleryContentBlockExtension from './content-blocks/GalleryContentBlockExtension.js';
 
 export default {
-    mixins: [FormField, HandlesValidationErrors, buttonHovers],
+    mixins: [DependentFormField, HandlesValidationErrors, buttonHovers],
 
     props: ['resourceName', 'resourceId', 'field'],
 
@@ -293,7 +293,7 @@ export default {
 
     computed: {
         contentWithTrailingParagraph() {
-            
+
             if (_.isString(this.value) && _.endsWith(_.trim(this.value), 'content-block>')) {
                 return this.value+'<p></p>';
             }
@@ -301,8 +301,8 @@ export default {
             return this.value;
         },
         buttons() {
-            let tmpButtons = this.field.buttons ? this.field.buttons : ['bold', 'italic'];  
-            
+            let tmpButtons = this.field.buttons ? this.field.buttons : ['bold', 'italic'];
+
             return _.map(tmpButtons, function(button){
                 return button == '|' || button == 'br' ? button : _.camelCase(button);
             });
@@ -364,7 +364,7 @@ export default {
     },
 
     mounted() {
-        this.placeholder = this.field.placeholder ? this.field.placeholder 
+        this.placeholder = this.field.placeholder ? this.field.placeholder
                          : (this.field.extraAttributes ? this.field.extraAttributes.placeholder : '');
 
         if (this.field.imageSettings && this.field.imageSettings.path) {
@@ -417,7 +417,7 @@ export default {
             Underline,
             Subscript,
             Superscript,
-            
+
             Heading.configure({
                 levels: this.headingLevels,
             }).extend({
@@ -445,7 +445,7 @@ export default {
                 }
             }),
             HorizontalRule,
-            ListItem,    
+            ListItem,
             OrderedList.extend({
                 addAttributes() {
                     return {
@@ -531,7 +531,7 @@ export default {
                 try {
                     let content = JSON.parse(context.value);
                     this.commands.setContent(content);
-                } catch {} 
+                } catch {}
             },
             onUpdate() {
                 if (context.saveAsJson) {
@@ -615,17 +615,17 @@ export default {
             border-radius: .125rem;
         }
 
-        p:first-child, 
-        h1:first-child, 
-        h2:first-child, 
-        h3:first-child, 
-        h4:first-child, 
-        h5:first-child, 
-        h6:first-child, 
-        blockquote:first-child, 
-        ul:first-child, 
-        ol:first-child, 
-        table:first-child, 
+        p:first-child,
+        h1:first-child,
+        h2:first-child,
+        h3:first-child,
+        h4:first-child,
+        h5:first-child,
+        h6:first-child,
+        blockquote:first-child,
+        ul:first-child,
+        ol:first-child,
+        table:first-child,
         pre:first-child {
             margin-top: 0;
         }
@@ -637,7 +637,7 @@ export default {
             padding-left: 15px;
             border-left: 3px solid #dddddd;
         }
-        
+
         a {
             pointer-events: none;
         }

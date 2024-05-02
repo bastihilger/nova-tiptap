@@ -4,10 +4,11 @@ namespace Manogi\Tiptap;
 
 use Laravel\Nova\Fields\Expandable;
 use Laravel\Nova\Fields\Field;
+use Laravel\Nova\Fields\SupportsDependentFields;
 
 class Tiptap extends Field
 {
-    use Expandable;
+    use Expandable, SupportsDependentFields;
 
     /**
      * The field's component.

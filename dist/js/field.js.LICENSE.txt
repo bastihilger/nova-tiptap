@@ -6,6 +6,13 @@
  */
 
 /*!
+ * The buffer module from node.js, for the browser.
+ *
+ * @author   Feross Aboukhadijeh <http://feross.org>
+ * @license  MIT
+ */
+
+/*!
  * condense-newlines <https://github.com/jonschlinkert/condense-newlines>
  *
  * Copyright (c) 2014 Jon Schlinkert, contributors.
@@ -32,6 +39,14 @@
  * Copyright (c) 2013-2015, 2017, Jon Schlinkert.
  * Released under the MIT License.
  */
+
+/*!
+ * vuex v4.1.0
+ * (c) 2022 Evan You
+ * @license MIT
+ */
+
+/*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */
 
 /**
  * @license
