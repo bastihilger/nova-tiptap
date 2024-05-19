@@ -11,8 +11,8 @@
         "
         style="margin: 4px; min-width: 32px; height: 32px"
         :class="{ 
-            'bg-primary-500 hover:bg-primary-400 text-white': isActive,
-            'bg-white hover:bg-gray-200 text-black': !isActive,
+            'bg-primary-500 hover:bg-primary-400 text-white hover:dark:bg-gray-900 dark:bg-gray-800 dark:text-white': isActive,
+            'bg-white hover:bg-gray-200 text-black hover:dark:bg-gray-900 dark:bg-gray-800 dark:text-white': !isActive,
             'opacity-50 pointer-events-none': isDisabled,
         }"
         @mouseover="hovered = true"

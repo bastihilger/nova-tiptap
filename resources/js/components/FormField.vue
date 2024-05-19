@@ -10,7 +10,7 @@
                 <div
                     class="
                         w-full overflow-break
-                        bg-gray-100 rounded
+                        bg-gray-100 dark:bg-gray-700 rounded
                     "
                     style="z-index: 10; position: sticky; top: 0; left: 0"
                 >
