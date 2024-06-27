@@ -1,6 +1,13 @@
 ![GitHub](https://img.shields.io/github/license/manogi/nova-tiptap)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/manogi/nova-tiptap)
 
+
+# ABANDONED!
+
+> [!WARNING]  
+> I had to abandon this project, as I don't use Nova myself anymore since longer than an year now. Anybody who wants to fork this repository and take over (over 500.000 installs, still installed over 500x per day), please feel free to do so.
+
+
 # Laravel Nova Tiptap Editor Field
 
 A Laravel Nova implementation of the [tiptap editor for Vue.js](https://github.com/ueberdosis/tiptap) by [@ueberdosis](https://github.com/ueberdosis).
