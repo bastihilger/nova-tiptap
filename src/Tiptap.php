@@ -65,6 +65,21 @@ class Tiptap extends Field
         ]);
     }
 
+    public function cssClasses($classes)
+    {
+        $classesArr = $classes;
+        if (is_int($classes)) {
+            $classesArr = [];
+            for ($n = 1; $n <= $classes; $n++) {
+                $classesArr[] = $n;
+            }
+        }
+
+        return $this->withMeta([
+            'classes' => $classesArr,
+        ]);
+    }
+
     /**
      * Turn on syntax highlighting when using code_block.
      *
