@@ -15,5 +15,5 @@ mix
     },
   })
   .postCss('resources/css/tiptap.css', 'css')
-  .nova('manogi/tiptap');
+  .nova('acoglezrojo/tiptap');
 //.combine('node_modules/codemirror/theme/*.css', 'resources/css/codemirror-themes.css')

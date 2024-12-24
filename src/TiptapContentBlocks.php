@@ -1,5 +1,5 @@
 <?php
-namespace Manogi\Tiptap;
+namespace acoglezrojo\Tiptap;
 
 use Illuminate\Support\Str;
 

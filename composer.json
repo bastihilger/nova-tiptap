@@ -1,5 +1,5 @@
 {
-  "name": "manogi/nova-tiptap",
+  "name": "acoglezrojo/nova-tiptap",
   "description": "A Laravel Nova tiptap editor field.",
   "keywords": [
     "laravel",
@@ -25,13 +25,13 @@
   },
   "autoload": {
     "psr-4": {
-      "Manogi\\Tiptap\\": "src/"
+      "acoglezrojo\\Tiptap\\": "src/"
     }
   },
   "extra": {
     "laravel": {
       "providers": [
-        "Manogi\\Tiptap\\FieldServiceProvider"
+        "acoglezrojo\\Tiptap\\FieldServiceProvider"
       ]
     }
   },

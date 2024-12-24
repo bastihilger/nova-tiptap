@@ -1,8 +1,8 @@
 <?php
 
-namespace Manogi\Tiptap\Controllers;
+namespace acoglezrojo\Tiptap\Controllers;
 
-use Facades\Manogi\Tiptap\FileService;
+use Facades\acoglezrojo\Tiptap\FileService;
 use Illuminate\Support\Facades\Storage;
 
 class FilesController

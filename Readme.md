@@ -1,5 +1,5 @@
-![GitHub](https://img.shields.io/github/license/manogi/nova-tiptap)
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/manogi/nova-tiptap)
+![GitHub](https://img.shields.io/github/license/acoglezrojo/nova-tiptap)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/acoglezrojo/nova-tiptap)
 
 
 # ABANDONED!
@@ -19,13 +19,13 @@ Install via composer:
 **For Nova 4 use this** (it installs Version 3 of nova-tiptap):
 
 ``` php
-composer require manogi/nova-tiptap
+composer require acoglezrojo/nova-tiptap
 ```
 
 **For Nova 3 use this** (it installs Version 2 of nova-tiptap):
 
 ``` php
-composer require manogi/nova-tiptap "^2.8"
+composer require acoglezrojo/nova-tiptap "^2.8"
 ```
 
 ## Usage with default settings:
@@ -39,7 +39,7 @@ This will give you just the bold and italic buttons.
 You will also have to add this `use` statement to the top of the file:
 
 ``` php
-use Manogi\Tiptap\Tiptap;
+use acoglezrojo\Tiptap\Tiptap;
 ```
 
 

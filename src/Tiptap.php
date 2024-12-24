@@ -1,6 +1,6 @@
 <?php
 
-namespace Manogi\Tiptap;
+namespace acoglezrojo\Tiptap;
 
 use Laravel\Nova\Fields\Expandable;
 use Laravel\Nova\Fields\Field;
@@ -62,6 +62,21 @@ class Tiptap extends Field
 
         return $this->withMeta([
             'headingLevels' => $headingLevelsArr,
+        ]);
+    }
+
+    public function cssClasses($classes)
+    {
+        $classesArr = $classes;
+        if (is_int($classes)) {
+            $classesArr = [];
+            for ($n = 1; $n <= $classes; $n++) {
+                $classesArr[] = $n;
+            }
+        }
+
+        return $this->withMeta([
+            'classes' => $classesArr,
         ]);
     }
 
