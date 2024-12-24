@@ -1,6 +1,6 @@
 <?php
 
-namespace Manogi\Tiptap;
+namespace acoglezrojo\Tiptap;
 
 use Laravel\Nova\Fields\Expandable;
 use Laravel\Nova\Fields\Field;
