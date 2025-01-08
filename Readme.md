@@ -5,7 +5,9 @@
 # ABANDONED!
 
 > [!WARNING]  
-> I had to abandon this project, as I don't use Nova myself anymore since longer than an year now. Anybody who wants to fork this repository and take over (over 500.000 installs, still installed over 500x per day), please feel free to do so. **Write me a note in Discussions or Issues if you have a replacement ready, And I will enter the replacement link in packagist and here in Github**.
+> I had to abandon this project, as I don't use Nova myself anymore since longer than an year now. Anybody who wants to fork this repository and take over (over 500.000 installs, still installed over 500x per day), please feel free to do so.
+>
+> **PLEASE USE [THIS PACKAGE](https://github.com/marshmallow-packages/nova-tiptap)  INSTEAD**.
 
 
 # Laravel Nova Tiptap Editor Field
