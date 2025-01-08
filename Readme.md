@@ -7,8 +7,7 @@
 > [!WARNING]  
 > I had to abandon this project, as I don't use Nova myself anymore since longer than an year now. 
 >
-> **PLEASE USE [THIS PACKAGE](https://github.com/marshmallow-packages/nova-tiptap)  INSTEAD**.
-
+> **Please use [THIS PACKAGE](https://github.com/marshmallow-packages/nova-tiptap) instead. [Marshmallow Packages](https://github.com/marshmallow-packages) has a maintained version**.
 
 # Laravel Nova Tiptap Editor Field
 
