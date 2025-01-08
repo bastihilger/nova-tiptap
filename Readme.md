@@ -5,7 +5,7 @@
 # ABANDONED!
 
 > [!WARNING]  
-> I had to abandon this project, as I don't use Nova myself anymore since longer than an year now. Anybody who wants to fork this repository and take over (over 500.000 installs, still installed over 500x per day), please feel free to do so.
+> I had to abandon this project, as I don't use Nova myself anymore since longer than an year now. 
 >
 > **PLEASE USE [THIS PACKAGE](https://github.com/marshmallow-packages/nova-tiptap)  INSTEAD**.
 
